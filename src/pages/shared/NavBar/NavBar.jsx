@@ -126,7 +126,7 @@ const NavBar = () => {
                     <Link to="/">
                         <div className="flex justify-center items-center gap-1.5">
                             <div>
-                                <img className="w-8" src={logo} alt="" />
+                                <img className="w-7" src={logo} alt="" />
                             </div>
                             <h4 className="text-2xl font-bold">CureMedix</h4>
                         </div>
