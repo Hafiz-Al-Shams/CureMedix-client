@@ -1,52 +1,52 @@
-// import { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 // import { Tooltip } from "react-tooltip";
-// import Swal from "sweetalert2";
 import logo from '../../../assets/logo.png';
 import { CgMenuHotdog } from "react-icons/cg";
 import { PiShoppingCartBold } from "react-icons/pi";
 import { FaStethoscope } from "react-icons/fa";
 import { RiShoppingBag2Line } from "react-icons/ri";
 import { IoMdHome } from "react-icons/io";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../../../context/AuthContext/AuthContext";
+import Swal from "sweetalert2";
 
 
 
 const NavBar = () => {
-    // const { user, signOutUser } = useContext(AuthContext);
+    const { user, signOutUser } = useContext(AuthContext);
 
-    // console.log(user?.email);
-    // const navigate = useNavigate();
+    console.log(user?.email);
+    const navigate = useNavigate();
 
-    // const [profilePhoto, setProfilePhoto] = useState('');
-    // const [userName, setUserName] = useState('');
+    const [profilePhoto, setProfilePhoto] = useState('');
+    const [userName, setUserName] = useState('');
 
-    // useEffect(() => {
-    //     if (user) {
-    //         setProfilePhoto(user.photoURL);
-    //         setUserName(user.displayName);
-    //     }
-    // }, [user]);
+    useEffect(() => {
+        if (user) {
+            setProfilePhoto(user.photoURL);
+            setUserName(user.displayName);
+        }
+    }, [user]);
 
 
-    // const handleLogOut = () => {
-    //     signOutUser()
-    //         .then(() => {
-    //             // console.log('user signOut successful');
-    //             Swal.fire({
-    //                 position: "center",
-    //                 icon: 'warning',
-    //                 title: 'Log out done!',
-    //                 showConfirmButton: false,
-    //                 timer: 2000
+    const handleLogOut = () => {
+        signOutUser()
+            .then(() => {
+                // console.log('user signOut successful');
+                Swal.fire({
+                    position: "center",
+                    icon: 'warning',
+                    title: 'Log out done!',
+                    showConfirmButton: false,
+                    timer: 2000
 
-    //                 // confirmButtonText: 'ok'
-    //             });
-    //             // setProfilePhoto('');
-    //             // setUserName('');
-    //         })
-    //         .catch(error => console.log('ERROR', error.message))
-    // }
+                    // confirmButtonText: 'ok'
+                });
+                // setProfilePhoto('');
+                // setUserName('');
+            })
+            .catch(error => console.log('ERROR', error.message))
+    }
 
 
     const links = <>
@@ -83,11 +83,19 @@ const NavBar = () => {
         </NavLink></li>
     </>
 
-    // const links2 = <>
-    //     {/* <li><NavLink to={`/my-foods/${user?.email}`}>My Foods</NavLink></li> */}
-    //     <li><NavLink to="/add-food">Add food</NavLink></li>
-    //     <li><NavLink to="/my-orders">My Orders</NavLink></li>
-    // </>
+    const dropdownLinks = (
+        <>
+            <li>
+                <NavLink to="/update-profile">Update Profile</NavLink>
+            </li>
+            <li>
+                <NavLink to="/dashboard">Dashboard</NavLink>
+            </li>
+            <li>
+                <a onClick={handleLogOut}>Logout</a>
+            </li>
+        </>
+    );
 
 
     const [theme, setTheme] = useState("English");
@@ -119,7 +127,7 @@ const NavBar = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow space-y-2">
+                            className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-[1] mt-3 w-52 p-2 shadow space-y-2">
                             {links}
                         </ul>
                     </div>
@@ -155,36 +163,39 @@ const NavBar = () => {
                         </select>
                     </div>
 
-                    <div className="">
-                        <NavLink to="/signIn"><button className="btn bg-neutral-400/20 text-white/90">Join Us</button></NavLink>
-                    </div>
+                    {/* <div className="">
+                        <NavLink to="/signUp"><button className="btn bg-neutral-400/20 text-white/90">Join Us</button></NavLink>
+                    </div> */}
 
 
-                    {/* {
+                    {
                         user ?
-                            <>
-                                <div className="flex justify-center items-center gap-3">
-
-                                    <div className="dropdown dropdown-left">
-                                        <div tabIndex={0} role="button" className="btn bg-transparent rounded-full">
-                                            <img className="w-11 rounded-full cursor-pointer" src={profilePhoto} alt="photo" />
+                            (
+                                <>
+                                    <div className="flex justify-center items-center gap-3">
+                                        <div className="dropdown dropdown-left">
+                                            <div tabIndex={0} role="button" className="btn bg-transparent rounded-full">
+                                                <img
+                                                    className="w-11 rounded-full cursor-pointer"
+                                                    src={profilePhoto}
+                                                    alt="photo"
+                                                />
+                                            </div>
+                                            <ul
+                                                tabIndex={0}
+                                                className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-[1] mt-3 w-52 p-4 shadow space-y-2"
+                                            >
+                                                {dropdownLinks}
+                                            </ul>
                                         </div>
-                                        <ul
-                                            tabIndex={0}
-                                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-4 shadow space-y-2">
-                                            {links2}
-                                        </ul>
                                     </div>
-                                    <div><a onClick={handleLogOut} data-tooltip-id="my-tooltip"
-                                        data-tooltip-content={userName}
-                                        data-tooltip-place="bottom-start" className="btn bg-neutral-400/40 text-base-content">Log Out</a></div>
-                                </div>
-                            </>
+                                </>
+                            )
                             :
                             <>
-                                <NavLink to="/signIn"><button className="btn bg-neutral-400/40 text-base-content">Login</button></NavLink>
+                                <NavLink to="/signUp"><button className="btn bg-neutral-400/20 text-white/90">Join Us</button></NavLink>
                             </>
-                    } */}
+                    }
                     {/* <Tooltip id="my-tooltip" /> */}
                 </div>
             </div>
