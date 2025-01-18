@@ -4,6 +4,7 @@ import Home from "../pages/Home/Home/Home";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
+import DetailsCard from "../pages/CategoryDetails/DetailsCard";
 
 
 // import Register from "../pages/Register/Register";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
                 path: 'signIn',
                 element: <SignIn></SignIn>,
             },
+            {
+                path: 'categoryDetails/:categoryName',
+                element: <DetailsCard />,
+            }
             // {
             //     path: 'register',
             //     element: <Register></Register>,

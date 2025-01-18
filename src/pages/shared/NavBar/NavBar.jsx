@@ -28,6 +28,7 @@ const NavBar = () => {
             setUserName(user.displayName);
             setLoading(false);
         }
+        setLoading(false);
     }, [user]);
 
 
