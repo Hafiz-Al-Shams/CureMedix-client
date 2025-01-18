@@ -21,7 +21,7 @@ const SocialLogin = () => {
                     showConfirmButton: false,
                     timer: 2000
                 });
-                navigate(`/my-orders`);
+                navigate(`/`);
             })
             .catch(error => {
                 console.log('ERROR', error.message);

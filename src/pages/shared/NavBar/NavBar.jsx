@@ -1,5 +1,4 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-// import { Tooltip } from "react-tooltip";
 import logo from '../../../assets/logo.png';
 import { CgMenuHotdog } from "react-icons/cg";
 import { PiShoppingCartBold } from "react-icons/pi";
@@ -9,6 +8,7 @@ import { IoMdHome } from "react-icons/io";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
+// import { Tooltip } from "react-tooltip";
 
 
 
@@ -20,11 +20,13 @@ const NavBar = () => {
 
     const [profilePhoto, setProfilePhoto] = useState('');
     const [userName, setUserName] = useState('');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (user) {
             setProfilePhoto(user.photoURL);
             setUserName(user.displayName);
+            setLoading(false);
         }
     }, [user]);
 
@@ -169,32 +171,33 @@ const NavBar = () => {
 
 
                     {
-                        user ?
-                            (
-                                <>
-                                    <div className="flex justify-center items-center gap-3">
-                                        <div className="dropdown dropdown-left">
-                                            <div tabIndex={0} role="button" className="btn bg-transparent rounded-full">
-                                                <img
-                                                    className="w-11 rounded-full cursor-pointer"
-                                                    src={profilePhoto}
-                                                    alt="photo"
-                                                />
-                                            </div>
-                                            <ul
-                                                tabIndex={0}
-                                                className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-[1] mt-3 w-52 p-4 shadow space-y-2"
-                                            >
-                                                {dropdownLinks}
-                                            </ul>
+                        loading ? (
+                            <span className="loading loading-bars loading-sm"></span>
+                        ) : (
+                            user ? (
+                                <div className="flex justify-center items-center gap-3">
+                                    <div className="dropdown dropdown-left">
+                                        <div tabIndex={0} role="button" className="btn bg-transparent rounded-full p-0">
+                                            <img
+                                                className="w-12 h-12 rounded-full object-cover cursor-pointer"
+                                                src={profilePhoto}
+                                                alt="photo"
+                                            />
                                         </div>
+                                        <ul
+                                            tabIndex={0}
+                                            className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-[1] mt-3 w-52 p-4 shadow space-y-2"
+                                        >
+                                            {dropdownLinks}
+                                        </ul>
                                     </div>
-                                </>
+                                </div>
+                            ) : (
+                                <NavLink to="/signUp">
+                                    <button className="btn bg-neutral-400/20 text-white/90">Join Us</button>
+                                </NavLink>
                             )
-                            :
-                            <>
-                                <NavLink to="/signUp"><button className="btn bg-neutral-400/20 text-white/90">Join Us</button></NavLink>
-                            </>
+                        )
                     }
                     {/* <Tooltip id="my-tooltip" /> */}
                 </div>
