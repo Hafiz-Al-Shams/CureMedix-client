@@ -48,50 +48,76 @@ const SignIn = () => {
     }
 
 
-
+    // return null;
 
     return (
-        <div className="hero bg-base-100 min-h-[60vh] mt-10 mb-20">
+        <div className="hero bg-base-100 min-h-[60vh] mt-3">
 
             <Helmet>
                 <title>CureMedix | Sign In</title>
             </Helmet>
 
-            <div className="hero-content flex-col lg:flex-row gap-8">
-
-                <div className="text-center lg:text-left">
-                    <h1 className="text-4xl font-bold">Sign In Here!</h1>
+            <div className="hero-content flex-col lg:flex-row gap-12 p-6 items-start">
+                {/* Left Side Text */}
+                <div className="flex flex-col justify-center text-center lg:text-left lg:w-1/2 space-y-4 mt-40">
+                    <h1 className="text-4xl font-extrabold text-gray-800">Welcome Back to CureMedix</h1>
+                    <p className="text-lg text-gray-600">
+                        Sign in to access your account and explore our premium healthcare products and services.
+                    </p>
                 </div>
 
-                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                {/* Right Side Form */}
+                <div className="card w-full max-w-lg mx-auto lg:w-96 bg-white shadow-xl rounded-xl p-8">
+                    <form onSubmit={handleSignIn} className="space-y-6">
+                        {/* Email */}
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text text-gray-700">Email</span>
+                            </label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            />
+                        </div>
 
-                    <form onSubmit={handleSignIn} className="card-body">
+                        {/* Password */}
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Email</span>
+                                <span className="label-text text-gray-700">Password</span>
                             </label>
-                            <input type="email" name='email' placeholder="email" className="input input-bordered" required />
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            />
+                            <label className="label">
+                                <a href="#" className="label-text-alt link link-hover text-blue-500">Forgot password?</a>
+                            </label>
                         </div>
+
+                        {/* Submit Button */}
                         <div className="form-control">
-                            <label className="label">
-                                <span className="label-text">Password</span>
-                            </label>
-                            <input type="password" name='password' placeholder="password" className="input input-bordered" required />
-                            <label className="label">
-                                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                            </label>
-                        </div>
-                        <div className="form-control mt-6">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-primary w-full py-2 mt-4">Sign In</button>
                         </div>
                     </form>
-                    <div className="text-center">
-                        <p>New to this website?</p>
+
+                    {/* New Account */}
+                    <div className="text-center mt-4">
+                        <p className="text-gray-600">New to CureMedix?</p>
                         <Link to="/signUp">
-                            <button className="mt-1.5 btn btn-success font-normal text-white">Create new account</button>
+                            <button className="btn btn-outline btn-accent mt-1.5 w-full">Create an Account</button>
                         </Link>
                     </div>
-                    <SocialLogin></SocialLogin>
+
+                    {/* Social Login */}
+                    <div className="mt-6">
+                        <SocialLogin />
+                    </div>
                 </div>
             </div>
         </div>
