@@ -1,0 +1,110 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { FaEye } from "react-icons/fa";
+import Swal from "sweetalert2";
+
+
+const Shop = () => {
+    const [medicines, setMedicines] = useState([]);
+    const [cart, setCart] = useState([]);
+
+    useEffect(() => {
+        axios.get("http://localhost:5000/medicines")
+            .then(res => {
+                setMedicines(res.data);
+            })
+            .catch(error => {
+                console.error("Error fetching medicines:", error);
+            });
+    }, []);
+
+    const handleViewDetails = (medicine) => {
+        Swal.fire({
+            title: medicine.name,
+            text: `${medicine.description}`,
+            imageUrl: medicine.image,
+            imageWidth: 400,
+            imageHeight: 250,
+            imageAlt: medicine.name,
+            html: `
+                <div class="text-left ml-10">
+                    <p><strong>Category:</strong> ${medicine.category}</p>
+                    <p><strong>Type:</strong> ${medicine.type}</p>
+                    <p><strong>Price:</strong> $${medicine.price}</p>
+                    <p><strong>Stock:</strong> ${medicine.stock}</p>
+                    <p><strong>Discount:</strong> ${medicine.discount ? medicine.discountPercentage : "NA"}</p>
+                </div>
+            `,
+            showCloseButton: true,
+            // draggable: true
+        });
+    };
+
+
+    const handleAddToCart = (medicine) => {
+        setCart([...cart, medicine]);
+        Swal.fire({
+            icon: 'success',
+            title: 'Added to Cart',
+            text: `${medicine.name} has been added to your cart.`,
+            timer: 1500,
+            showConfirmButton: false,
+        });
+    };
+
+    return (
+        <div className="p-6 max-w-screen-2xl mx-auto">
+            <h1 className="text-3xl font-bold mb-6 mt-7">Shop Your Necessary Medicines Here</h1>
+            <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
+                <thead>
+                    <tr className="bg-emerald-800/90 text-white">
+                        <th className="py-3 px-4 border-b text-left">No.</th>
+                        <th className="py-3 px-4 border-b text-left">Name</th>
+                        <th className="py-3 px-4 border-b text-left">Price</th>
+                        <th className="py-3 px-4 border-b text-left">Discount</th>
+                        <th className="py-3 px-4 border-b text-left">Stock</th>
+                        <th className="py-3 px-4 border-b text-left">Type</th>
+                        <th className="py-3 px-4 border-b text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {medicines.map((medicine, index) => (
+                        <tr
+                            key={index}
+                            className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b hover:bg-gray-100 transition duration-300`}
+                        >
+                            <td className="py-3 px-4">{index + 1}</td>
+                            <td className="py-3 px-4">{medicine.name}</td>
+                            <td className="py-3 px-4">${medicine.price}</td>
+                            <td className="py-3 px-4">
+                                {medicine.discountPercentage ? `${medicine.discountPercentage}` : "NA"}
+                            </td>
+
+                            <td className="py-3 px-4">{medicine.stock}</td>
+                            <td className="py-3 px-4">{medicine.type}</td>
+                            <td className="py-3 px-4">
+                                <button
+                                    className="mr-5 mt-2"
+                                >
+                                    <div className="text-xl text-emerald-950"
+                                        onClick={() => handleViewDetails(medicine)}
+                                    >
+                                        <FaEye />
+                                    </div>
+                                </button>
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => handleAddToCart(medicine)}
+                                >
+                                    Select
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
+
+export default Shop;
