@@ -13,142 +13,194 @@ const SignUp = () => {
 
 
     const { createUser, updateUserProfile, signOutUser } = useContext(AuthContext);
-
     const navigate = useNavigate();
 
-
-
-
-    const handleRegister = e => {
+    const handleRegister = (e) => {
         e.preventDefault();
         const form = e.target;
         const name = form.name.value;
-        const photo = form.photoURL.value;
+        const photo = form.photoURL.files[0];  // Changed to grab file
         const email = form.email.value;
         const password = form.password.value;
-        // console.log(email, password);
+        const role = form.role.value;  // Added to grab role from select
 
-        // password validation
+        // Password validation
         if (password.length < 6) {
-            // alert('Password must be 6 characters or longer');
-
             Swal.fire({
-                // title: 'Error!',
-                text: 'Password must be 6 characters or longer',
-                icon: 'error',
-                confirmButtonText: 'Try Again'
+                text: "Password must be 6 characters or longer",
+                icon: "error",
+                confirmButtonText: "Try Again",
             });
             return;
         }
 
         const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,15}$/;
-
         if (!passRegex.test(password)) {
-            // alert('at least One Number, One Uppercase & One Lowercase is needed');
-
             Swal.fire({
-                // title: 'Error!',
-                text: 'at least One Number, One Uppercase & One Lowercase is needed',
-                icon: 'error',
-                confirmButtonText: 'Try Again'
+                text: "at least One Number, One Uppercase & One Lowercase is needed",
+                icon: "error",
+                confirmButtonText: "Try Again",
             });
             return;
         }
 
         createUser(email, password)
-            .then(result => {
-                // console.log('Registration successful: ', result.user.email);
+            .then((result) => {
+                // Assuming you have a function to upload the photo (or use Firebase storage)
+                const formData = new FormData();
+                formData.append("photo", photo);
 
-                updateUserProfile({ displayName: name, photoURL: photo })
+                updateUserProfile({ displayName: name, photoURL: photo.name })
                     .then(() => {
                         signOutUser()
                             .then(() => {
-                                // console.log('user signOut successful');
                                 Swal.fire({
-                                    title: 'Registration Successful',
-                                    text: 'Now please Login to Continue',
-                                    icon: 'success',
-                                    confirmButtonText: 'ok'
+                                    title: "Registration Successful",
+                                    text: "Now please Login to Continue",
+                                    icon: "success",
+                                    confirmButtonText: "OK",
                                 });
                                 e.target.reset();
-                                navigate('/signIn');
+                                navigate("/signIn");
                             })
-                            .catch(error => console.log('ERROR', error.message))
-
-
+                            .catch((error) => console.log("Error during sign-out:", error));
                     })
-                    .catch(err => {
+                    .catch((err) => {
                         console.log(err);
                         Swal.fire({
-                            title: 'Error!',
-                            icon: 'error',
-                            confirmButtonText: 'Try Again'
+                            title: "Error!",
+                            icon: "error",
+                            confirmButtonText: "Try Again",
                         });
-                    })
+                    });
             })
-            .catch(error => {
-                console.log('ERROR from Firebase', error.message);
-            })
-
-
-    }
-
+            .catch((error) => {
+                console.log("ERROR from Firebase", error.message);
+            });
+    };
 
     return (
         <>
-            <div className="hero bg-base-100 min-h-[60vh] mt-10 mb-20">
-
+            <div className="hero bg-base-100 min-h-[60vh] mt-3 mb-20">
                 <Helmet>
                     <title>CureMedix | Sign Up</title>
                 </Helmet>
 
-                <div className="hero-content flex-col lg:flex-row gap-8">
-
-                    <div className="text-center lg:text-left">
-                        <h1 className="text-4xl font-bold">Please Sign Up</h1>
+                <div className="hero-content flex-col lg:flex-row gap-12 p-6 items-start">
+                    {/* Left Side Text */}
+                    <div className="flex flex-col justify-center text-center lg:text-left lg:w-1/2 space-y-4 mt-40">
+                        <h1 className="text-4xl font-extrabold text-gray-800">Join the CureMedix Community</h1>
+                        <p className="text-lg text-gray-600">
+                            Sign up to access premium healthcare products and services. Its quick and easy.
+                        </p>
                     </div>
 
-                    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                    {/* Right Side Form */}
+                    <div className="card w-full max-w-lg mx-auto lg:w-96 bg-white shadow-xl rounded-xl p-8">
+                        <form onSubmit={handleRegister} className="space-y-6">
+                            {/* Username */}
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text text-gray-700">Username</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Enter your username"
+                                    className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required
+                                />
+                            </div>
 
-                        <form onSubmit={handleRegister} className="card-body">
+                            {/* Email */}
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Name</span>
+                                    <span className="label-text text-gray-700">Email</span>
                                 </label>
-                                <input type="text" name="name" placeholder="name" className="input input-bordered" required />
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Enter your email"
+                                    className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required
+                                />
                             </div>
+
+                            {/* Upload Photo */}
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Email</span>
+                                    <span className="label-text text-gray-700">Upload Photo</span>
                                 </label>
-                                <input type="email" name='email' placeholder="email" className="input input-bordered" required />
+                                <div className="flex items-center">
+                                    <label
+                                        htmlFor="photoUpload"
+                                        className="cursor-pointer text-sm text-gray-700 border border-gray-300 py-2 px-4 rounded-md hover:border-gray-500 focus:outline-none"
+                                    >
+                                        Choose Photo
+                                    </label>
+                                    <input
+                                        type="file"
+                                        id="photoUpload"
+                                        name="photoURL"
+                                        className="hidden"
+                                        accept="image/*"
+                                        required
+                                    />
+                                </div>
                             </div>
+
+                            {/* Password */}
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">photoURL</span>
+                                    <span className="label-text text-gray-700">Password</span>
                                 </label>
-                                <input type="text" name="photoURL" placeholder="photoURL" className="input input-bordered" required />
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required
+                                />
                             </div>
+
+                            {/* Select Role */}
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Password</span>
+                                    <span className="label-text text-gray-700">Select Role</span>
                                 </label>
-                                <input type="password" name='password' placeholder="password" className="input input-bordered" required />
+                                <select
+                                    name="role"
+                                    className="select select-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    required
+                                >
+                                    <option value="user">User</option>
+                                    <option value="seller">Seller</option>
+                                </select>
                             </div>
-                            <div className="form-control mt-6">
-                                <button className="btn btn-primary">Sign Up</button>
+
+                            {/* Submit Button */}
+                            <div className="form-control">
+                                <button className="btn btn-primary w-full py-2 mt-4">Sign Up</button>
                             </div>
                         </form>
-                        <div className="text-center">
-                            <p>Already have an account?</p>
+
+                        {/* Already have an account? */}
+                        <div className="text-center mt-4">
+                            <p className="text-gray-600">Already have an account?</p>
                             <Link to="/signIn">
-                                <button className="mt-1.5 btn btn-accent px-8">Sign In</button>
+                                <button className="btn btn-outline btn-accent mt-1.5 w-full">Sign In</button>
                             </Link>
                         </div>
-                        <SocialLogin></SocialLogin>
+
+                        {/* Social Login */}
+                        <div className="mt-6">
+                            <SocialLogin />
+                        </div>
                     </div>
+
                 </div>
             </div>
+
         </>
     );
 

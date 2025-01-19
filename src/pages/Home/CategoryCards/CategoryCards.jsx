@@ -32,7 +32,7 @@ const CategoryCards = () => {
 
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 p-6">
             {categories.map((category, i) => (
                 <div key={i} className="card bg-base-100 shadow-xl rounded-lg">
                     <figure className="w-full">

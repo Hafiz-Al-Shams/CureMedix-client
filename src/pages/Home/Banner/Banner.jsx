@@ -13,7 +13,7 @@ const Banner = () => {
     return (
         <Carousel
             autoPlay={true}        // Enable autoplay
-            interval={2300}        // Set the delay to 2 seconds (2000 milliseconds)
+            interval={2000}        // Set the delay to 2 seconds (2000 milliseconds)
             infiniteLoop={true}    // Infinite loop so it keeps rotating
             showThumbs={false}     // Hide the thumbs (optional, you can remove this line if you want them)
             transitionTime={500}   // Time to transition between slides

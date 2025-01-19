@@ -177,7 +177,7 @@ const NavBar = () => {
                         // ) : (
                         user ? (
                             <div className="flex justify-center items-center gap-3">
-                                <div className="dropdown dropdown-left">
+                                <div className="dropdown dropdown-end">
                                     <div tabIndex={0} role="button" className="btn bg-transparent rounded-full p-0">
                                         <img
                                             className="w-12 h-12 rounded-full object-cover cursor-pointer"
