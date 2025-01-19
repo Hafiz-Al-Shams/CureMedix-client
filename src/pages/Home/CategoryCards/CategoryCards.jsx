@@ -12,39 +12,45 @@ const CategoryCards = () => {
         fetch("http://localhost:5000/medicines")
             .then(res => res.json())
             .then(data => {
-                // Grouping medicines by category
-                const groupedCategories = data.reduce((acc, medicine) => {
-                    const category = acc[medicine.category] || { name: medicine.category, count: 0, image: medicine.image };
-                    category.count += 1;
-                    acc[medicine.category] = category;
-                    return acc;
-                }, {});
-                setCategories(Object.values(groupedCategories));
+                const gCategories = {};
+                data.forEach(medicine => {
+                    if (!gCategories[medicine.category]) {
+                        gCategories[medicine.category] = {
+                            name: medicine.category,
+                            count: 0,
+                            image: medicine.image
+                        };
+                    }
+                    gCategories[medicine.category].count += 1;
+                });
+                const sortedCategories = Object.values(gCategories).sort((a, b) => b.count - a.count);
+                setCategories(sortedCategories);
             })
             .catch(error => console.log("Error happened while fetching data:", error));
     }, []);
 
+
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-            {categories.map((category, index) => (
-                <div key={index} className="card bg-base-100 shadow-xl">
-                    <figure>
-                        <img src={category.image} alt={category.name} className="h-52 w-full object-cover" />
+            {categories.map((category, i) => (
+                <div key={i} className="card bg-base-100 shadow-xl rounded-lg">
+                    <figure className="w-full">
+                        <img src={category.image} alt={category.name} className="w-full h-52 object-cover rounded-t-lg" />
                     </figure>
-                    <div className="card-body">
-                        <h2 className="card-title">{category.name}</h2>
-                        <p>{category.count} medicines available</p>
+                    <div className="card-body p-4 space-y-2">
+                        <h2 className="card-title text-xl font-semibold">{category.name}</h2>
+                        <p className="text-sm text-gray-600">{category.count} medicines available</p>
                         <div className="card-actions justify-end">
                             <Link to={`/categoryDetails/${category.name}`}>
-                                <button className="btn btn-primary">View Details</button>
+                                <button className="btn btn-primary text-white">View Details</button>
                             </Link>
-
-
                         </div>
                     </div>
                 </div>
             ))}
         </div>
+
     );
 };
 

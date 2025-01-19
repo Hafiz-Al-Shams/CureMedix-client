@@ -28,7 +28,7 @@ const DetailsCard = () => {
                 <h1 className="text-3xl font-bold mb-6">Medicines for {categoryName}</h1>
                 <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
                     <thead>
-                        <tr className="bg-emerald-600 text-white">
+                        <tr className="bg-emerald-800/90 text-white">
                             <th className="py-3 px-4 border-b text-left">No.</th> {/* Serial number column */}
                             <th className="py-3 px-4 border-b text-left">Name</th>
                             <th className="py-3 px-4 border-b text-left">Price</th>

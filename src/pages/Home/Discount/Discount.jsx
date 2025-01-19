@@ -1,20 +1,32 @@
 
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { useEffect, useState } from 'react';
 
-import slide1 from '../../../assets/home/slide1.jpg'
-import slide2 from '../../../assets/home/slide2.jpg'
-import slide3 from '../../../assets/home/slide3.jpg'
-import slide4 from '../../../assets/home/slide4.jpg'
-import slide5 from '../../../assets/home/slide5.jpg'
+// import slide1 from '../../../assets/home/slide1.jpg'
+// import slide2 from '../../../assets/home/slide2.jpg'
+// import slide3 from '../../../assets/home/slide3.jpg'
+// import slide4 from '../../../assets/home/slide4.jpg'
+// import slide5 from '../../../assets/home/slide5.jpg'
 
 
 
 const Discount = () => {
+    const [medicines, setMedicines] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/medicines')
+            .then(response => response.json())
+            .then(data => {
+                const discountedMedicines = data.filter(medicine => medicine.discount);
+                setMedicines(discountedMedicines);
+            });
+    }, []);
+
     return (
         <>
             <section>
@@ -25,41 +37,24 @@ const Discount = () => {
                     pagination={{
                         clickable: true,
                     }}
-                    modules={[Pagination]}
+                    autoplay={{
+                        delay: 1780,
+                        disableOnInteraction: false,
+                    }}
+                    modules={[Pagination, Autoplay]}
                     className="mySwiper mb-24"
                 >
-                    <SwiperSlide>
-                        <img src={slide1} alt="" />
-                        <h3 className='text-3xl pl-3.5 uppercase -mt-14 pb-6 text-white'>80% discount</h3>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slide2} alt="" />
-                        <h3 className='text-3xl pl-3.5 uppercase -mt-14 pb-6 text-white'>80% discount</h3>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slide3} alt="" />
-                        <h3 className='text-3xl pl-3.5 uppercase -mt-14 pb-6 text-white'>80% discount</h3>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slide4} alt="" />
-                        <h3 className='text-3xl pl-3.5 uppercase -mt-14 pb-6 text-white'>80% discount</h3>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slide5} alt="" />
-                        <h3 className='text-3xl pl-3.5 uppercase -mt-14 pb-6 text-white'>80% discount</h3>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slide5} alt="" />
-                        <h3 className='text-3xl pl-3.5 uppercase -mt-14 pb-6 text-white'>80% discount</h3>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slide5} alt="" />
-                        <h3 className='text-3xl pl-3.5 uppercase -mt-14 pb-6 text-white'>80% discount</h3>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <img src={slide5} alt="" />
-                        <h3 className='text-3xl pl-3.5 uppercase -mt-14 pb-6 text-white'>80% discount</h3>
-                    </SwiperSlide>
+                    {medicines.map((medicine, index) => (
+                        <SwiperSlide key={index} className="flex flex-col items-center">
+                            <div className="relative w-full h-72 bg-gray-200">
+                                <img src={medicine.image} alt={medicine.name} className="object-cover h-full w-full" />
+                            </div>
+                            <h3 className="text-2xl font-bold mt-4">{medicine.name}</h3>
+                            <h3 className="text-xl text-gray-600 mt-1 mb-10">
+                                {medicine.discountPercentage} discount
+                            </h3>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
             </section>
         </>
