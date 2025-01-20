@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import SocialLogin from "../SocialLogin/SocialLogin";
@@ -12,6 +12,10 @@ const SignIn = () => {
 
     const { signInUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
+    console.log('state in the location login page', location.state);
 
     const handleSignIn = e => {
         e.preventDefault();
@@ -32,7 +36,7 @@ const SignIn = () => {
                     timer: 2000
                 });
                 e.target.reset();
-                navigate(`/my-orders`);
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.log('ERROR from Firebase', error.message);

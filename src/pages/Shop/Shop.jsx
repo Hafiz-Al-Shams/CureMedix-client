@@ -2,11 +2,19 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/useAuth";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useCart from "../../hooks/useCart";
 
 
 const Shop = () => {
     const [medicines, setMedicines] = useState([]);
-    const [cart, setCart] = useState([]);
+    const { user } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const axiosSecure = useAxiosSecure();
+    const [, refetch] = useCart();
 
     useEffect(() => {
         axios.get("http://localhost:5000/medicines")
@@ -42,14 +50,46 @@ const Shop = () => {
 
 
     const handleAddToCart = (medicine) => {
-        setCart([...cart, medicine]);
-        Swal.fire({
-            icon: 'success',
-            title: 'Added to Cart',
-            text: `${medicine.name} has been added to your cart.`,
-            timer: 1500,
-            showConfirmButton: false,
-        });
+        const { name, image, price, _id } = medicine;
+        if (user && user.email) {
+            const cartItem = {
+                medicineId: _id,
+                email: user.email,
+                name,
+                image,
+                price
+            }
+            axiosSecure.post('/carts', cartItem)
+                .then(res => {
+                    console.log(res.data)
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: `${name} added to your cart`,
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+                        refetch();
+                    }
+
+                })
+        }
+        else {
+            Swal.fire({
+                title: "You are not Logged In",
+                text: "Please login to add to the cart?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, login!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    navigate('/signIn', { state: { from: location } })
+                }
+            });
+        }
     };
 
     return (

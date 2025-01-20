@@ -8,12 +8,14 @@ import { IoMdHome } from "react-icons/io";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
+import useCart from "../../../hooks/useCart";
 // import { Tooltip } from "react-tooltip";
 
 
 
 const NavBar = () => {
     const { user, signOutUser } = useContext(AuthContext);
+    const [cart] = useCart();
 
     console.log(user?.email);
     const navigate = useNavigate();
@@ -21,6 +23,7 @@ const NavBar = () => {
     const [profilePhoto, setProfilePhoto] = useState('');
     const [userName, setUserName] = useState('');
     // const [loading, setLoading] = useState(true);
+    // const [cart, setCart] = useState([]);
 
     useEffect(() => {
         if (user) {
@@ -55,32 +58,32 @@ const NavBar = () => {
     const links = <>
         <li><NavLink to="/">
             <div className="flex justify-center items-center gap-0.5">
-                <IoMdHome />
+                <IoMdHome className="text-xl" />
                 <h5>Home</h5>
             </div>
         </NavLink></li>
         <li><NavLink to="/categories">
             <div className="flex justify-center items-center gap-0.5">
-                <CgMenuHotdog />
+                <CgMenuHotdog className="text-xl" />
                 <h5>Categories</h5>
             </div>
         </NavLink></li>
         <li><NavLink to="/offers">% Offers</NavLink></li>
         <li><NavLink to="/shop">
             <div className="flex justify-center items-center gap-1">
-                <RiShoppingBag2Line />
+                <RiShoppingBag2Line className="text-xl" />
                 <h5>Shop</h5>
             </div>
         </NavLink></li>
         <li><NavLink to="/cart">
             <div className="flex justify-center items-center gap-1">
-                <PiShoppingCartBold />
-                <h5>Cart</h5>
+                <PiShoppingCartBold className="text-xl" />
+                <div className="badge badge-secondary">+{cart.length}</div>
             </div>
         </NavLink></li>
         <li><NavLink to="/doctor">
             <div className="flex justify-center items-center gap-1">
-                <FaStethoscope />
+                <FaStethoscope className="" />
                 <h5>Online Doctor</h5>
             </div>
         </NavLink></li>
