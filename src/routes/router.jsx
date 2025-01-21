@@ -6,6 +6,7 @@ import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import DetailsCard from "../pages/CategoryDetails/DetailsCard";
 import Shop from "../pages/Shop/Shop";
+import Cart from "../pages/Cart/Cart";
 
 
 // import Register from "../pages/Register/Register";
@@ -47,7 +48,11 @@ const router = createBrowserRouter([
             {
                 path: 'categoryDetails/:categoryName',
                 element: <DetailsCard />,
-            }
+            },
+            {
+                path: '/cart',
+                element: <Cart></Cart>,
+            },
             // {
             //     path: 'register',
             //     element: <Register></Register>,
