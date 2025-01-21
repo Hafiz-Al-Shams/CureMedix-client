@@ -6,74 +6,56 @@ import { Helmet } from "react-helmet-async";
 import SocialLogin from "../SocialLogin/SocialLogin";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
-import { db } from "../../firebase/firebase.init";
+// import { db } from "../../firebase/firebase.init";
 
 
 const SignUp = () => {
 
     const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-
-    const { createUser, updateUserProfile, signOutUser } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = data => {
-        const role = "admin"; // Hardcode 'admin' role for this example. You can change this logic later.
 
-        // Continue with user creation and profile update
+        console.log(data.email);
+        console.log(data.name);
+        console.log(data.password);
+        console.log(data.photoURL);
+        console.log(data.role);
+
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-
-                updateUserProfile({ displayName: data.name, photoURL: data.photoURL })
+                updateUserProfile(data.name, data.photoURL)
                     .then(() => {
-                        // Save user role in Firestore
-                        db.collection("users").doc(loggedUser.uid).set({
+                        // create user entry in the database
+                        const userInfo = {
                             name: data.name,
                             email: data.email,
-                            role: role, // Store role in Firestore
-                        })
-                            .then(() => {
-                                // Create user entry in the database
-                                const userInfo = {
-                                    name: data.name,
-                                    email: data.email
-                                };
-                                axiosPublic.post('/users', userInfo)
-                                    .then(res => {
-                                        if (res.data.insertedId) {
-                                            console.log('User added to the database');
-                                            reset();
-                                            Swal.fire({
-                                                position: 'top-end',
-                                                icon: 'success',
-                                                title: 'User created successfully.',
-                                                showConfirmButton: false,
-                                                timer: 1500
-                                            });
-
-                                            // Sign out the user after successful registration
-                                            signOutUser()
-                                                .then(() => {
-                                                    Swal.fire({
-                                                        title: "Registration Successful",
-                                                        text: "Now please Login to Continue",
-                                                        icon: "success",
-                                                        confirmButtonText: "OK",
-                                                    });
-                                                    navigate("/signIn");
-                                                })
-                                                .catch(error => console.log("Error during sign-out:", error));
-                                        }
-                                    })
-                                    .catch(error => console.log("Error creating user in the database:", error));
+                            role: data.role,
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user added to the database');
+                                    reset();
+                                    Swal.fire({
+                                        position: 'center-left',
+                                        icon: 'success',
+                                        title: 'User created successfully.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                    // navigate('/');
+                                }
                             })
-                            .catch(error => console.log("Error saving user role in Firestore:", error));
+
+
                     })
-                    .catch(error => console.log("Error updating user profile:", error));
+                    .catch(error => console.log(error))
             })
-            .catch(error => console.log("Error during user creation:", error));
     };
 
 
@@ -95,9 +77,76 @@ const SignUp = () => {
 
                     {/* Right Side Form */}
                     <div className="card w-full max-w-lg mx-auto lg:w-96 bg-white shadow-xl rounded-xl p-8">
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                            {/* Username */}
+
+                        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                             <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Name</span>
+                                </label>
+                                <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
+                                {errors.name && <span className="text-red-600">Name is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text"  {...register("photoURL", { required: true })} placeholder="Photo URL" className="input input-bordered" />
+                                {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Email</span>
+                                </label>
+                                <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
+                                {errors.email && <span className="text-red-600">Email is required</span>}
+                            </div>
+
+                            {/* Select Role */}
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text text-gray-700">Select Role</span>
+                                </label>
+                                <select
+                                    {...register("role", { required: "Role is required" })}
+                                    className="select select-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    <option value="user">User</option>
+                                    <option value="seller">Seller</option>
+                                </select>
+                                {errors.role && <span className="text-red-600">{errors.role.message}</span>}
+                            </div>
+
+
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Password</span>
+                                </label>
+                                <input type="password"  {...register("password", {
+                                    required: true,
+                                    minLength: 6,
+                                    maxLength: 20,
+                                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                })} placeholder="password" className="input input-bordered" />
+                                {errors.password?.type === 'required' &&
+                                    <p className="text-red-600">Password is required</p>}
+                                {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
+                                {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
+                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
+                                <label className="label">
+                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                </label>
+                            </div>
+                            <div className="form-control mt-6">
+                                <input className="btn btn-primary" type="submit" value="Sign Up" />
+                            </div>
+                        </form>
+
+
+
+                        {/* old one */}
+                        {/* <form onSubmit={handleSubmit(onSubmit)} className="space-y-6"> */}
+                        {/* Username */}
+                        {/* <div className="form-control">
                                 <label className="label">
                                     <span className="label-text text-gray-700">Username</span>
                                 </label>
@@ -108,10 +157,10 @@ const SignUp = () => {
                                     className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                                 {errors.name && <span className="text-red-600">{errors.name.message}</span>}
-                            </div>
+                            </div> */}
 
-                            {/* Email */}
-                            <div className="form-control">
+                        {/* Email */}
+                        {/* <div className="form-control">
                                 <label className="label">
                                     <span className="label-text text-gray-700">Email</span>
                                 </label>
@@ -122,10 +171,10 @@ const SignUp = () => {
                                     className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                                 {errors.email && <span className="text-red-600">{errors.email.message}</span>}
-                            </div>
+                            </div> */}
 
-                            {/* Upload Photo */}
-                            <div className="form-control">
+                        {/* Upload Photo */}
+                        {/* <div className="form-control">
                                 <label className="label">
                                     <span className="label-text text-gray-700">Upload Photo</span>
                                 </label>
@@ -145,10 +194,10 @@ const SignUp = () => {
                                     />
                                 </div>
                                 {errors.photoURL && <span className="text-red-600">{errors.photoURL.message}</span>}
-                            </div>
+                            </div> */}
 
-                            {/* Password */}
-                            <div className="form-control">
+                        {/* Password */}
+                        {/* <div className="form-control">
                                 <label className="label">
                                     <span className="label-text text-gray-700">Password</span>
                                 </label>
@@ -166,10 +215,10 @@ const SignUp = () => {
                                     className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 />
                                 {errors.password && <span className="text-red-600">{errors.password.message}</span>}
-                            </div>
+                            </div> */}
 
-                            {/* Select Role */}
-                            <div className="form-control">
+                        {/* Select Role */}
+                        {/* <div className="form-control">
                                 <label className="label">
                                     <span className="label-text text-gray-700">Select Role</span>
                                 </label>
@@ -181,13 +230,15 @@ const SignUp = () => {
                                     <option value="seller">Seller</option>
                                 </select>
                                 {errors.role && <span className="text-red-600">{errors.role.message}</span>}
-                            </div>
+                            </div> */}
 
-                            {/* Submit Button */}
-                            <div className="form-control">
+                        {/* Submit Button */}
+                        {/* <div className="form-control">
                                 <button className="btn btn-primary w-full py-2 mt-4">Sign Up</button>
-                            </div>
-                        </form>
+                            </div> */}
+                        {/* </form> */}
+                        {/* old one ends */}
+
 
                         {/* Already have an account? */}
                         <div className="text-center mt-4">
