@@ -75,7 +75,7 @@ const NavBar = () => {
                 <h5>Shop</h5>
             </div>
         </NavLink></li>
-        <li><NavLink to="/cart">
+        <li><NavLink to="/dashboard/cart">
             <div className="flex justify-center items-center gap-1">
                 <PiShoppingCartBold className="text-xl" />
                 <div className="badge badge-secondary">+{cart.length}</div>

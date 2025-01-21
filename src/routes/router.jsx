@@ -7,6 +7,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import DetailsCard from "../pages/CategoryDetails/DetailsCard";
 import Shop from "../pages/Shop/Shop";
 import Cart from "../pages/Cart/Cart";
+import Dashboard from "../layouts/Dashboard";
 
 
 // import Register from "../pages/Register/Register";
@@ -49,56 +50,16 @@ const router = createBrowserRouter([
                 path: 'categoryDetails/:categoryName',
                 element: <DetailsCard />,
             },
+        ]
+    },
+    {
+        path: "dashboard",
+        element: <Dashboard></Dashboard>,
+        children: [
             {
-                path: '/cart',
+                path: 'cart',
                 element: <Cart></Cart>,
             },
-            // {
-            //     path: 'register',
-            //     element: <Register></Register>,
-            // },
-            // {
-            //     path: 'signIn',
-            //     element: <SignIn></SignIn>,
-            // },
-            // {
-            //     path: 'gallery',
-            //     element: <Gallery></Gallery>,
-            //     loader: () => fetch(`https://elkano64-server.vercel.app/foods`)
-            // },
-            // {
-            //     path: 'all-foods',
-            //     element: <AllFoods></AllFoods>,
-            //     loader: () => fetch(`https://elkano64-server.vercel.app/foods`)
-            // },
-            // {
-            //     path: 'add-food',
-            //     element: <PrivateRoute><AddFood></AddFood></PrivateRoute>,
-            // },
-            // {
-            //     path: 'update-food/:foodId',
-            //     element: <PrivateRoute><UpdateFood></UpdateFood></PrivateRoute>,
-            //     loader: ({ params }) => fetch(`https://elkano64-server.vercel.app/foods/${params.foodId}`)
-            // },
-            // {
-            //     path: 'foods/:foodId',
-            //     element: <FoodDetails></FoodDetails>,
-            //     loader: ({ params }) => fetch(`https://elkano64-server.vercel.app/foods/${params.foodId}`)
-            // },
-            // {
-            //     path: 'food-purchase/:foodId',
-            //     element: <PrivateRoute><FoodPurchase></FoodPurchase></PrivateRoute>,
-            //     loader: ({ params }) => fetch(`https://elkano64-server.vercel.app/foods/${params.foodId}`)
-            // },
-            // {
-            //     path: 'my-foods/:emailId',
-            //     element: <PrivateRoute><MyFoods></MyFoods></PrivateRoute>,
-            //     loader: ({ params }) => fetch(`https://elkano64-server.vercel.app/foods/email/${params.emailId}`)
-            // },
-            // {
-            //     path: 'my-orders',
-            //     element: <PrivateRoute><MyOrders></MyOrders></PrivateRoute>,
-            // },
         ]
     },
     {
