@@ -36,7 +36,7 @@ const SocialLogin = () => {
                             showConfirmButton: false,
                             timer: 2000
                         });
-                        // navigate('/');
+                        navigate('/');
                     })
 
                 // navigate(from, { replace: true });
@@ -51,7 +51,7 @@ const SocialLogin = () => {
         <div className='m-4'>
             <div className="divider">OR</div>
             <button onClick={handleGoogleSignIn} className='btn'>
-                <FaGoogle className="text-green-700"></FaGoogle>
+                <FaGoogle className="text-red-700 font-bold text-lg"></FaGoogle>
                 Login with Google</button>
         </div>
     );

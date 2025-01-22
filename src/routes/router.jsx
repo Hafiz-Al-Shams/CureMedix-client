@@ -9,6 +9,7 @@ import Shop from "../pages/Shop/Shop";
 import Cart from "../pages/Cart/Cart";
 import Dashboard from "../layouts/Dashboard";
 import PrivateRoute from "./PrivateRoute";
+import AllUsers from "../pages/Dashboard/AllUsers";
 
 
 // import Register from "../pages/Register/Register";
@@ -60,6 +61,12 @@ const router = createBrowserRouter([
             {
                 path: 'cart',
                 element: <Cart></Cart>,
+            },
+
+            // admin routes
+            {
+                path: 'users',
+                element: <AllUsers></AllUsers>,
             },
         ]
     },

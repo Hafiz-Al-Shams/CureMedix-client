@@ -1,22 +1,25 @@
-import { FaAd, FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaSearch, FaShoppingCart, FaUsers, FaUtensils } from "react-icons/fa";
+import { FaAd, FaCalendar, FaEnvelope, FaHome, FaList, FaShoppingCart, FaUsers } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 import { RiShoppingBag2Line } from "react-icons/ri";
-// import useAdmin from "../hooks/useAdmin";
+import { MdPayments } from "react-icons/md";
+import { BiSolidReport } from "react-icons/bi";
+import { PiFlagBannerFill } from "react-icons/pi";
+import useAdmin from "../hooks/useAdmin";
 
 
 const Dashboard = () => {
     const [cart] = useCart();
 
-    // TODO: get isAdmin value from the database
-    // const [isAdmin] = useAdmin();
-    const isAdmin = false;
+    // getting isAdmin value from the database
+    const [isAdmin] = useAdmin();
+    // const isAdmin = true;
 
     return (
         <div className="flex">
             {/* dashboard side bar */}
-            <div className="w-64 min-h-screen bg-green-300">
-                <ul className="menu p-4">
+            <div className="w-64 min-h-screen bg-emerald-500/70 pt-10">
+                <ul className="menu p-4 space-y-1.5">
                     {
                         isAdmin ? <>
                             <li>
@@ -25,24 +28,29 @@ const Dashboard = () => {
                                     Admin Home</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/addItems">
-                                    <FaUtensils></FaUtensils>
-                                    Add Items</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/dashboard/manageItems">
-                                    <FaList></FaList>
-                                    Manage Items</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/dashboard/bookings">
-                                    <FaBook></FaBook>
-                                    Manage Bookings</NavLink>
-                            </li>
-                            <li>
                                 <NavLink to="/dashboard/users">
                                     <FaUsers></FaUsers>
                                     All Users</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/allCategories">
+                                    <FaList></FaList>
+                                    All Categories</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/payments">
+                                    <MdPayments />
+                                    Manage Payments</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/salesReport">
+                                    <BiSolidReport />
+                                    Sales Report</NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/manageBanner">
+                                    <PiFlagBannerFill />
+                                    Manage Banner</NavLink>
                             </li>
                         </>
                             :
@@ -75,7 +83,7 @@ const Dashboard = () => {
                             </>
                     }
                     {/* shared nav links */}
-                    <div className="divider"></div>
+                    <div className="divider py-4"></div>
                     <li>
                         <NavLink to="/">
                             <FaHome></FaHome>
