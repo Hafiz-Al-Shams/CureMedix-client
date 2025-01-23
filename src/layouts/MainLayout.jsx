@@ -16,7 +16,7 @@ const MainLayout = () => {
     return (
         <>
             <NavBar></NavBar>
-            <div className="min-h-fit bg-emerald-600">
+            <div className="min-h-fit bg-emerald-50">
                 <Outlet></Outlet>
             </div>
             {noFooter1 || noFooter2 ? null : <Footer></Footer>}

@@ -10,19 +10,10 @@ import Cart from "../pages/Cart/Cart";
 import Dashboard from "../layouts/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import AllUsers from "../pages/Dashboard/AllUsers";
+import AdminRoute from "./AdminRoute";
+import AllCategories from "../pages/Dashboard/AllCategories";
+import UpdateCategory from "../pages/Dashboard/UpdateCategory";
 
-
-// import Register from "../pages/Register/Register";
-// import SignIn from "../pages/SignIn/SignIn";
-// import PrivateRoute from "./PrivateRoute";
-// import FoodDetails from "../pages/FoodDetails/FoodDetails";
-// import AllFoods from "../pages/AllFoods/AllFoods";
-// import FoodPurchase from "../pages/FoodPurchase/FoodPurchase";
-// import AddFood from "../pages/AddFood/AddFood";
-// import UpdateFood from "../pages/UpdateFood/UpdateFood";
-// import MyFoods from "../pages/MyFoods/MyFoods";
-// import MyOrders from "../pages/MyOrders/MyOrders";
-// import Gallery from "../pages/Gallery/Gallery";
 
 
 
@@ -66,7 +57,16 @@ const router = createBrowserRouter([
             // admin routes
             {
                 path: 'users',
-                element: <AllUsers></AllUsers>,
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>,
+            },
+            {
+                path: 'allCategories',
+                element: <AdminRoute><AllCategories></AllCategories></AdminRoute>,
+            },
+            {
+                path: 'updateCategory/:id',
+                element: <AdminRoute><UpdateCategory></UpdateCategory></AdminRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
             },
         ]
     },
