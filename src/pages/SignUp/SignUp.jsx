@@ -18,16 +18,16 @@ const SignUp = () => {
 
     const onSubmit = data => {
 
-        console.log(data.email);
-        console.log(data.name);
-        console.log(data.password);
-        console.log(data.photoURL);
-        console.log(data.role);
+        // console.log(data.email);
+        // console.log(data.name);
+        // console.log(data.password);
+        // console.log(data.photoURL);
+        // console.log(data.role);
 
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
-                console.log(loggedUser);
+                // console.log(loggedUser);
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
                         // create user entry in the database
@@ -39,7 +39,7 @@ const SignUp = () => {
                         axiosPublic.post('/users', userInfo)
                             .then(res => {
                                 if (res.data.insertedId) {
-                                    console.log('user added to the database');
+                                    // console.log('user added to the database');
                                     reset();
                                     Swal.fire({
                                         position: 'center-left',

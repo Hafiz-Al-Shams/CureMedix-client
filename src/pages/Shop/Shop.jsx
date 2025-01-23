@@ -17,7 +17,7 @@ const Shop = () => {
     const [, refetch] = useCart();
 
     useEffect(() => {
-        axios.get("http://localhost:5000/medicines")
+        axios.get("https://cure-medix-server.vercel.app/medicines")
             .then(res => {
                 setMedicines(res.data);
             })
@@ -61,7 +61,7 @@ const Shop = () => {
             }
             axiosSecure.post('/carts', cartItem)
                 .then(res => {
-                    console.log(res.data)
+                    // console.log(res.data)
                     if (res.data.insertedId) {
                         Swal.fire({
                             position: "center",

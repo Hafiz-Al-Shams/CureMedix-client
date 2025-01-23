@@ -7,7 +7,7 @@ import Footer from "../pages/shared/Footer/Footer";
 const MainLayout = () => {
 
     const location = useLocation();
-    console.log(location);
+    // console.log(location);
 
     const noFooter1 = location.pathname.includes('/signIn')
     const noFooter2 = location.pathname.includes('/signUp')

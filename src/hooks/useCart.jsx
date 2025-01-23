@@ -11,7 +11,7 @@ const useCart = () => {
             const res = await axiosSecure.get(`/carts?email=${user.email}`);
             return res.data;
         }
-    })
+    });
     // const axiosSecure = useAxiosSecure();
     // const { user} = useAuth();
     // const { refetch, data: cart = [] } = useQuery({

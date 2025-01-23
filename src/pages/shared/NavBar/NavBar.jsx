@@ -17,7 +17,7 @@ const NavBar = () => {
     const { user, signOutUser } = useContext(AuthContext);
     const [cart] = useCart();
 
-    console.log(user?.email);
+    // console.log(user?.email);
     const navigate = useNavigate();
 
     const [profilePhoto, setProfilePhoto] = useState('');

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -10,22 +10,24 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const UpdateCategory = () => {
 
-    const loadedCategory = useLoaderData();
+    const { name, details, image, _id } = useLoaderData();
+    const navigate = useNavigate();
 
+    // console.log(name, image, details);
     const { register, handleSubmit, reset } = useForm();
 
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
 
     const onSubmit = async (data) => {
-        console.log(data);
+        // console.log(data);
         const imageFile = { image: data.image[0] };
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         });
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.success) {
             const updatedCategory = {
                 name: data.name,
@@ -33,8 +35,8 @@ const UpdateCategory = () => {
                 details: data.details,
             }
             // console.log(updatedCategory);
-            const cateUpdateRes = await axiosSecure.patch(`/categories/${loadedCategory._id}`, updatedCategory);
-            console.log(cateUpdateRes.data);
+            const cateUpdateRes = await axiosSecure.patch(`/categories/${_id}`, updatedCategory);
+            // console.log(cateUpdateRes.data);
             if (cateUpdateRes.data.modifiedCount > 0) {
                 reset();
                 Swal.fire({
@@ -44,6 +46,7 @@ const UpdateCategory = () => {
                     showConfirmButton: false,
                     timer: 2000
                 });
+                navigate('/dashboard/allCategories');
             }
         }
         // console.log(res.data.data.display_url);
@@ -54,7 +57,7 @@ const UpdateCategory = () => {
 
     return (
         <div className="max-w-screen-lg mx-auto">
-            <h3 className="text-4xl my-16 font-semibold">Update {loadedCategory.name}</h3>
+            <h3 className="text-4xl my-16 font-semibold">Update {name}</h3>
             <div className="mb-16">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control">
@@ -62,8 +65,9 @@ const UpdateCategory = () => {
                             <span className="label-text">Category Name*</span>
                         </label>
                         <input
+                            defaultValue={name}
                             type="text"
-                            placeholder={loadedCategory.name}
+                            // placeholder={loadedCategory.name}
                             {...register("name", { required: true })}
                             className="input input-bordered w-full" />
 
@@ -72,7 +76,7 @@ const UpdateCategory = () => {
                         <label className="label">
                             <span className="label-text-alt">Category Details</span>
                         </label>
-                        <textarea {...register("details", { required: true })} className="textarea textarea-bordered h-16" placeholder={loadedCategory.details}></textarea>
+                        <textarea defaultValue={details} {...register("details", { required: true })} className="textarea textarea-bordered h-16"></textarea>
                     </div>
                     <div className="form-control mb-5">
                         <input {...register("image", { required: true })} type="file" className="file-input w-full max-w-xs" />

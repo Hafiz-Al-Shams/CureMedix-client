@@ -27,14 +27,14 @@ const AllCategories = () => {
     });
 
     const onSubmit = async (data) => {
-        console.log(data);
+        // console.log(data);
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         });
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.success) {
             const newCategory = {
                 name: data.name,
@@ -44,7 +44,7 @@ const AllCategories = () => {
             }
             // console.log(newCategory);
             const categoryRes = await axiosSecure.post('/categories', newCategory);
-            console.log(categoryRes.data);
+            // console.log(categoryRes.data);
 
             if (categoryRes.data.insertedId) {
                 reset();
@@ -60,8 +60,40 @@ const AllCategories = () => {
         }
         // console.log(res.data.data.display_url);
         // console.log(res.data.display_url);
-        console.log('with image url', res.data);
+        // console.log('with image url', res.data);
     };
+
+
+
+    const handleDelete = (category) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosSecure.delete(`/categories/${category._id}`);
+
+                if (res.data.deletedCount > 0) {
+
+                    refetch();
+                    Swal.fire({
+                        position: "center-left",
+                        icon: "success",
+                        title: `${category.name} has been deleted`,
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+
+
+            }
+        });
+    }
 
 
     return (
@@ -71,6 +103,7 @@ const AllCategories = () => {
                 <thead>
                     <tr className="bg-emerald-800/90 text-white">
                         <th className="py-3 px-4 border-b text-left">No.</th>
+                        <th className="py-3 px-4 border-b text-left">Image</th>
                         <th className="py-3 px-4 border-b text-left">Name</th>
                         <th className="py-3 px-4 border-b text-left">Medicines</th>
                         <th className="py-3 px-4 border-b text-left">Actions</th>
@@ -83,7 +116,13 @@ const AllCategories = () => {
                             className={`${i % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b hover:bg-gray-100 transition duration-300`}
                         >
                             <td className="py-3 px-4">{i + 1}</td>
+                            <td>
+                                <div className="mask mask-squircle w-12 h-12">
+                                    <img src={category.image} alt="image" />
+                                </div>
+                            </td>
                             <td className="py-3 px-4">{category.name}</td>
+
                             <td className="py-3 px-4">{category.count}</td>
                             <td className="py-3 px-4">
 
@@ -91,7 +130,7 @@ const AllCategories = () => {
                                     <button className="btn bg-blue-200 btn-sm">Update</button>
                                 </NavLink>
                                 <button
-                                    // onClick={() => handleViewDetails(category)}
+                                    onClick={() => handleDelete(category)}
                                     className="ml-5"
                                 >
                                     <div className="text-xl text-red-500"
@@ -104,7 +143,7 @@ const AllCategories = () => {
                     ))}
                 </tbody>
             </table>
-            <h2 className="mt-20 mb-5 text-3xl font-semibold">add new category</h2>
+            <h2 className="mt-10 mb-5 text-3xl font-semibold">add new category</h2>
             <div className="mb-16">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control">

@@ -18,7 +18,7 @@ const AllUsers = () => {
     const handleMakeAdmin = user => {
         axiosSecure.patch(`/users/admin/${user._id}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     refetch();
                     Swal.fire({
@@ -35,7 +35,7 @@ const AllUsers = () => {
     const handleMakeUser = user => {
         axiosSecure.patch(`/users/makeUser/${user._id}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     refetch();
                     Swal.fire({
@@ -52,7 +52,7 @@ const AllUsers = () => {
     const handleMakeSeller = user => {
         axiosSecure.patch(`/users/makeSeller/${user._id}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.modifiedCount > 0) {
                     refetch();
                     Swal.fire({

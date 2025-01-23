@@ -16,7 +16,7 @@ const Cart = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/carts?email=${user.email}`)
+            fetch(`https://cure-medix-server.vercel.app/carts?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => setCartItems(data));
         }
@@ -39,7 +39,7 @@ const Cart = () => {
     };
 
     // const removeItem = (item) => {
-    //     fetch(`http://localhost:5000/carts/${item._id}`, {
+    //     fetch(`https://cure-medix-server.vercel.app/carts/${item._id}`, {
     //         method: 'DELETE',
     //     })
     //         .then(res => res.json())
@@ -67,7 +67,7 @@ const Cart = () => {
     // };
 
     const updateCartItem = (id, updatedItem) => {
-        fetch(`http://localhost:5000/carts/${id}`, {
+        fetch(`https://cure-medix-server.vercel.app/carts/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedItem),
