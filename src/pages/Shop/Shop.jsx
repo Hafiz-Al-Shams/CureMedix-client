@@ -17,7 +17,7 @@ const Shop = () => {
     const [, refetch] = useCart();
 
     useEffect(() => {
-        axios.get("https://cure-medix-server.vercel.app/medicines")
+        axios.get("http://localhost:5000/medicines")
             .then(res => {
                 setMedicines(res.data);
             })

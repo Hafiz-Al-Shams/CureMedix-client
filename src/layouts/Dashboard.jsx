@@ -94,11 +94,11 @@ const Dashboard = () => {
                             <RiShoppingBag2Line className="text-xl" />
                             Shop</NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to="/order/contact">
                             <FaEnvelope></FaEnvelope>
                             Contact</NavLink>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
             {/* dashboard content */}

@@ -16,7 +16,7 @@ const Cart = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`https://cure-medix-server.vercel.app/carts?email=${user.email}`)
+            fetch(`http://localhost:5000/carts?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => setCartItems(data));
         }
@@ -39,7 +39,7 @@ const Cart = () => {
     };
 
     // const removeItem = (item) => {
-    //     fetch(`https://cure-medix-server.vercel.app/carts/${item._id}`, {
+    //     fetch(`http://localhost:5000/carts/${item._id}`, {
     //         method: 'DELETE',
     //     })
     //         .then(res => res.json())
@@ -67,7 +67,7 @@ const Cart = () => {
     // };
 
     const updateCartItem = (id, updatedItem) => {
-        fetch(`https://cure-medix-server.vercel.app/carts/${id}`, {
+        fetch(`http://localhost:5000/carts/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedItem),
@@ -128,11 +128,11 @@ const Cart = () => {
     return (
         <div className="px-6 pt-4 max-w-screen-xl mx-auto">
             {/* <h1 className="text-3xl font-bold mb-6">All({cartItems.length})</h1> */}
-            <div className="flex justify-evenly mb-8">
+            <div className="flex justify-evenly mb-8 bg-red-100 py-5 items-center">
                 <h2 className="text-4xl">Ordered Medicine: {cart.length}</h2>
                 <h2 className="text-4xl">Total Price: {totalPrice}</h2>
                 {cart.length ? <Link to="/dashboard/payment">
-                    <button className="btn btn-primary">Pay</button>
+                    <button className="btn btn-primary btn-lg">Pay</button>
                 </Link> :
                     <button disabled className="btn btn-primary">Pay</button>
                 }

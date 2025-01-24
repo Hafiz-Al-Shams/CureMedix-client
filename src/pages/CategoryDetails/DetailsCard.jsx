@@ -23,7 +23,7 @@ const DetailsCard = () => {
 
 
     useEffect(() => {
-        axios.get("https://cure-medix-server.vercel.app/medicines")
+        axios.get("http://localhost:5000/medicines")
             .then(res => {
                 const filteredMedicines = res.data.filter(medicine => medicine.category === categoryName);
                 setMedicines(filteredMedicines);
@@ -34,7 +34,7 @@ const DetailsCard = () => {
     }, [categoryName]);
 
     // useEffect(() => {
-    //     fetch(`https://cure-medix-server.vercel.app/medicines`)
+    //     fetch(`http://localhost:5000/medicines`)
     //         .then(res => res.json())
     //         .then(data => {
     //             const filteredMedicines = data.filter(medicine => medicine.category === categoryName);

@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
@@ -13,7 +14,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const AllCategories = () => {
 
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
@@ -25,6 +26,20 @@ const AllCategories = () => {
             return res.data;
         }
     });
+
+
+
+    // testing
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    // const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onCsubmit = data => {
+        console.log(data); // Handle your form submission here
+        setIsModalOpen(false); // Close modal after submission
+    };
+    // testing
+
+
 
     const onSubmit = async (data) => {
         // console.log(data);
@@ -99,6 +114,9 @@ const AllCategories = () => {
     return (
         <div className="p-6 max-w-screen-2xl mx-auto">
             <h1 className="text-3xl font-bold mb-6 mt-7">All Categories</h1>
+            <div className="my-10">
+                <button className="btn btn-lg btn-secondary" onClick={() => setIsModalOpen(true)}>add category</button>
+            </div>
             <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
                 <thead>
                     <tr className="bg-emerald-800/90 text-white">
@@ -170,6 +188,55 @@ const AllCategories = () => {
                     </button>
                 </form>
             </div>
+
+            {/* Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                    <div className="modal modal-open">
+                        <div className="modal-box">
+                            <h2 className="text-xl font-semibold">Form Modal</h2>
+
+                            <form onSubmit={handleSubmit(onCsubmit)} className="space-y-4">
+                                <div>
+                                    <label className="block">Name</label>
+                                    <input
+                                        {...register('name', { required: "Name is required" })}
+                                        type="text"
+                                        className="input input-bordered w-full"
+                                    />
+
+                                    {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+
+                                </div>
+
+                                <div>
+                                    <label className="block">Email</label>
+                                    <input
+                                        {...register('email', {
+                                            required: "Email is required",
+                                            pattern: {
+                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                                message: "Invalid email address"
+                                            }
+                                        })}
+                                        type="email"
+                                        className="input input-bordered w-full"
+                                    />
+
+                                    {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+
+                                </div>
+
+                                <div className="modal-action">
+                                    <button type="button" className="btn" onClick={() => setIsModalOpen(false)}>Cancel</button>
+                                    <button type="submit" className="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };

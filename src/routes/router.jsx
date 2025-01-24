@@ -13,6 +13,7 @@ import AllUsers from "../pages/Dashboard/AllUsers";
 import AdminRoute from "./AdminRoute";
 import AllCategories from "../pages/Dashboard/AllCategories";
 import UpdateCategory from "../pages/Dashboard/UpdateCategory";
+import Payment from "../pages/Dashboard/Payment";
 
 
 
@@ -49,10 +50,6 @@ const router = createBrowserRouter([
         path: "dashboard",
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
-            {
-                path: 'cart',
-                element: <Cart></Cart>,
-            },
 
             // admin routes
             {
@@ -66,8 +63,20 @@ const router = createBrowserRouter([
             {
                 path: 'updateCategory/:id',
                 element: <AdminRoute><UpdateCategory></UpdateCategory></AdminRoute>,
-                loader: ({ params }) => fetch(`https://cure-medix-server.vercel.app/categories/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
             },
+
+            // user routes
+            {
+                path: 'cart',
+                element: <Cart></Cart>,
+            },
+            {
+                path: 'payment',
+                element: <Payment></Payment>,
+            },
+
+
         ]
     },
     {
