@@ -1,11 +1,18 @@
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "./CheckoutForm";
 
-
+const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_PK);
 
 const Payment = () => {
     return (
         <div>
-            <h3 className="text-5xl font-semibold text center">pay for your medicines here:</h3>
-
+            <h3 className="text-4xl my-8 pl-24 font-semibold text center">Pay for your ordered medicines here:</h3>
+            <div className="">
+                <Elements stripe={stripePromise}>
+                    <CheckoutForm />
+                </Elements>
+            </div>
         </div>
     );
 };

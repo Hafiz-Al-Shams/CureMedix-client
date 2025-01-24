@@ -29,20 +29,13 @@ const AllCategories = () => {
 
 
 
-    // testing
+    // testing area
     const [isModalOpen, setIsModalOpen] = useState(false);
     // const { register, handleSubmit, formState: { errors } } = useForm();
 
-    const onCsubmit = data => {
-        console.log(data); // Handle your form submission here
-        setIsModalOpen(false); // Close modal after submission
-    };
-    // testing
-
-
-
     const onSubmit = async (data) => {
-        // console.log(data);
+        console.log(data);
+        // Add your form submission logic here
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
             headers: {
@@ -64,6 +57,7 @@ const AllCategories = () => {
             if (categoryRes.data.insertedId) {
                 reset();
                 refetch();
+                setIsModalOpen(false);
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -73,10 +67,50 @@ const AllCategories = () => {
                 });
             }
         }
-        // console.log(res.data.data.display_url);
-        // console.log(res.data.display_url);
-        // console.log('with image url', res.data);
+
+
+        // setIsModalOpen(false); // Closing modal after submission
     };
+    // testing area
+
+
+
+    // const onSubmit = async (data) => {
+    //     // console.log(data);
+    //     const imageFile = { image: data.image[0] }
+    //     const res = await axiosPublic.post(image_hosting_api, imageFile, {
+    //         headers: {
+    //             'content-type': 'multipart/form-data'
+    //         }
+    //     });
+    //     // console.log(res.data);
+    //     if (res.data.success) {
+    //         const newCategory = {
+    //             name: data.name,
+    //             count: 0,
+    //             image: res.data.data.display_url,
+    //             details: data.details,
+    //         }
+    //         // console.log(newCategory);
+    //         const categoryRes = await axiosSecure.post('/categories', newCategory);
+    //         // console.log(categoryRes.data);
+
+    //         if (categoryRes.data.insertedId) {
+    //             reset();
+    //             refetch();
+    //             Swal.fire({
+    //                 position: "center",
+    //                 icon: "success",
+    //                 title: `${data.name} is added to the category`,
+    //                 showConfirmButton: false,
+    //                 timer: 2000
+    //             });
+    //         }
+    //     }
+    //     // console.log(res.data.data.display_url);
+    //     // console.log(res.data.display_url);
+    //     // console.log('with image url', res.data);
+    // };
 
 
 
@@ -114,9 +148,14 @@ const AllCategories = () => {
     return (
         <div className="p-6 max-w-screen-2xl mx-auto">
             <h1 className="text-3xl font-bold mb-6 mt-7">All Categories</h1>
+
+            {/* Add category Button */}
             <div className="my-10">
-                <button className="btn btn-lg btn-secondary" onClick={() => setIsModalOpen(true)}>add category</button>
+                <button className="btn btn-lg btn-secondary" onClick={() => setIsModalOpen(true)}>
+                    Add Category
+                </button>
             </div>
+
             <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
                 <thead>
                     <tr className="bg-emerald-800/90 text-white">
@@ -161,8 +200,9 @@ const AllCategories = () => {
                     ))}
                 </tbody>
             </table>
-            <h2 className="mt-10 mb-5 text-3xl font-semibold">add new category</h2>
-            <div className="mb-16">
+
+            {/* <h2 className="mt-10 mb-5 text-3xl font-semibold">Add New Category</h2> */}
+            {/* <div className="mb-16">
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-control">
                         <label className="label">
@@ -187,49 +227,66 @@ const AllCategories = () => {
                         Add Category
                     </button>
                 </form>
-            </div>
+            </div> */}
 
-            {/* Modal */}
+
+            {/* add category Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
                     <div className="modal modal-open">
-                        <div className="modal-box">
-                            <h2 className="text-xl font-semibold">Form Modal</h2>
+                        <div className="modal-box p-10">
+                            {/* <h2 className="mt-10 mb-5 text-3xl font-semibold">Add New Category</h2> */}
 
-                            <form onSubmit={handleSubmit(onCsubmit)} className="space-y-4">
-                                <div>
-                                    <label className="block">Name</label>
+                            {/* Form */}
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Category Name*</span>
+                                    </label>
                                     <input
-                                        {...register('name', { required: "Name is required" })}
                                         type="text"
+                                        placeholder="Category Name"
+                                        {...register("name", { required: "Category Name is required" })}
                                         className="input input-bordered w-full"
                                     />
-
                                     {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-
                                 </div>
 
-                                <div>
-                                    <label className="block">Email</label>
+                                <div className="form-control my-4">
+                                    <label className="label">
+                                        <span className="label-text-alt">Category Details*</span>
+                                    </label>
+                                    <textarea
+                                        {...register("details", { required: "Details are required" })}
+                                        className="textarea textarea-bordered h-16"
+                                        placeholder="Details"
+                                    ></textarea>
+                                    {errors.details && <p className="text-red-500">{errors.details.message}</p>}
+                                </div>
+
+                                <div className="form-control mb-5">
+                                    <label className="label">
+                                        <span className="label-text">Upload Image*</span>
+                                    </label>
                                     <input
-                                        {...register('email', {
-                                            required: "Email is required",
-                                            pattern: {
-                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                                                message: "Invalid email address"
-                                            }
-                                        })}
-                                        type="email"
-                                        className="input input-bordered w-full"
+                                        {...register("image", { required: "Image is required" })}
+                                        type="file"
+                                        className="file-input w-full max-w-xs"
                                     />
-
-                                    {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-
+                                    {errors.image && <p className="text-red-500">{errors.image.message}</p>}
                                 </div>
 
-                                <div className="modal-action">
-                                    <button type="button" className="btn" onClick={() => setIsModalOpen(false)}>Cancel</button>
-                                    <button type="submit" className="btn btn-primary">Submit</button>
+                                <div className="modal-action flex justify-between mt-4">
+                                    <button
+                                        type="button"
+                                        className="btn"
+                                        onClick={() => setIsModalOpen(false)}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button type="submit" className="btn btn-success text-white">
+                                        Add Category
+                                    </button>
                                 </div>
                             </form>
                         </div>
