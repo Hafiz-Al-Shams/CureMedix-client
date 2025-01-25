@@ -43,46 +43,50 @@ const ManagePayments = () => {
 
 
     return (
-        <div className="overflow-x-auto">
-            <table className="table table-zebra w-full">
-                <thead>
-                    <tr>
-                        <th className="">No.</th>
-                        <th>Transaction ID</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {payments.map((payment, i) => (
-                        <tr key={payment.transactionId}>
-                            <td className="">{i + 1}</td>
-                            <td>{payment.transactionId}</td>
-                            <td>{payment.status}</td>
-                            <td>
-                                {payment.status === 'pending' ? (
-                                    <button
-                                        onClick={() => handleAcceptPayment(payment.transactionId)}
-                                        className="btn btn-success"
-                                    >
-                                        Accept Payment
-                                    </button>
-                                ) : (
-                                    <button
-                                        className="btn btn-success"
-                                        disabled
-                                    >
-                                        Payment Accepted
-                                    </button>
-                                )
-                                }
 
-                            </td>
+        <>
+            <h3 className="text-3xl font-semibold bg-lime-200 p-4 ml-20 my-10">Accept pending Payments:</h3>
+            <div className="overflow-x-auto w-10/12 mx-auto mb-16">
+                <table className="table table-zebra w-full">
+                    <thead>
+                        <tr>
+                            <th className="">No.</th>
+                            <th>Transaction ID</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {payments.map((payment, i) => (
+                            <tr key={payment.transactionId}>
+                                <td className="">{i + 1}</td>
+                                <td>{payment.transactionId}</td>
+                                <td>{payment.status}</td>
+                                <td>
+                                    {payment.status === 'pending' ? (
+                                        <button
+                                            onClick={() => handleAcceptPayment(payment.transactionId)}
+                                            className="btn btn-success"
+                                        >
+                                            Accept Payment
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className="btn btn-success"
+                                            disabled
+                                        >
+                                            Payment Accepted
+                                        </button>
+                                    )
+                                    }
+
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </>
     );
 };
 
