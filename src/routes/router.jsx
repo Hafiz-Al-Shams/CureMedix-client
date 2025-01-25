@@ -15,6 +15,8 @@ import AllCategories from "../pages/Dashboard/AllCategories";
 import UpdateCategory from "../pages/Dashboard/UpdateCategory";
 import Payment from "../pages/Dashboard/Payment";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory";
+import UserHome from "../pages/Dashboard/UserHome";
+import AdminHome from "../pages/Dashboard/AdminHome";
 
 
 
@@ -54,6 +56,10 @@ const router = createBrowserRouter([
 
             // admin routes
             {
+                path: 'adminHome',
+                element: <AdminRoute><AdminHome></AdminHome></AdminRoute>,
+            },
+            {
                 path: 'users',
                 element: <AdminRoute><AllUsers></AllUsers></AdminRoute>,
             },
@@ -68,6 +74,10 @@ const router = createBrowserRouter([
             },
 
             // user routes
+            {
+                path: 'userHome',
+                element: <UserHome></UserHome>,
+            },
             {
                 path: 'cart',
                 element: <Cart></Cart>,

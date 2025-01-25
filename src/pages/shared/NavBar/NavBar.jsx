@@ -9,12 +9,14 @@ import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/useAdmin";
 // import { Tooltip } from "react-tooltip";
 
 
 
 const NavBar = () => {
     const { user, signOutUser } = useContext(AuthContext);
+    const [isAdmin] = useAdmin();
     const [cart] = useCart();
 
     // console.log(user?.email);
@@ -94,12 +96,20 @@ const NavBar = () => {
             <li>
                 <NavLink to="/update-profile">Update Profile</NavLink>
             </li>
-            <li>
-                <NavLink to="/dashboard">Dashboard</NavLink>
-            </li>
-            <li>
-                <a onClick={handleLogOut}>Logout</a>
-            </li>
+
+            {
+                user && isAdmin && <li><NavLink to="/dashboard/adminHome">Dashboard</NavLink></li>
+            }
+            {
+                user && !isAdmin && <li><NavLink to="/dashboard/userHome">Dashboard</NavLink></li>
+            }
+
+            {/* TODO */}
+            {/* logic1= user && isAdmin && ------*/}
+            {/* logic2= user && isSeller && ---------*/}
+            {/* logic3= user && !isAdmin && ! isSeller && -----*/}
+
+            <li><a onClick={handleLogOut}>Logout</a></li>
         </>
     );
 
