@@ -38,17 +38,17 @@ const Dashboard = () => {
                                     All Categories</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/payments">
+                                <NavLink to="/dashboard/manage-payments">
                                     <MdPayments />
                                     Manage Payments</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/salesReport">
+                                <NavLink to="/dashboard/sales-report">
                                     <BiSolidReport />
                                     Sales Report</NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/manageBanner">
+                                <NavLink to="/dashboard/manage-banner">
                                     <PiFlagBannerFill />
                                     Manage Banner</NavLink>
                             </li>
