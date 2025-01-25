@@ -68,7 +68,7 @@ const Shop = () => {
                             icon: "success",
                             title: `${name} added to your cart`,
                             showConfirmButton: false,
-                            timer: 2000
+                            timer: 1000
                         });
                         refetch();
                     }
