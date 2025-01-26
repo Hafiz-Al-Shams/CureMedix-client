@@ -33,15 +33,6 @@ const DetailsCard = () => {
             });
     }, [categoryName]);
 
-    // useEffect(() => {
-    //     fetch(`https://cure-medix-server.vercel.app/medicines`)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             const filteredMedicines = data.filter(medicine => medicine.category === categoryName);
-    //             setMedicines(filteredMedicines);
-    //         })
-    //         .catch(error => console.error("Error happened while fetching data:", error));
-    // }, [categoryName]);
 
 
 
