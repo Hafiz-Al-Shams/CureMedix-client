@@ -94,7 +94,7 @@ const Shop = () => {
     };
 
     return (
-        <div className="p-6 max-w-screen-2xl mx-auto">
+        <div className="px-6 pt-6 max-w-screen-2xl mx-auto pb-24">
             <Helmet>
                 <title>CureMedix | Shop</title>
             </Helmet>

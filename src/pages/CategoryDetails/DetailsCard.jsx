@@ -118,7 +118,7 @@ const DetailsCard = () => {
             <Helmet>
                 <title>CureMedix | Category - {categoryName}</title>
             </Helmet>
-            <div className="px-6 max-w-screen-2xl min-h-screen mx-auto pt-16">
+            <div className="px-6 max-w-screen-2xl min-h-screen mx-auto pt-16 pb-24">
                 <h1 className="text-3xl font-bold mb-6">Medicines for {categoryName}</h1>
                 <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
                     <thead>
