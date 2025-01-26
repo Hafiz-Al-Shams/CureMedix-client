@@ -71,6 +71,8 @@ const AllCategories = () => {
 
         // setIsModalOpen(false); // Closing modal after submission
     };
+
+
     // testing area
 
 
