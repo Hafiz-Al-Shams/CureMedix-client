@@ -1,7 +1,6 @@
-# CureMedix - Elite Multi-Vendor Medicine Selling E-commerce Website
+# CureMedix - Medicine Selling E-commerce Website
 
-## Admin username: Goggins
-## Password: 1234Ui*
+## Admin username: Goggins, Password: 1234Ui*
 
 
 ## Live URL: [https://cure-medix-by-hafiz-al-shams1917.netlify.app/](https://cure-medix-by-hafiz-al-shams1917.netlify.app/)
