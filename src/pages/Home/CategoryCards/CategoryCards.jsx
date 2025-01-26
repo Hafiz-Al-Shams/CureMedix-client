@@ -9,7 +9,7 @@ const CategoryCards = () => {
 
 
     useEffect(() => {
-        fetch("http://localhost:5000/medicines")
+        fetch("https://cure-medix-server.vercel.app/medicines")
             .then(res => res.json())
             .then(data => {
                 const gCategories = {};
