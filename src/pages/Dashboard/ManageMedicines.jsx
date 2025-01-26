@@ -5,6 +5,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
 
 
 
@@ -18,13 +19,13 @@ const ManageMedicines = () => {
     const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
 
-    // const { data: medicines = [], refetch } = useQuery({
-    //     queryKey: ['medicines'],
-    //     queryFn: async () => {
-    //         const res = await axiosSecure.get('/medicines');
-    //         return res.data;
-    //     }
-    // });
+    const { data: medicines = [], refetch } = useQuery({
+        queryKey: ['medicines'],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/medicines/${user.email}`);
+            return res.data;
+        }
+    });
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -40,16 +41,17 @@ const ManageMedicines = () => {
         if (res.data.success) {
             const newMedicine = {
                 name: data.name,
-                details: data.details,
+                description: data.details,
                 image: res.data.data.display_url,
                 type: data.type,
                 price: parseFloat(data.price),
                 stock: parseInt(data.stock, 10),
-                discountPercentage: parseInt(data.discountPercentage, 10),
+                discount: data.discount,
+                discountPercentage: `${parseInt(data.discountPercentage, 10)}%`,
                 category: data.category,
                 company: data.company,
                 unit: data.unit,
-                count: 0, // Default count
+                // count: 0,
                 seller: user.email
             };
 
@@ -57,7 +59,7 @@ const ManageMedicines = () => {
 
             if (MedicineRes.data.insertedId) {
                 reset();
-                // refetch();
+                refetch();
                 setIsModalOpen(false);
                 Swal.fire({
                     position: "center",
@@ -72,190 +74,256 @@ const ManageMedicines = () => {
 
     return (
         <>
-            <div className="my-10 text-center text-4xl font-semibold">
-                Manage all Your Medicines Here:
-            </div>
-            <div className="my-10">
-                <button className="btn btn-secondary" onClick={() => setIsModalOpen(true)}>
-                    Add Medicine
-                </button>
-            </div>
-            <div>
-                {isModalOpen && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                        <div className="modal modal-open">
-                            <div className="modal-box p-10">
-                                <form onSubmit={handleSubmit(onSubmit)}>
-                                    {/* Medicine Name */}
-                                    <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">Medicine Name*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            placeholder="Medicine Name"
-                                            {...register("name", { required: "Medicine Name is required" })}
-                                            className="input input-bordered w-full"
-                                        />
-                                        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-                                    </div>
+            <div className="px-10 mb-24">
+                <div className="my-10 text-center text-4xl font-semibold">
+                    Manage all Your Medicines Here:
+                </div>
+                <div className="my-10">
+                    <button className="btn btn-secondary" onClick={() => setIsModalOpen(true)}>
+                        Add Medicine
+                    </button>
+                </div>
 
-                                    {/* Medicine Details */}
-                                    <div className="form-control my-4">
-                                        <label className="label">
-                                            <span className="label-text-alt">Medicine Details*</span>
-                                        </label>
-                                        <textarea
-                                            {...register("details", { required: "Details are required" })}
-                                            className="textarea textarea-bordered h-16"
-                                            placeholder="Details"
-                                        ></textarea>
-                                        {errors.details && <p className="text-red-500">{errors.details.message}</p>}
+                {/* table */}
+                <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
+                    <thead>
+                        <tr className="bg-emerald-800/90 text-white">
+                            <th className="py-3 px-4 border-b text-left">No.</th>
+                            <th className="py-3 px-4 border-b text-left">Image</th>
+                            <th className="py-3 px-4 border-b text-left">Name</th>
+                            <th className="py-3 px-4 border-b text-left">category</th>
+                            <th className="py-3 px-4 border-b text-left">type</th>
+                            <th className="py-3 px-4 border-b text-left">price</th>
+                            <th className="py-3 px-4 border-b text-left">stock</th>
+                            <th className="py-3 px-4 border-b text-left">company</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {medicines.map((medicine, i) => (
+                            <tr
+                                key={i}
+                                className={`${i % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b hover:bg-gray-100 transition duration-300`}
+                            >
+                                <td className="py-3 px-4">{i + 1}</td>
+                                <td>
+                                    <div className="mask mask-squircle w-12 h-12">
+                                        <img src={medicine.image} alt="image" />
                                     </div>
+                                </td>
+                                <td className="py-3 px-4">{medicine.name}</td>
+                                <td className="py-3 px-4">{medicine.category}</td>
+                                <td className="py-3 px-4">{medicine.type}</td>
+                                <td className="py-3 px-4">{medicine.price}</td>
+                                <td className="py-3 px-4">{medicine.stock}</td>
+                                <td className="py-3 px-4">{medicine.company}</td>
 
-                                    {/* Image Upload */}
-                                    <div className="form-control mb-5">
-                                        <label className="label">
-                                            <span className="label-text">Upload Image*</span>
-                                        </label>
-                                        <input
-                                            {...register("image", { required: "Image is required" })}
-                                            type="file"
-                                            className="file-input w-full max-w-xs"
-                                        />
-                                        {errors.image && <p className="text-red-500">{errors.image.message}</p>}
-                                    </div>
-
-                                    {/* Type */}
-                                    <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">Type*</span>
-                                        </label>
-                                        <input
-                                            type="text"
-                                            placeholder="e.g., Pain Relief"
-                                            {...register("type", { required: "Type is required" })}
-                                            className="input input-bordered w-full"
-                                        />
-                                        {errors.type && <p className="text-red-500">{errors.type.message}</p>}
-                                    </div>
-
-                                    {/* Price */}
-                                    <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">Price*</span>
-                                        </label>
-                                        <input
-                                            type="number"
-                                            step="0.01"
-                                            placeholder="e.g., 3.50"
-                                            {...register("price", { required: "Price is required" })}
-                                            className="input input-bordered w-full"
-                                        />
-                                        {errors.price && <p className="text-red-500">{errors.price.message}</p>}
-                                    </div>
-
-                                    {/* Stock */}
-                                    <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">Stock*</span>
-                                        </label>
-                                        <input
-                                            type="number"
-                                            placeholder="e.g., 80"
-                                            {...register("stock", { required: "Stock is required" })}
-                                            className="input input-bordered w-full"
-                                        />
-                                        {errors.stock && <p className="text-red-500">{errors.stock.message}</p>}
-                                    </div>
-
-                                    {/* Discount Percentage */}
-                                    <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">Discount Percentage</span>
-                                        </label>
-                                        <select
-                                            {...register("discountPercentage")}
-                                            className="select select-bordered w-full"
-                                        >
-                                            <option value="0" defaultValue>0%</option>
-                                            <option value="25">25%</option>
-                                            <option value="40">40%</option>
-                                            <option value="50">50%</option>
-                                            <option value="70">70%</option>
-                                        </select>
-                                    </div>
-
-                                    {/* Category */}
-                                    <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">Category</span>
-                                        </label>
-                                        <select
-                                            {...register("category")}
-                                            className="select select-bordered w-full"
-                                        >
-                                            <option value="Tablet" defaultValue>Tablet</option>
-                                            <option value="Inhaler">Inhaler</option>
-                                            <option value="Injection">Injection</option>
-                                            <option value="Syrup">Syrup</option>
-                                            <option value="Capsule">Capsule</option>
-                                        </select>
-                                    </div>
-
-                                    {/* Company */}
-                                    <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">Company</span>
-                                        </label>
-                                        <select
-                                            {...register("company", { required: "Please select a company" })}
-                                            className="select select-bordered w-full"
-                                            defaultValue=""
-                                        >
-                                            <option value="">Company Name</option>
-                                            <option value="Pfizer">Pfizer</option>
-                                            <option value="Novartis">Novartis</option>
-                                            <option value="Roche">Roche</option>
-                                            <option value="Sanofi">Sanofi</option>
-                                            <option value="GSK">GSK</option>
-                                        </select>
-                                        {errors.company && <p className="text-red-500">{errors.company.message}</p>}
-                                    </div>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
 
 
-                                    {/* Unit */}
-                                    <div className="form-control">
-                                        <label className="label">
-                                            <span className="label-text">Item Mass Unit</span>
-                                        </label>
-                                        <select
-                                            {...register("unit")}
-                                            className="select select-bordered w-full"
-                                        >
-                                            <option value="Mg" defaultValue>Mg</option>
-                                            <option value="ML">ML</option>
-                                        </select>
-                                    </div>
 
-                                    {/* Modal Actions */}
-                                    <div className="modal-action flex justify-between mt-4">
-                                        <button
-                                            type="button"
-                                            className="btn"
-                                            onClick={() => setIsModalOpen(false)}
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button type="submit" className="btn btn-success text-white">
-                                            Add Medicine
-                                        </button>
-                                    </div>
-                                </form>
+
+
+
+
+
+
+                {/* Modal */}
+                <div>
+                    {isModalOpen && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                            <div className="modal modal-open">
+                                <div className="modal-box p-10">
+                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                        {/* Medicine Name */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Medicine Name*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                placeholder="Medicine Name"
+                                                {...register("name", { required: "Medicine Name is required" })}
+                                                className="input input-bordered w-full"
+                                            />
+                                            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                                        </div>
+
+                                        {/* Medicine Details */}
+                                        <div className="form-control my-4">
+                                            <label className="label">
+                                                <span className="label-text-alt">Medicine Details*</span>
+                                            </label>
+                                            <textarea
+                                                {...register("details", { required: "Details are required" })}
+                                                className="textarea textarea-bordered h-16"
+                                                placeholder="Details"
+                                            ></textarea>
+                                            {errors.details && <p className="text-red-500">{errors.details.message}</p>}
+                                        </div>
+
+                                        {/* Image Upload */}
+                                        <div className="form-control mb-5">
+                                            <label className="label">
+                                                <span className="label-text">Upload Image*</span>
+                                            </label>
+                                            <input
+                                                {...register("image", { required: "Image is required" })}
+                                                type="file"
+                                                className="file-input w-full max-w-xs"
+                                            />
+                                            {errors.image && <p className="text-red-500">{errors.image.message}</p>}
+                                        </div>
+
+                                        {/* Type */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Type*</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                placeholder="e.g., Pain Relief"
+                                                {...register("type", { required: "Type is required" })}
+                                                className="input input-bordered w-full"
+                                            />
+                                            {errors.type && <p className="text-red-500">{errors.type.message}</p>}
+                                        </div>
+
+                                        {/* Price */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Price*</span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                step="0.01"
+                                                placeholder="e.g., 3.50"
+                                                {...register("price", { required: "Price is required" })}
+                                                className="input input-bordered w-full"
+                                            />
+                                            {errors.price && <p className="text-red-500">{errors.price.message}</p>}
+                                        </div>
+
+                                        {/* Stock */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Stock*</span>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                placeholder="e.g., 80"
+                                                {...register("stock", { required: "Stock is required" })}
+                                                className="input input-bordered w-full"
+                                            />
+                                            {errors.stock && <p className="text-red-500">{errors.stock.message}</p>}
+                                        </div>
+
+                                        {/* discount */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Discount</span>
+                                            </label>
+                                            <select
+                                                {...register("discount")}
+                                                className="select select-bordered w-full"
+                                            >
+                                                <option value={true} defaultValue>false</option>
+                                                <option value={false}>true</option>
+                                            </select>
+                                        </div>
+
+                                        {/* Discount Percentage */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Discount Percentage</span>
+                                            </label>
+                                            <select
+                                                {...register("discountPercentage")}
+                                                className="select select-bordered w-full"
+                                            >
+                                                <option value="0" defaultValue>0%</option>
+                                                <option value="25">25%</option>
+                                                <option value="40">40%</option>
+                                                <option value="50">50%</option>
+                                                <option value="70">70%</option>
+                                            </select>
+                                        </div>
+
+                                        {/* Category */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Category</span>
+                                            </label>
+                                            <select
+                                                {...register("category")}
+                                                className="select select-bordered w-full"
+                                            >
+                                                <option value="Tablet" defaultValue>Tablet</option>
+                                                <option value="Inhaler">Inhaler</option>
+                                                <option value="Injection">Injection</option>
+                                                <option value="Syrup">Syrup</option>
+                                                <option value="Capsule">Capsule</option>
+                                            </select>
+                                        </div>
+
+                                        {/* Company */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Company</span>
+                                            </label>
+                                            <select
+                                                {...register("company", { required: "Please select a company" })}
+                                                className="select select-bordered w-full"
+                                                defaultValue=""
+                                            >
+                                                <option value="">Company Name</option>
+                                                <option value="Pfizer">Pfizer</option>
+                                                <option value="Novartis">Novartis</option>
+                                                <option value="Roche">Roche</option>
+                                                <option value="Sanofi">Sanofi</option>
+                                                <option value="GSK">GSK</option>
+                                            </select>
+                                            {errors.company && <p className="text-red-500">{errors.company.message}</p>}
+                                        </div>
+
+
+                                        {/* Unit */}
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Item Mass Unit</span>
+                                            </label>
+                                            <select
+                                                {...register("unit")}
+                                                className="select select-bordered w-full"
+                                            >
+                                                <option value="Mg" defaultValue>Mg</option>
+                                                <option value="ML">ML</option>
+                                            </select>
+                                        </div>
+
+
+
+                                        {/* Modal Actions */}
+                                        <div className="modal-action flex justify-between mt-4">
+                                            <button
+                                                type="button"
+                                                className="btn"
+                                                onClick={() => setIsModalOpen(false)}
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button type="submit" className="btn btn-success text-white">
+                                                Add Medicine
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
         </>
     );

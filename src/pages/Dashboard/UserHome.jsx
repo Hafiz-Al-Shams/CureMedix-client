@@ -8,10 +8,10 @@ const UserHome = () => {
     return (
         <div>
             <h2 className="text-3xl font-semibold">
-                <span>Hello, Welcome </span>
-                {
+                <span>Hello User, Welcome Home</span>
+                {/* {
                     user?.displayName ? `User (${user.displayName})` : 'to home'
-                }
+                } */}
             </h2>
         </div>
     );

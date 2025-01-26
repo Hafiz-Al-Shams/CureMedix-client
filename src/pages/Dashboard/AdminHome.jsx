@@ -27,10 +27,12 @@ const AdminHome = () => {
     return (
         <div className="w-11/12 mx-auto">
             <h2 className="text-4xl font-semibold my-10">
-                <span>Welcome </span>
+
+                <span>Welcome Home Admin</span>
+                {/* <span>Welcome </span>
                 {
                     user?.displayName ? `Admin (${user.displayName})` : 'Back'
-                }
+                } */}
             </h2>
 
 
