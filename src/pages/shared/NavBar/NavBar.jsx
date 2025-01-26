@@ -77,12 +77,26 @@ const NavBar = () => {
                 <h5>Shop</h5>
             </div>
         </NavLink></li>
+
+        {/* condition will be user && !isAdmin && ! isSeller && --- */}
+        {/* {
+            user && !isAdmin && (
+                <li><NavLink to="/dashboard/cart">
+                    <div className="flex justify-center items-center gap-1">
+                        <PiShoppingCartBold className="text-xl" />
+                        <div className="badge badge-secondary">+{cart.length}</div>
+                    </div>
+                </NavLink></li>
+            )
+        } */}
+
         <li><NavLink to="/dashboard/cart">
             <div className="flex justify-center items-center gap-1">
                 <PiShoppingCartBold className="text-xl" />
                 <div className="badge badge-secondary">+{cart.length}</div>
             </div>
         </NavLink></li>
+
         <li><NavLink to="/doctor">
             <div className="flex justify-center items-center gap-1">
                 <FaStethoscope className="" />
