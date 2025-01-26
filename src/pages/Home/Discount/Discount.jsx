@@ -29,7 +29,7 @@ const Discount = () => {
 
     return (
         <>
-            <section>
+            <section className='my-4'>
                 <Swiper
                     slidesPerView={4}
                     spaceBetween={30}

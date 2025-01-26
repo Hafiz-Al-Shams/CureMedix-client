@@ -19,7 +19,7 @@ const Home = () => {
                     <CategoryCards></CategoryCards>
                 </div>
                 <div className="bg-base-100 pt-10">
-                    <h2 className="text-center text-3xl font-semibold pb-6">discounted products</h2>
+                    <h2 className="text-center text-4xl font-semibold pb-5 pt-4">Medicines with Super Discounts!</h2>
                     <Discount></Discount>
                 </div>
                 <KnowUs></KnowUs>
