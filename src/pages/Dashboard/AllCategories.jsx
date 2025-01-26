@@ -34,7 +34,7 @@ const AllCategories = () => {
     // const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
-        console.log(data);
+        // console.log(data);
         // Add your form submission logic here
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(image_hosting_api, imageFile, {

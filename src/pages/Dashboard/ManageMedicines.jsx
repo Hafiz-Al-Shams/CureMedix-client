@@ -30,7 +30,7 @@ const ManageMedicines = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const onSubmit = async (data) => {
-        console.log(data);
+        // console.log(data);
         const imageFile = { image: data.image[0] };
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
             headers: {
