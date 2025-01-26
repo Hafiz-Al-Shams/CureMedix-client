@@ -154,7 +154,7 @@ const ManageMedicines = () => {
                                         {/* Medicine Details */}
                                         <div className="form-control my-4">
                                             <label className="label">
-                                                <span className="label-text-alt">Medicine Details*</span>
+                                                <span className="label-text-alt">Short Description*</span>
                                             </label>
                                             <textarea
                                                 {...register("details", { required: "Details are required" })}
@@ -192,9 +192,9 @@ const ManageMedicines = () => {
                                         </div>
 
                                         {/* Price */}
-                                        <div className="form-control">
+                                        <div className="form-control my-3">
                                             <label className="label">
-                                                <span className="label-text">Price*</span>
+                                                <span className="label-text">per unit Price*</span>
                                             </label>
                                             <input
                                                 type="number"
@@ -221,7 +221,7 @@ const ManageMedicines = () => {
                                         </div>
 
                                         {/* discount */}
-                                        <div className="form-control">
+                                        <div className="form-control my-3">
                                             <label className="label">
                                                 <span className="label-text">Discount</span>
                                             </label>
@@ -252,7 +252,7 @@ const ManageMedicines = () => {
                                         </div>
 
                                         {/* Category */}
-                                        <div className="form-control">
+                                        <div className="form-control my-3">
                                             <label className="label">
                                                 <span className="label-text">Category</span>
                                             </label>
@@ -290,7 +290,7 @@ const ManageMedicines = () => {
 
 
                                         {/* Unit */}
-                                        <div className="form-control">
+                                        <div className="form-control my-3">
                                             <label className="label">
                                                 <span className="label-text">Item Mass Unit</span>
                                             </label>
