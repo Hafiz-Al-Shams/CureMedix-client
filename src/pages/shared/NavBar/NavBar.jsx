@@ -10,6 +10,7 @@ import AuthContext from "../../../context/AuthContext/AuthContext";
 import Swal from "sweetalert2";
 import useCart from "../../../hooks/useCart";
 import useAdmin from "../../../hooks/useAdmin";
+import useSeller from "../../../hooks/useSeller";
 // import { Tooltip } from "react-tooltip";
 
 
@@ -17,6 +18,7 @@ import useAdmin from "../../../hooks/useAdmin";
 const NavBar = () => {
     const { user, signOutUser } = useContext(AuthContext);
     const [isAdmin] = useAdmin();
+    const [isSeller] = useSeller();
     const [cart] = useCart();
 
     // console.log(user?.email);
@@ -97,7 +99,7 @@ const NavBar = () => {
             </div>
         </NavLink></li>
 
-        <li><NavLink to="/doctor">
+        <li><NavLink to="/online-doctor">
             <div className="flex justify-center items-center gap-1">
                 <FaStethoscope className="" />
                 <h5>Online Doctor</h5>
@@ -115,7 +117,10 @@ const NavBar = () => {
                 user && isAdmin && <li><NavLink to="/dashboard/adminHome">Dashboard</NavLink></li>
             }
             {
-                user && !isAdmin && <li><NavLink to="/dashboard/userHome">Dashboard</NavLink></li>
+                user && isSeller && <li><NavLink to="/dashboard/sellerHome">Dashboard</NavLink></li>
+            }
+            {
+                !isSeller && !isAdmin && <li><NavLink to="/dashboard/userHome">Dashboard</NavLink></li>
             }
 
             {/* TODO */}

@@ -6,6 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCart from "../../hooks/useCart";
+import { Helmet } from "react-helmet-async";
 
 
 const Shop = () => {
@@ -94,6 +95,9 @@ const Shop = () => {
 
     return (
         <div className="p-6 max-w-screen-2xl mx-auto">
+            <Helmet>
+                <title>CureMedix | Shop</title>
+            </Helmet>
             <h1 className="text-3xl font-bold mb-6 mt-7">Shop Your Necessary Medicines Here</h1>
             <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
                 <thead>

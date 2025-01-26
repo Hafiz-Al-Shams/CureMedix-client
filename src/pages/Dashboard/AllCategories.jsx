@@ -151,7 +151,7 @@ const AllCategories = () => {
 
             {/* Add category Button */}
             <div className="my-10">
-                <button className="btn btn-lg btn-secondary" onClick={() => setIsModalOpen(true)}>
+                <button className="btn btn-secondary" onClick={() => setIsModalOpen(true)}>
                     Add Category
                 </button>
             </div>

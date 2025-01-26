@@ -116,7 +116,7 @@ const DetailsCard = () => {
     return (
         <>
             <Helmet>
-                <title>Category - {categoryName}</title>
+                <title>CureMedix | Category - {categoryName}</title>
             </Helmet>
             <div className="p-6 max-w-screen-2xl mx-auto">
                 <h1 className="text-3xl font-bold mb-6">Medicines for {categoryName}</h1>

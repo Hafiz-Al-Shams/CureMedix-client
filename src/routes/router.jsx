@@ -18,6 +18,16 @@ import PaymentHistory from "../pages/Dashboard/PaymentHistory";
 import UserHome from "../pages/Dashboard/UserHome";
 import AdminHome from "../pages/Dashboard/AdminHome";
 import ManagePayments from "../pages/Dashboard/ManagePayments";
+import SellerHome from "../pages/Dashboard/SellerHome";
+import ManageMedicines from "../pages/Dashboard/ManageMedicines";
+import HistoryPayments from "../pages/Dashboard/HistoryPayments";
+import BannerAd from "../pages/Dashboard/BannerAd";
+import Categories from "../pages/Categories/Categories";
+import Offer from "../pages/Offer/Offer";
+import OnlineDoctor from "../pages/OnlineDoctor/OnlineDoctor";
+import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
+import SalesReport from "../pages/Dashboard/SalesReport";
+import ManageBannerAd from "../pages/Dashboard/ManageBannerAd";
 
 
 
@@ -37,12 +47,28 @@ const router = createBrowserRouter([
                 element: <Shop></Shop>,
             },
             {
+                path: 'categories',
+                element: <Categories></Categories>,
+            },
+            {
+                path: 'offers',
+                element: <Offer></Offer>,
+            },
+            {
+                path: 'online-doctor',
+                element: <OnlineDoctor></OnlineDoctor>,
+            },
+            {
                 path: 'signUp',
                 element: <SignUp></SignUp>,
             },
             {
                 path: 'signIn',
                 element: <SignIn></SignIn>,
+            },
+            {
+                path: 'update-profile',
+                element: <PrivateRoute><UpdateProfile></UpdateProfile></PrivateRoute>,
             },
             {
                 path: 'categoryDetails/:categoryName',
@@ -77,6 +103,14 @@ const router = createBrowserRouter([
                 element: <AdminRoute><UpdateCategory></UpdateCategory></AdminRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
             },
+            {
+                path: 'sales-report',
+                element: <AdminRoute><SalesReport></SalesReport></AdminRoute>,
+            },
+            {
+                path: 'manage-banner',
+                element: <AdminRoute><ManageBannerAd></ManageBannerAd></AdminRoute>,
+            },
 
             // user routes
             {
@@ -85,7 +119,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'cart',
-                element: <Cart></Cart>,
+                element: <PrivateRoute><Cart></Cart></PrivateRoute>,
             },
             {
                 path: 'payment',
@@ -94,6 +128,24 @@ const router = createBrowserRouter([
             {
                 path: 'paymentHistory',
                 element: <PaymentHistory></PaymentHistory>
+            },
+
+            // seller routes
+            {
+                path: 'sellerHome',
+                element: <SellerHome></SellerHome>,
+            },
+            {
+                path: 'manage-medicines',
+                element: <ManageMedicines></ManageMedicines>,
+            },
+            {
+                path: 'payments-history',
+                element: <HistoryPayments></HistoryPayments>,
+            },
+            {
+                path: 'banner-ad',
+                element: <BannerAd></BannerAd>,
             },
 
 
