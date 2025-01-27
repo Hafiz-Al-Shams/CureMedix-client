@@ -195,47 +195,6 @@ const Cart = () => {
                     </tbody>
                 </table>
             </div>
-
-
-
-            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="col-span-2">
-                    <div className="mb-4">
-                        <button className="btn btn-warning" onClick={clearCart}>Clear Cart</button>
-                    </div>
-                    {cartItems.map((item) => (
-                        <div key={item._id} className="flex justify-between items-center border-b pb-4 mb-4">
-                            <div className="flex items-center">
-                                <img src={item.image} alt={item.name} className="w-16 h-16 rounded mr-4" />
-                                <div>
-                                    <h3 className="font-bold">{item.name}</h3>
-                                    <p>{item.company}</p>
-                                    <p>${item.price.toFixed(2)}</p>
-                                </div>
-                            </div>
-                            <div className="flex items-center">
-                                <button className="btn btn-secondary btn-sm mr-2" onClick={() => decreaseQuantity(item)}>-</button>
-                                <span>{item.quantity}</span>
-                                <button className="btn btn-secondary btn-sm ml-2" onClick={() => increaseQuantity(item)}>+</button>
-                            </div>
-                            <button className="btn btn-danger btn-sm" onClick={() => removeItem(item)}>Remove</button>
-                        </div>
-                    ))}
-                </div>
-                <div className="bg-gray-100 p-4 rounded shadow-md">
-                    <h2 className="text-xl font-bold mb-4">Order Summary</h2>
-                    <div className="mb-2">
-                        <p>Subtotal: ${calculateTotal().toFixed(2)}</p>
-                    </div>
-                    <div className="mb-4">
-                        <p>Shipping Fee: $0.00</p>
-                    </div>
-                    <div className="font-bold text-lg mb-4">
-                        <p>Total: ${calculateTotal().toFixed(2)}</p>
-                    </div>
-                    <button className="btn btn-primary w-full">Proceed to Checkout</button>
-                </div>
-            </div> */}
         </div>
     );
 };

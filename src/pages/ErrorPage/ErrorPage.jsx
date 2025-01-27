@@ -16,13 +16,6 @@ const ErrorPage = () => {
                         Back to Home
                     </Link>
                 </div>
-                {/* <div className="mt-10">
-                    <img
-                        src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif"
-                        alt="Lost in Space"
-                        className="w-80 md:w-96"
-                    />
-                </div> */}
             </div>
         </div>
     );
