@@ -18,7 +18,7 @@ const Home = () => {
                 <div className="">
                     <CategoryCards></CategoryCards>
                 </div>
-                <div className="bg-base-100 pt-10">
+                <div className="bg-base-100 pt-10 rounded-xl">
                     <h2 className="text-center text-4xl font-semibold pb-5 pt-4">Medicines with Super Discounts!</h2>
                     <Discount></Discount>
                 </div>

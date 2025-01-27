@@ -22,21 +22,21 @@ const Cart = () => {
         }
     }, [user?.email]);
 
-    const increaseQuantity = (item) => {
-        setCartItems(cartItems.map(cartItem =>
-            cartItem._id === item._id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-        ));
-        updateCartItem(item._id, { ...item, quantity: item.quantity + 1 });
-    };
+    // const increaseQuantity = (item) => {
+    //     setCartItems(cartItems.map(cartItem =>
+    //         cartItem._id === item._id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+    //     ));
+    //     updateCartItem(item._id, { ...item, quantity: item.quantity + 1 });
+    // };
 
-    const decreaseQuantity = (item) => {
-        if (item.quantity > 1) {
-            setCartItems(cartItems.map(cartItem =>
-                cartItem._id === item._id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
-            ));
-            updateCartItem(item._id, { ...item, quantity: item.quantity - 1 });
-        }
-    };
+    // const decreaseQuantity = (item) => {
+    //     if (item.quantity > 1) {
+    //         setCartItems(cartItems.map(cartItem =>
+    //             cartItem._id === item._id ? { ...cartItem, quantity: cartItem.quantity - 1 } : cartItem
+    //         ));
+    //         updateCartItem(item._id, { ...item, quantity: item.quantity - 1 });
+    //     }
+    // };
 
     // const removeItem = (item) => {
     //     fetch(`https://cure-medix-server.vercel.app/carts/${item._id}`, {
@@ -66,32 +66,32 @@ const Cart = () => {
     //     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     // };
 
-    const updateCartItem = (id, updatedItem) => {
-        fetch(`https://cure-medix-server.vercel.app/carts/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedItem),
-        })
-            .catch(error => console.error('Error:', error));
-    };
+    // const updateCartItem = (id, updatedItem) => {
+    //     fetch(`https://cure-medix-server.vercel.app/carts/${id}`, {
+    //         method: 'PUT',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(updatedItem),
+    //     })
+    //         .catch(error => console.error('Error:', error));
+    // };
 
     const handleViewDetails = (item) => {
         Swal.fire({
             title: item.name,
-            text: `${item.description}`,
+            // text: `${item.description}`,
             imageUrl: item.image,
             imageWidth: 400,
-            imageHeight: 250,
+            imageHeight: 300,
             imageAlt: item.name,
             html: `
-                        <div class="text-left ml-10">
-                            <p><strong>Category:</strong> ${item.category}</p>
-                            <p><strong>Type:</strong> ${item.type}</p>
-                            <p><strong>Price:</strong> $${item.price}</p>
-                            <p><strong>Stock:</strong> ${item.stock}</p>
-                            <p><strong>Stock:</strong> ${item.email}</p>
-                            <p><strong>Discount:</strong> ${item.discount ? item.discountPercentage : "NA"}</p>
-                        </div>
+                        <div class="text-left ml-10 space-y-1.5">
+                        <p><strong>Price per Unit:</strong> $${item.price}</p>
+                        <p><strong>Type:</strong> ${item.type}</p>
+                        <p><strong>Description:</strong> ${item.description}</p>
+                        <p><strong>Company:</strong> ${item.company}</p>
+                        <p><strong>Seller:</strong> ${item.seller}</p>
+                        
+                    </div>
                     `,
             showCloseButton: true,
             // draggable: true
@@ -132,9 +132,9 @@ const Cart = () => {
                 <h2 className="text-4xl">Ordered Medicine: {cart.length}</h2>
                 <h2 className="text-4xl">Total Price: {totalPrice}</h2>
                 {cart.length ? <Link to="/dashboard/payment">
-                    <button className="btn btn-primary btn-lg">Pay</button>
+                    <button className="btn btn-primary btn-lg">Checkout</button>
                 </Link> :
-                    <button disabled className="btn btn-primary">Pay</button>
+                    <button disabled className="btn btn-primary">Checkout</button>
                 }
 
             </div>
@@ -149,7 +149,8 @@ const Cart = () => {
                             </th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -171,6 +172,7 @@ const Cart = () => {
                                 <td>
                                     {item.name}
                                 </td>
+                                <td>{1}</td>
                                 <td>${item.price}</td>
                                 <td className="py-3 px-4">
                                     <button

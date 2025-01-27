@@ -39,18 +39,21 @@ const DetailsCard = () => {
     const handleViewDetails = (medicine) => {
         Swal.fire({
             title: medicine.name,
-            text: `${medicine.description}`,
+            // text: `${medicine.description}`,
             imageUrl: medicine.image,
             imageWidth: 400,
             imageHeight: 250,
             imageAlt: medicine.name,
             html: `
-                    <div class="text-left ml-10">
+                    <div class="text-left ml-10 space-y-1.5">
                         <p><strong>Category:</strong> ${medicine.category}</p>
                         <p><strong>Type:</strong> ${medicine.type}</p>
-                        <p><strong>Price:</strong> $${medicine.price}</p>
+                        <p><strong>Price per Unit:</strong> $${medicine.price}</p>
                         <p><strong>Stock:</strong> ${medicine.stock}</p>
                         <p><strong>Discount:</strong> ${medicine.discount ? medicine.discountPercentage : "NA"}</p>
+                        <p><strong>Description:</strong> ${medicine.description}</p>
+                        <p><strong>Company:</strong> ${medicine.company}</p>
+                        <p><strong>Seller:</strong> ${medicine.seller}</p>
                     </div>
                 `,
             showCloseButton: true,
@@ -60,14 +63,18 @@ const DetailsCard = () => {
 
 
     const handleAddToCart = (medicine) => {
-        const { name, image, price, _id } = medicine;
+        const { name, image, price, _id, type, description, seller, company } = medicine;
         if (user && user.email) {
             const cartItem = {
                 medicineId: _id,
                 email: user.email,
                 name,
                 image,
-                price
+                price,
+                type,
+                description,
+                seller,
+                company
             }
             axiosSecure.post('/carts', cartItem)
                 .then(res => {
