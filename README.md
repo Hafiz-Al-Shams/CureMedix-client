@@ -16,7 +16,7 @@
 
 - Discount Products Section: Implemented a draggable card slider for showcasing discounted products using Swiper.js.
 
-- Signup, Login, and Social Authentication: Fully functional Firebase-based authentication with role selection and Google/GitHub login options.
+- Signup, Login, and Social Authentication: Fully functional Firebase-based authentication with role selection and Google login option.
 
 - Shop Page with Modals: Medicine listing in tabular format with modals for detailed views and selection functionality.
 
