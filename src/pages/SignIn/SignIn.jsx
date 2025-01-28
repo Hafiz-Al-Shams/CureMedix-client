@@ -33,7 +33,7 @@ const SignIn = () => {
                     icon: "success",
                     title: 'Login Successful',
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 1000
                 });
                 e.target.reset();
                 navigate(from, { replace: true });

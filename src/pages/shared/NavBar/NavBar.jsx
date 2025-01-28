@@ -51,7 +51,7 @@ const NavBar = () => {
                     icon: 'warning',
                     title: 'Log out done!',
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 1000
 
                     // confirmButtonText: 'ok'
                 });

@@ -52,7 +52,7 @@ const UpdateCategory = () => {
                     icon: "success",
                     title: `UPDATED`,
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 1000
                 });
                 navigate('/dashboard/allCategories');
             }

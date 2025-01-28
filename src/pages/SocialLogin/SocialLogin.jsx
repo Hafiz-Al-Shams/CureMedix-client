@@ -34,7 +34,7 @@ const SocialLogin = () => {
                             icon: "success",
                             title: 'Google Login Successful',
                             showConfirmButton: false,
-                            timer: 2000
+                            timer: 1000
                         });
                         navigate('/');
                     })

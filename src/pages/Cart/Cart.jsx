@@ -123,7 +123,38 @@ const Cart = () => {
                     })
             }
         });
-    }
+    };
+
+    const handleClearCart = async () => {
+        try {
+            const email = user.email;
+            const deleteRes = await axiosSecure.delete(`/clearCarts`, { params: { email } });
+            // console.log(deleteRes.data);
+            if (deleteRes.data.deletedCount > 0) {
+                refetch();
+                Swal.fire({
+                    title: "Cleared!",
+                    text: "All Your Orders Have been Deleted",
+                    icon: "success"
+                });
+            }
+
+
+
+            // if (response.data.success) {
+            //     console.log(response.data.message);
+            //     console.log('successful');
+            //     // Perform any additional actions, like refreshing the cart list or showing a success message
+            // } else {
+            //     // console.log(response.data.message);
+            //     // Handle cases where no items were found to delete
+            // }
+        } catch (error) {
+            console.error("Failed to clear cart:", error);
+        }
+        // console.log(user.email);
+    };
+
 
     return (
         <div className="px-6 pt-4 max-w-screen-xl mx-auto">
@@ -135,6 +166,18 @@ const Cart = () => {
                     <button className="btn btn-primary btn-lg">Checkout</button>
                 </Link> :
                     <button disabled className="btn btn-primary">Checkout</button>
+                }
+
+            </div>
+            <div className="mb-5 ml-24">
+                {/* <button className="btn btn-warning"
+                    onClick={handleClearCart}
+                >Clear Cart</button> */}
+
+                {cart.length ? <button className="btn btn-warning"
+                    onClick={handleClearCart}
+                >Clear Cart</button> :
+                    <button disabled className="btn btn-warning">Clear Cart</button>
                 }
 
             </div>

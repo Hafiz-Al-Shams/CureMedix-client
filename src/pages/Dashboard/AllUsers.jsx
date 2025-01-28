@@ -28,7 +28,7 @@ const AllUsers = () => {
                         icon: "success",
                         title: `You made ${user.name} an Admin!`,
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 1000
                     });
                 }
             })
@@ -45,7 +45,7 @@ const AllUsers = () => {
                         icon: "success",
                         title: `You've downgraded ${user.name} into user!!!`,
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 1000
                     });
                 }
             })
@@ -62,7 +62,7 @@ const AllUsers = () => {
                         icon: "success",
                         title: `You made ${user.name} a Seller!`,
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 1000
                     });
                 }
             })

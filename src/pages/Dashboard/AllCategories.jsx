@@ -109,7 +109,7 @@ const AllCategories = () => {
                         icon: "success",
                         title: `${category.name} has been deleted`,
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 1000
                     });
                 }
 
