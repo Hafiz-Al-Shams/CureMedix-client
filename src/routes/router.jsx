@@ -28,6 +28,7 @@ import OnlineDoctor from "../pages/OnlineDoctor/OnlineDoctor";
 import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
 import SalesReport from "../pages/Dashboard/SalesReport";
 import ManageBannerAd from "../pages/Dashboard/ManageBannerAd";
+import InvoicePage from "../pages/InvoicePage";
 
 
 
@@ -149,6 +150,10 @@ const router = createBrowserRouter([
 
 
         ]
+    },
+    {
+        path: 'invoice',
+        element: <InvoicePage></InvoicePage>,
     },
     {
         path: "*",
