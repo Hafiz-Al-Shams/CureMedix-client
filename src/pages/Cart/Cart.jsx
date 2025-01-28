@@ -139,15 +139,11 @@ const Cart = () => {
                 });
             }
 
-
-
             // if (response.data.success) {
             //     console.log(response.data.message);
             //     console.log('successful');
-            //     // Perform any additional actions, like refreshing the cart list or showing a success message
             // } else {
             //     // console.log(response.data.message);
-            //     // Handle cases where no items were found to delete
             // }
         } catch (error) {
             console.error("Failed to clear cart:", error);
