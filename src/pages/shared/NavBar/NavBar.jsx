@@ -11,12 +11,13 @@ import Swal from "sweetalert2";
 import useCart from "../../../hooks/useCart";
 import useAdmin from "../../../hooks/useAdmin";
 import useSeller from "../../../hooks/useSeller";
+import useAuth from "../../../hooks/useAuth";
 // import { Tooltip } from "react-tooltip";
 
 
 
 const NavBar = () => {
-    const { user, signOutUser } = useContext(AuthContext);
+    const { user, signOutUser } = useAuth();
     const [isAdmin] = useAdmin();
     const [isSeller] = useSeller();
     const [cart] = useCart();
@@ -34,6 +35,8 @@ const NavBar = () => {
             setProfilePhoto(user.photoURL);
             setUserName(user.displayName);
             // setLoading(false);
+            // console.log(user.photoURL);
+            // console.log(user.displayName);
         }
         // setLoading(false);
     }, [user]);

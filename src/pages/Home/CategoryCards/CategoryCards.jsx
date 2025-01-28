@@ -4,30 +4,71 @@ import { Link } from "react-router-dom";
 
 
 const CategoryCards = () => {
+
+
+
+
     const [categories, setCategories] = useState([]);
 
-
-
     useEffect(() => {
-        fetch("https://cure-medix-server.vercel.app/medicines")
-            .then(res => res.json())
-            .then(data => {
-                const gCategories = {};
-                data.forEach(medicine => {
-                    if (!gCategories[medicine.category]) {
-                        gCategories[medicine.category] = {
+
+        const fetchMedicines = async () => {
+            try {
+                const res = await fetch("https://cure-medix-server.vercel.app/medicines");
+                const medicinesData = await res.json();
+
+                const newCategories = {};
+                medicinesData.forEach(medicine => {
+                    if (!newCategories[medicine.category]) {
+                        newCategories[medicine.category] = {
                             name: medicine.category,
                             count: 0,
-                            image: medicine.image
+                            image: null, // Placeholder for the image
                         };
                     }
-                    gCategories[medicine.category].count += 1;
+                    newCategories[medicine.category].count += 1;
                 });
-                const sortedCategories = Object.values(gCategories).sort((a, b) => b.count - a.count);
-                setCategories(sortedCategories);
-            })
-            .catch(error => console.log("Error happened while fetching data:", error));
+
+                return Object.values(newCategories).sort((a, b) => b.count - a.count);
+            } catch (error) {
+                console.log("Error fetching medicines data:", error);
+                return [];
+            }
+        };
+
+        const fetchCategoryImages = async () => {
+            try {
+                const res = await fetch("https://cure-medix-server.vercel.app/categoryImages");
+                const categoryImagesData = await res.json();
+                return categoryImagesData;
+            } catch (error) {
+                console.log("Error fetching category images data:", error);
+                return [];
+            }
+        };
+
+        // Combining data
+        const fetchAndCombineData = async () => {
+            const [medicineCategories, categoryImages] = await Promise.all([fetchMedicines(), fetchCategoryImages()]);
+
+            // Creating a map of images by category name for easy lookup
+            const imageMap = categoryImages.reduce((map, item) => {
+                map[item.categoryName] = item.imageUrl;
+                return map;
+            }, {});
+
+            // Merging the data: adding images to their corresponding categories
+            const combinedCategories = medicineCategories.map(category => ({
+                ...category,
+                image: imageMap[category.name] || category.image, // Using image from categoryImages or fallback to placeholder
+            }));
+
+            setCategories(combinedCategories);
+        };
+
+        fetchAndCombineData();
     }, []);
+
 
 
 

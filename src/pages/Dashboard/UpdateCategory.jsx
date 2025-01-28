@@ -39,6 +39,13 @@ const UpdateCategory = () => {
             const cateUpdateRes = await axiosSecure.patch(`/categories/${_id}`, updatedCategory);
             // console.log(cateUpdateRes.data);
             if (cateUpdateRes.data.modifiedCount > 0) {
+
+                // patching to new DBcollection
+                const updatedImage = {
+                    // categoryName: name,
+                    imageUrl: res.data.data.display_url,
+                };
+                await axiosSecure.patch(`/categoryImages/${name}`, updatedImage);
                 reset();
                 Swal.fire({
                     position: "top",

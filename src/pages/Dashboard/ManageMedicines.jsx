@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 // import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -28,6 +28,17 @@ const ManageMedicines = () => {
     });
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        fetch("https://cure-medix-server.vercel.app/categories")
+            .then((res) => res.json())
+            .then((data) => {
+                setCategories(data); // Set the fetched categories
+            })
+            .catch((error) => console.log("Error while fetching categories:", error));
+    }, []);
 
     const onSubmit = async (data) => {
         // console.log(data);
@@ -58,6 +69,7 @@ const ManageMedicines = () => {
             const MedicineRes = await axiosSecure.post('/medicines', newMedicine);
 
             if (MedicineRes.data.insertedId) {
+                await axiosSecure.patch(`/categories/addCount/${data.category}`, {});
                 reset();
                 refetch();
                 setIsModalOpen(false);
@@ -260,11 +272,15 @@ const ManageMedicines = () => {
                                                 {...register("category")}
                                                 className="select select-bordered w-full"
                                             >
-                                                <option value="Tablet" defaultValue>Tablet</option>
-                                                <option value="Inhaler">Inhaler</option>
-                                                <option value="Injection">Injection</option>
-                                                <option value="Syrup">Syrup</option>
-                                                <option value="Capsule">Capsule</option>
+                                                {categories.length === 0 ? (
+                                                    <option disabled>Loading categories...</option>
+                                                ) : (
+                                                    categories.map((category) => (
+                                                        <option key={category._id} value={category.name}>
+                                                            {category.name}
+                                                        </option>
+                                                    ))
+                                                )}
                                             </select>
                                         </div>
 

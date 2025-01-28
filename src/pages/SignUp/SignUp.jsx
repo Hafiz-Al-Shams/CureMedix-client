@@ -9,14 +9,83 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 // import { db } from "../../firebase/firebase.init";
 
 
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
+
+
 const SignUp = () => {
 
     const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, signOutUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const onSubmit = data => {
+    const onSubmit = async (data) => {
+
+
+        const imageFile = { image: data.image[0] }
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        });
+        if (res.data.success) {
+
+            createUser(data.email, data.password)
+                .then(result => {
+                    const loggedUser = result.user;
+                    // console.log(loggedUser);
+                    updateUserProfile({ displayName: data.name, photoURL: res.data.data.display_url })
+                        .then(() => {
+                            // creating user entry in the database
+                            const userInfo = {
+                                name: data.name,
+                                email: data.email,
+                                role: data.role,
+                            }
+                            axiosPublic.post('/users', userInfo)
+                                .then(res => {
+                                    if (res.data.insertedId) {
+                                        // console.log('user added to the database');
+
+                                        signOutUser()
+                                            .then(() => {
+                                                // console.log('user signOut successful');
+                                                Swal.fire({
+                                                    title: 'Sign Up Successful',
+                                                    text: 'Now please Login to Continue',
+                                                    icon: 'success',
+                                                    confirmButtonText: 'ok'
+                                                });
+                                                reset();
+                                                navigate('/signIn');
+                                            })
+                                            .catch(error => console.log('ERROR', error.message))
+
+
+
+
+                                        // old
+                                        // Swal.fire({
+                                        //     position: 'center-left',
+                                        //     icon: 'success',
+                                        //     title: 'Sign Up successful.',
+                                        //     showConfirmButton: false,
+                                        //     timer: 1000
+                                        // });
+                                        // navigate('/');
+                                    }
+                                })
+
+
+                        })
+                        .catch(error => console.log(error))
+                })
+
+
+        }
 
         // console.log(data.email);
         // console.log(data.name);
@@ -24,38 +93,7 @@ const SignUp = () => {
         // console.log(data.photoURL);
         // console.log(data.role);
 
-        createUser(data.email, data.password)
-            .then(result => {
-                const loggedUser = result.user;
-                // console.log(loggedUser);
-                updateUserProfile(data.name, data.photoURL)
-                    .then(() => {
-                        // create user entry in the database
-                        const userInfo = {
-                            name: data.name,
-                            email: data.email,
-                            role: data.role,
-                        }
-                        axiosPublic.post('/users', userInfo)
-                            .then(res => {
-                                if (res.data.insertedId) {
-                                    // console.log('user added to the database');
-                                    reset();
-                                    Swal.fire({
-                                        position: 'center-left',
-                                        icon: 'success',
-                                        title: 'User created successfully.',
-                                        showConfirmButton: false,
-                                        timer: 2000
-                                    });
-                                    // navigate('/');
-                                }
-                            })
 
-
-                    })
-                    .catch(error => console.log(error))
-            })
     };
 
 
@@ -86,13 +124,37 @@ const SignUp = () => {
                                 <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
                                 {errors.name && <span className="text-red-600">Name is required</span>}
                             </div>
-                            <div className="form-control">
+
+
+                            {/* old photoUrl taking input */}
+                            {/* <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Photo URL</span>
                                 </label>
                                 <input type="text"  {...register("photoURL", { required: true })} placeholder="Photo URL" className="input input-bordered" />
                                 {errors.photoURL && <span className="text-red-600">Photo URL is required</span>}
+                            </div> */}
+
+
+                            {/* testing area */}
+
+                            <div className="form-control my-2.5">
+                                <label className="label">
+                                    <span className="label-text">Upload Image*</span>
+                                </label>
+                                <input
+                                    {...register("image", { required: "Image is required" })}
+                                    type="file"
+                                    className="file-input w-full max-w-xs"
+                                />
+                                {errors.image && <p className="text-red-500">{errors.image.message}</p>}
                             </div>
+
+                            {/* testing area */}
+
+
+
+
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>

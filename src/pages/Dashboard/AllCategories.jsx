@@ -35,7 +35,6 @@ const AllCategories = () => {
 
     const onSubmit = async (data) => {
         // console.log(data);
-        // Add your form submission logic here
         const imageFile = { image: data.image[0] }
         const res = await axiosPublic.post(image_hosting_api, imageFile, {
             headers: {
@@ -55,6 +54,16 @@ const AllCategories = () => {
             // console.log(categoryRes.data);
 
             if (categoryRes.data.insertedId) {
+
+                // adding to new DBcollection
+                const categoryImage = {
+                    categoryName: data.name,
+                    imageUrl: res.data.data.display_url,
+                };
+                await axiosSecure.post('/categoryImages', categoryImage);
+
+
+
                 reset();
                 refetch();
                 setIsModalOpen(false);
@@ -63,7 +72,7 @@ const AllCategories = () => {
                     icon: "success",
                     title: `${data.name} is added to the category`,
                     showConfirmButton: false,
-                    timer: 2000
+                    timer: 1000
                 });
             }
         }
@@ -76,43 +85,6 @@ const AllCategories = () => {
     // testing area
 
 
-
-    // const onSubmit = async (data) => {
-    //     // console.log(data);
-    //     const imageFile = { image: data.image[0] }
-    //     const res = await axiosPublic.post(image_hosting_api, imageFile, {
-    //         headers: {
-    //             'content-type': 'multipart/form-data'
-    //         }
-    //     });
-    //     // console.log(res.data);
-    //     if (res.data.success) {
-    //         const newCategory = {
-    //             name: data.name,
-    //             count: 0,
-    //             image: res.data.data.display_url,
-    //             details: data.details,
-    //         }
-    //         // console.log(newCategory);
-    //         const categoryRes = await axiosSecure.post('/categories', newCategory);
-    //         // console.log(categoryRes.data);
-
-    //         if (categoryRes.data.insertedId) {
-    //             reset();
-    //             refetch();
-    //             Swal.fire({
-    //                 position: "center",
-    //                 icon: "success",
-    //                 title: `${data.name} is added to the category`,
-    //                 showConfirmButton: false,
-    //                 timer: 2000
-    //             });
-    //         }
-    //     }
-    //     // console.log(res.data.data.display_url);
-    //     // console.log(res.data.display_url);
-    //     // console.log('with image url', res.data);
-    // };
 
 
 
@@ -203,33 +175,6 @@ const AllCategories = () => {
                 </tbody>
             </table>
 
-            {/* <h2 className="mt-10 mb-5 text-3xl font-semibold">Add New Category</h2> */}
-            {/* <div className="mb-16">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Category Name*</span>
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="Category Name"
-                            {...register("name", { required: true })}
-                            className="input input-bordered w-full" />
-                    </div>
-                    <div className="form-control my-4">
-                        <label className="label">
-                            <span className="label-text-alt">Category Details</span>
-                        </label>
-                        <textarea {...register("details", { required: true })} className="textarea textarea-bordered h-16" placeholder="Details"></textarea>
-                    </div>
-                    <div className="form-control mb-5">
-                        <input {...register("image", { required: true })} type="file" className="file-input w-full max-w-xs" />
-                    </div>
-                    <button className="btn btn-success text-white">
-                        Add Category
-                    </button>
-                </form>
-            </div> */}
 
 
             {/* add category Modal */}
