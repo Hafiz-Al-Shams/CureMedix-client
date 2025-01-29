@@ -1,31 +1,31 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCart from "../../hooks/useCart";
 import { Helmet } from "react-helmet-async";
 
 
 const Shop = () => {
-    const [medicines, setMedicines] = useState([]);
+    const medicines = useLoaderData();
+    // const [medicines, setMedicines] = useState([]);
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const axiosSecure = useAxiosSecure();
     const [, refetch] = useCart();
 
-    useEffect(() => {
-        axios.get("https://cure-medix-server.vercel.app/medicines")
-            .then(res => {
-                setMedicines(res.data);
-            })
-            .catch(error => {
-                console.error("Error fetching medicines:", error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios.get("https://cure-medix-server.vercel.app/medicines")
+    //         .then(res => {
+    //             setMedicines(res.data);
+    //         })
+    //         .catch(error => {
+    //             console.error("Error fetching medicines:", error);
+    //         });
+    // }, []);
 
     const handleViewDetails = (medicine) => {
         Swal.fire({
@@ -100,12 +100,93 @@ const Shop = () => {
         }
     };
 
+
+
+
+    // testing area
+
+    // const foods = useLoaderData();
+
+    const [resultMedicines, setResultMedicines] = useState(medicines);
+
+    const [searchValue, setSearchValue] = useState("");
+    // const [results, setResults] = useState([]);
+
+    // State to manage the debounce timer
+    const [debounceTimer, setDebounceTimer] = useState(null);
+
+    const handleSearch = async (query) => {
+
+        try {
+            const response = await fetch(`https://cure-medix-server.vercel.app/searchMedicines?search=${encodeURIComponent(query)}`);
+            const data = await response.json();
+            setResultMedicines(data);
+        } catch (error) {
+            console.error("Error fetching search results:", error);
+        }
+    };
+
+
+    // Debounced search triggered by input change
+    const handleInputChange = (event) => {
+        const value = event.target.value;
+        setSearchValue(value);
+
+        // Clearing any existing debounce timer
+        if (debounceTimer) clearTimeout(debounceTimer);
+
+        // Setting a new debounce timer
+        const timer = setTimeout(() => {
+            handleSearch(value);
+        }, 300); // debounce delay
+        setDebounceTimer(timer);
+    };
+
+    // testing area
+
+
+
+
+
+
     return (
         <div className="px-6 pt-6 max-w-screen-2xl mx-auto pb-24">
             <Helmet>
                 <title>CureMedix | Shop</title>
             </Helmet>
             <h1 className="text-3xl font-bold mb-6 mt-7">Shop Your Necessary Medicines Here</h1>
+
+
+
+            {/* testing area */}
+
+            {/* searching medicines */}
+            <div className="flex justify-end pr-24">
+
+                <label className="input input-bordered input-primary flex items-center gap-2 mb-8">
+                    <input type="text" name="search" className="grow" placeholder="Search" value={searchValue}
+                        onChange={handleInputChange} // Real-time input handling
+                    />
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 16 16"
+                        fill="currentColor"
+                        className="h-6 w-6 opacity-95 text-neutral-content">
+                        <path
+                            fillRule="evenodd"
+                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                            clipRule="evenodd" />
+                    </svg>
+                </label>
+
+            </div>
+
+            {/* testing area */}
+
+
+
+
             <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
                 <thead>
                     <tr className="bg-emerald-800/90 text-white">
@@ -119,7 +200,7 @@ const Shop = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {medicines.map((medicine, index) => (
+                    {resultMedicines.map((medicine, index) => (
                         <tr
                             key={index}
                             className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b hover:bg-gray-100 transition duration-300`}
