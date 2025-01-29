@@ -17,6 +17,11 @@ const Shop = () => {
     const axiosSecure = useAxiosSecure();
     const [, refetch] = useCart();
 
+    const [resultMedicines, setResultMedicines] = useState(medicines);
+    const [searchValue, setSearchValue] = useState("");
+    const [debounceTimer, setDebounceTimer] = useState(null);
+    // const [isSorted, setIsSorted] = useState(false);
+
     // useEffect(() => {
     //     axios.get("https://cure-medix-server.vercel.app/medicines")
     //         .then(res => {
@@ -103,17 +108,13 @@ const Shop = () => {
 
 
 
+
     // testing area
 
-    // const foods = useLoaderData();
 
-    const [resultMedicines, setResultMedicines] = useState(medicines);
-
-    const [searchValue, setSearchValue] = useState("");
     // const [results, setResults] = useState([]);
 
     // State to manage the debounce timer
-    const [debounceTimer, setDebounceTimer] = useState(null);
 
     const handleSearch = async (query) => {
 
@@ -142,6 +143,16 @@ const Shop = () => {
         setDebounceTimer(timer);
     };
 
+
+
+    const handleSortByName = () => {
+        const sortedMedicines = [...resultMedicines].sort((a, b) =>
+            a.name.localeCompare(b.name)
+        );
+        setResultMedicines(sortedMedicines);
+        // setIsSorted(true);
+    };
+
     // testing area
 
 
@@ -160,25 +171,37 @@ const Shop = () => {
 
             {/* testing area */}
 
-            {/* searching medicines */}
-            <div className="flex justify-end pr-24">
+            <div className="flex justify-between items-center px-10">
 
-                <label className="input input-bordered input-primary flex items-center gap-2 mb-8">
-                    <input type="text" name="search" className="grow" placeholder="Search" value={searchValue}
-                        onChange={handleInputChange} // Real-time input handling
-                    />
+                <div className="flex justify-end mb-4">
+                    <button
+                        className="btn btn-secondary"
+                        onClick={handleSortByName}
+                    >
+                        Sort by Name (A-Z)
+                    </button>
+                </div>
 
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 16 16"
-                        fill="currentColor"
-                        className="h-6 w-6 opacity-95 text-neutral-content">
-                        <path
-                            fillRule="evenodd"
-                            d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                            clipRule="evenodd" />
-                    </svg>
-                </label>
+
+                <div className="pr-24">
+                    <h5 className="text-gray-900 font-semibold mb-1">Search by Name or Type</h5>
+                    <label className="input input-bordered input-primary flex items-center gap-2 mb-8">
+                        <input type="text" name="search" className="grow" placeholder="Search" value={searchValue}
+                            onChange={handleInputChange} // Real-time input handling
+                        />
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            className="h-6 w-6 opacity-95 text-neutral-content">
+                            <path
+                                fillRule="evenodd"
+                                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                                clipRule="evenodd" />
+                        </svg>
+                    </label>
+                </div>
 
             </div>
 
