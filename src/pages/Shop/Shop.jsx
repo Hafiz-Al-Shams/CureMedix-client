@@ -22,6 +22,12 @@ const Shop = () => {
     const [debounceTimer, setDebounceTimer] = useState(null);
     // const [isSorted, setIsSorted] = useState(false);
 
+    // state for pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+
+
+
     // useEffect(() => {
     //     axios.get("https://cure-medix-server.vercel.app/medicines")
     //         .then(res => {
@@ -31,6 +37,35 @@ const Shop = () => {
     //             console.error("Error fetching medicines:", error);
     //         });
     // }, []);
+
+
+
+
+    // testing area for pagination
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentMedicines = resultMedicines.slice(indexOfFirstItem, indexOfLastItem);
+
+
+    const totalPages = Math.ceil(resultMedicines.length / itemsPerPage);
+
+    const handlePageChange = (pageNumber) => {
+        if (pageNumber >= 1 && pageNumber <= totalPages) {
+            setCurrentPage(pageNumber);
+        }
+    };
+
+
+
+    const handleItemsPerPageChange = (event) => {
+        setItemsPerPage(Number(event.target.value));
+        setCurrentPage(1); // Reset to first page when changing items per page
+    };
+
+    // testing area for pagination
+
+
 
     const handleViewDetails = (medicine) => {
         Swal.fire({
@@ -161,11 +196,11 @@ const Shop = () => {
 
 
     return (
-        <div className="px-6 pt-6 max-w-screen-2xl mx-auto pb-24">
+        <div className="px-6 pt-2.5 max-w-screen-2xl mx-auto pb-24">
             <Helmet>
                 <title>CureMedix | Shop</title>
             </Helmet>
-            <h1 className="text-3xl font-bold mb-6 mt-7">Shop Your Necessary Medicines Here</h1>
+            <h1 className="text-3xl font-bold mb-2.5 mt-5">Shop Your Necessary Medicines Here</h1>
 
 
 
@@ -173,7 +208,7 @@ const Shop = () => {
 
             <div className="flex justify-between items-center px-10">
 
-                <div className="flex justify-end mb-4">
+                <div className="flex justify-end mb-2.5">
                     <button
                         className="btn btn-secondary"
                         onClick={handleSortByName}
@@ -184,7 +219,7 @@ const Shop = () => {
 
 
                 <div className="pr-24">
-                    <h5 className="text-gray-900 font-semibold mb-1">Search by Name or Type</h5>
+                    <h5 className="text-gray-900 font-medium mb-1">Search by Name or Type</h5>
                     <label className="input input-bordered input-primary flex items-center gap-2 mb-8">
                         <input type="text" name="search" className="grow" placeholder="Search" value={searchValue}
                             onChange={handleInputChange} // Real-time input handling
@@ -222,42 +257,78 @@ const Shop = () => {
                         <th className="py-3 px-4 border-b text-left">Actions</th>
                     </tr>
                 </thead>
+
+
                 <tbody>
-                    {resultMedicines.map((medicine, index) => (
-                        <tr
-                            key={index}
-                            className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b hover:bg-gray-100 transition duration-300`}
-                        >
-                            <td className="py-3 px-4">{index + 1}</td>
+                    {currentMedicines.map((medicine, index) => (
+                        <tr key={index} className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b hover:bg-gray-100 transition duration-300`}>
+                            <td className="py-3 px-4">{indexOfFirstItem + index + 1}</td>
                             <td className="py-3 px-4">{medicine.name}</td>
                             <td className="py-3 px-4">${medicine.price}</td>
-                            <td className="py-3 px-4">
-                                {medicine.discountPercentage ? `${medicine.discountPercentage}` : "NA"}
-                            </td>
-
+                            <td className="py-3 px-4">{medicine.discountPercentage ? `${medicine.discountPercentage}` : "NA"}</td>
                             <td className="py-3 px-4">{medicine.stock}</td>
                             <td className="py-3 px-4">{medicine.type}</td>
                             <td className="py-3 px-4">
-                                <button
-                                    className="mr-5 mt-2"
-                                >
-                                    <div className="text-xl text-emerald-950"
-                                        onClick={() => handleViewDetails(medicine)}
-                                    >
-                                        <FaEye />
-                                    </div>
+                                <button className="mr-5 mt-2" onClick={() => handleViewDetails(medicine)}>
+                                    <div className="text-xl text-emerald-950"><FaEye /></div>
                                 </button>
-                                <button
-                                    className="btn btn-primary btn-sm"
-                                    onClick={() => handleAddToCart(medicine)}
-                                >
+                                <button className="btn btn-primary btn-sm" onClick={() => handleAddToCart(medicine)}>
                                     Select
                                 </button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
+
+
             </table>
+
+            {/* for pagination */}
+            <div className="flex justify-between items-center mt-6 px-1">
+                {/* Items per page selection */}
+                <select
+                    className="border p-2 rounded-md"
+                    value={itemsPerPage}
+                    onChange={handleItemsPerPageChange}
+                >
+                    <option value="5">5 per page</option>
+                    <option value="10">10 per page</option>
+                    <option value="20">20 per page</option>
+                    <option value="50">50 per page</option>
+                </select>
+
+                {/* Pagination Controls */}
+                <div className="flex gap-2">
+                    <button
+                        className="px-3 py-1 border rounded-md disabled:opacity-50"
+                        disabled={currentPage === 1}
+                        onClick={() => handlePageChange(currentPage - 1)}
+                    >
+                        Prev
+                    </button>
+
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <button
+                            key={i}
+                            className={`px-3 py-1 border rounded-md ${currentPage === i + 1 ? "bg-gray-300" : ""}`}
+                            onClick={() => handlePageChange(i + 1)}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+
+                    <button
+                        className="px-3 py-1 border rounded-md disabled:opacity-50"
+                        disabled={currentPage === totalPages}
+                        onClick={() => handlePageChange(currentPage + 1)}
+                    >
+                        Next
+                    </button>
+                </div>
+            </div>
+
+
+
         </div>
     );
 };
