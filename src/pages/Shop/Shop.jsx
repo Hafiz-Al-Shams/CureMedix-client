@@ -146,7 +146,6 @@ const Shop = () => {
 
     // testing area
 
-
     // const [results, setResults] = useState([]);
 
     // State to manage the debounce timer
@@ -326,7 +325,6 @@ const Shop = () => {
                     </button>
                 </div>
             </div>
-
 
 
         </div>
