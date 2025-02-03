@@ -9,7 +9,6 @@ import SocialLogin from "../SocialLogin/SocialLogin";
 
 const SignIn = () => {
 
-
     const { signInUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
