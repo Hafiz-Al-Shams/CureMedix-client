@@ -1,9 +1,9 @@
 # CureMedix - Medicine Selling E-commerce Website
 
-![CureMedix Screenshot](example-screenshot.png)  
+![CureMedix Screenshot](https://i.ibb.co.com/JjQYgTyb/Screenshot-6645.png)
 
 ## Live Project  
-🔗 [CureMedix Live URL](https://cure-medix-by-hafiz-al-shams1917.netlify.app/)
+🔗 [CureMedix Live](https://cure-medix-by-hafiz-al-shams1917.netlify.app/)
 
 ## Overview  
 CureMedix is a feature-rich e-commerce platform designed for selling medicines online. It provides an intuitive user interface, secure authentication, a robust admin dashboard, and seamless payment processing using Stripe.
@@ -62,7 +62,7 @@ The following dependencies are used in the project:
   "sweetalert2": "^11.15.10",
   "swiper": "^11.2.1"
 }
-
+```
 
 ## Installation & Running Locally  
 Follow these steps to run the project locally:
