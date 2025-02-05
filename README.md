@@ -1,6 +1,6 @@
 # CureMedix - Medicine Selling E-commerce Website
 
-![CureMedix Screenshot](https://i.ibb.co.com/JjQYgTyb/Screenshot-6645.png)
+![CureMedix Screenshot](https://i.ibb.co.com/nN73gmx2/Screenshot-6645.png)
 
 ## Live Project  
 🔗 [CureMedix Live](https://cure-medix-by-hafiz-al-shams1917.netlify.app/)
