@@ -15,6 +15,7 @@ import useAuth from "../../../hooks/useAuth";
 
 
 
+
 const NavBar = () => {
     const { user, signOutUser } = useAuth();
     const [isAdmin] = useAdmin();
