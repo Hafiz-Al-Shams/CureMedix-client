@@ -146,7 +146,7 @@ const NavBar = () => {
 
     return (
         <>
-            <div className="sticky top-0 z-10 navbar font-medium py-3 px-10 bg-emerald-900 text-neutral-content">
+            <div className="sticky top-0 z-10 navbar font-medium py-3 px-28 bg-emerald-900 text-neutral-content">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
