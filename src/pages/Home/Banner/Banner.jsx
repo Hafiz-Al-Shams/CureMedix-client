@@ -16,9 +16,10 @@ const Banner = () => {
             infiniteLoop={true}
             showThumbs={false}
             transitionTime={500}
+        //  className="h-[70vh]"
         >
             <div>
-                <img src="https://i.ibb.co.com/2kHCxZ5/01.png" alt="" />
+                <img className="" src="https://i.ibb.co.com/2kHCxZ5/01.png" alt="" />
             </div>
             <div>
                 <img src="https://i.ibb.co.com/16TbRKP/02.png" />
