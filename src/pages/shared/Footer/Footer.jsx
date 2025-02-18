@@ -2,7 +2,7 @@
 
 const Footer = () => {
     return (
-        <footer className="footer bg-base-300 text-base-content font-medium p-10 mt-10">
+        <footer className="footer bg-base-300 text-base-content font-medium p-10">
             <aside>
 
                 {/* <img src="https://i.ibb.co.com/4ZzjnNc/nav-logo.png" alt="logo" className="w-32" /> */}

@@ -69,13 +69,13 @@ const NavBar = () => {
                 <h5>Home</h5>
             </div>
         </NavLink></li>
-        <li><NavLink to="/categories">
+        {/* <li><NavLink to="/categories">
             <div className="flex justify-center items-center gap-0.5">
                 <CgMenuHotdog className="text-xl" />
                 <h5>Categories</h5>
             </div>
-        </NavLink></li>
-        <li><NavLink to="/offers">% Offers</NavLink></li>
+        </NavLink></li> */}
+        {/* <li><NavLink to="/offers">% Offers</NavLink></li> */}
         <li><NavLink to="/shop">
             <div className="flex justify-center items-center gap-1">
                 <RiShoppingBag2Line className="text-xl" />
@@ -146,54 +146,58 @@ const NavBar = () => {
 
     return (
         <>
-            <div className="sticky top-0 z-10 navbar font-medium py-3 px-28 bg-emerald-900 text-neutral-content">
+            <div className="sticky top-0 z-10 navbar font-medium py-3 px-4 sm:px-8 lg:px-28 bg-emerald-900 text-neutral-content">
                 <div className="navbar-start">
                     <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                        {/* Modified: changed lg:hidden to md:hidden for showing on medium screens and up */}
+                        <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="h-5 w-5"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke="currentColor">
+                                stroke="currentColor"
+                            >
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     strokeWidth="2"
-                                    d="M4 6h16M4 12h8m-8 6h16" />
+                                    d="M4 6h16M4 12h8m-8 6h16"
+                                />
                             </svg>
                         </div>
                         <ul
                             tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-[1] mt-3 w-52 p-2 shadow space-y-2">
+                            className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-[1] mt-3 w-52 p-2 shadow space-y-2"
+                        >
                             {links}
                         </ul>
                     </div>
                     <Link to="/">
                         <div className="flex justify-center items-center gap-1.5">
-                            <div>
+                            <div className="hidden md:flex">
                                 <img className="w-7" src={logo} alt="" />
                             </div>
-                            <h4 className="text-2xl font-bold">CureMedix</h4>
+                            <h4 className="text-base md:text-2xl font-bold">CureMedix</h4>
                         </div>
                     </Link>
                 </div>
+
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1 space-x-4 font-semibold">
                         {links}
                     </ul>
                 </div>
+
                 <div className="navbar-end space-x-8">
-
-
                     <div className="">
+                        {/* Modified: added responsive classes for width and padding */}
                         <select
-                            className="select select-bordered w-28 text-xs text-neutral"
-                            // value={'language'}
+                            className="text-gray-900 font-bold w-14 sm:w-16 md:w-20 text-[9px] sm:text-[10px] md:text-xs px-1 py-0 lg:py-3 h-auto min-h-7 sm:min-h-8 border border-gray-300 rounded-md"
                             value={theme}
                             onChange={(e) => handleThemeChange(e.target.value)}
                         >
-                            <option value="english" >English</option>
+                            <option value="english">English</option>
                             <option value="bangla">Bangla</option>
                             <option value="japanese">Japanese</option>
                             <option value="german">German</option>
@@ -201,43 +205,33 @@ const NavBar = () => {
                         </select>
                     </div>
 
-                    {/* <div className="">
-                        <NavLink to="/signUp"><button className="btn bg-neutral-400/20 text-white/90">Join Us</button></NavLink>
-                    </div> */}
 
-
-                    {
-                        // loading ? (
-                        //     <span className="loading loading-bars loading-sm"></span>
-                        // ) : (
-                        user ? (
-                            <div className="flex justify-center items-center gap-3">
-                                <div className="dropdown dropdown-end">
-                                    <div tabIndex={0} role="button" className="btn bg-transparent rounded-full p-0">
-                                        <img
-                                            className="w-12 h-12 rounded-full object-cover cursor-pointer"
-                                            src={profilePhoto}
-                                            alt="photo"
-                                        />
-                                    </div>
-                                    <ul
-                                        tabIndex={0}
-                                        className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-[1] mt-3 w-52 p-4 shadow space-y-2"
-                                    >
-                                        {dropdownLinks}
-                                    </ul>
+                    {user ? (
+                        <div className="flex justify-center items-center gap-3">
+                            <div className="dropdown dropdown-end">
+                                <div tabIndex={0} role="button" className="btn bg-transparent rounded-full p-0">
+                                    <img
+                                        className="w-12 h-12 rounded-full object-cover cursor-pointer"
+                                        src={profilePhoto}
+                                        alt="photo"
+                                    />
                                 </div>
+                                <ul
+                                    tabIndex={0}
+                                    className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-[1] mt-3 w-52 p-4 shadow space-y-2"
+                                >
+                                    {dropdownLinks}
+                                </ul>
                             </div>
-                        ) : (
-                            <NavLink to="/signUp">
-                                <button className="btn bg-neutral-400/20 text-white/90">Join Us</button>
-                            </NavLink>
-                        )
-                        // )
-                    }
-                    {/* <Tooltip id="my-tooltip" /> */}
+                        </div>
+                    ) : (
+                        <NavLink to="/signUp">
+                            <button className="btn bg-neutral-400/20 text-white/90">Join Us</button>
+                        </NavLink>
+                    )}
                 </div>
             </div>
+
         </>
     );
 };
