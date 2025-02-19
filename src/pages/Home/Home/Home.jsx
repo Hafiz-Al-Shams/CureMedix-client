@@ -4,6 +4,7 @@ import Discount from "../Discount/Discount";
 import CategoryCards from "../CategoryCards/CategoryCards";
 import KnowUs from "../KnowUs/KnowUs";
 import Qualities from "./Qualities/Qualities";
+import Newsletter from "./Newsletter";
 
 
 const Home = () => {
@@ -24,6 +25,9 @@ const Home = () => {
                 </div>
                 <KnowUs></KnowUs>
                 <Qualities></Qualities>
+                <div className="pb-5 md:pb-9 lg:pb-14">
+                    <Newsletter></Newsletter>
+                </div>
             </div>
         </div>
     );
