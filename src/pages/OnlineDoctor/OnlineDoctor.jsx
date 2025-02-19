@@ -9,7 +9,6 @@ const OnlineDoctor = () => {
 
 
     useEffect(() => {
-        // Display SweetAlert2 when the component is mounted (i.e., when the route is visited)
         Swal.fire({
             title: 'Page is Under Development!',
             text: 'i am still working on this page! Stay tuned for updates!',

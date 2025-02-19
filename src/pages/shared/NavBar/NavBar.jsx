@@ -149,7 +149,7 @@ const NavBar = () => {
             <div className="sticky top-0 z-10 navbar font-medium py-3 px-4 sm:px-8 lg:px-28 bg-emerald-900 text-neutral-content">
                 <div className="navbar-start">
                     <div className="dropdown">
-                        {/* Modified: changed lg:hidden to md:hidden for showing on medium screens and up */}
+
                         <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ const NavBar = () => {
 
                 <div className="navbar-end space-x-8">
                     <div className="">
-                        {/* Modified: added responsive classes for width and padding */}
+
                         <select
                             className="text-gray-900 font-bold w-14 sm:w-16 md:w-20 text-[9px] sm:text-[10px] md:text-xs px-1 py-0 lg:py-3 h-auto min-h-7 sm:min-h-8 border border-gray-300 rounded-md"
                             value={theme}
