@@ -20,7 +20,7 @@ const Newsletter = () => {
                     Subscribe to Our Weekly Newsletter
                 </h2>
                 <p className="text-sm sm:text-base md:text-lg text-gray-200 max-w-lg mb-6">
-                    Get the latest updates, promotions, and industry insights delivered straight to your inbox.
+                    Get the latest updates, promotions, and medicines insights delivered straight to your inbox.
                 </p>
 
                 {/* Input & Button */}
