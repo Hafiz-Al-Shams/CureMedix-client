@@ -74,7 +74,7 @@ const CategoryCards = () => {
 
     return (
         <>
-            <h2 className="text-5xl font-semibold text-center mt-28 mb-7 text-black/90">Our Top Categories</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-center mt-12 md:mt-14 lg:mt-24 mb-1 md:mb-2.5 lg:mb-7 text-black/90">Our Top Categories</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-6 pt-6 pb-28">
                 {categories.map((category, i) => (
                     <div key={i} className="card bg-base-100 shadow-xl rounded-lg">
