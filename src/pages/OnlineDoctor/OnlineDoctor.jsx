@@ -23,7 +23,7 @@ const OnlineDoctor = () => {
             <Helmet>
                 <title>CureMedix | Online Doctor</title>
             </Helmet>
-            <div className="px-16">
+            <div className="px-16 pb-12 md:pb-16 lg:pb-24">
                 {/* <h2 className="text-4xl text-center font-semibold pt-10">your online doctor coming soon.......</h2> */}
 
 
