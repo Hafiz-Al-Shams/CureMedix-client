@@ -10,7 +10,7 @@ import { Helmet } from "react-helmet-async";
 
 const Shop = () => {
     const medicines = useLoaderData();
-    // const [medicines, setMedicines] = useState([]);
+
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,7 +20,7 @@ const Shop = () => {
     const [resultMedicines, setResultMedicines] = useState(medicines);
     const [searchValue, setSearchValue] = useState("");
     const [debounceTimer, setDebounceTimer] = useState(null);
-    // const [isSorted, setIsSorted] = useState(false);
+
 
     // state for pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -28,20 +28,7 @@ const Shop = () => {
 
 
 
-    // useEffect(() => {
-    //     axios.get("https://cure-medix-server.vercel.app/medicines")
-    //         .then(res => {
-    //             setMedicines(res.data);
-    //         })
-    //         .catch(error => {
-    //             console.error("Error fetching medicines:", error);
-    //         });
-    // }, []);
 
-
-
-
-    // testing area for pagination
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -63,14 +50,12 @@ const Shop = () => {
         setCurrentPage(1); // Reset to first page when changing items per page
     };
 
-    // testing area for pagination
 
 
 
     const handleViewDetails = (medicine) => {
         Swal.fire({
             title: medicine.name,
-            // text: `${medicine.description}`,
             imageUrl: medicine.image,
             imageWidth: 400,
             imageHeight: 250,
@@ -88,7 +73,6 @@ const Shop = () => {
                 </div>
             `,
             showCloseButton: true,
-            // draggable: true
         });
     };
 
@@ -109,7 +93,6 @@ const Shop = () => {
             }
             axiosSecure.post('/carts', cartItem)
                 .then(res => {
-                    // console.log(res.data)
                     if (res.data.insertedId) {
                         Swal.fire({
                             position: "center",
@@ -142,14 +125,7 @@ const Shop = () => {
 
 
 
-
-
-    // testing area
-
-    // const [results, setResults] = useState([]);
-
     // State to manage the debounce timer
-
     const handleSearch = async (query) => {
 
         try {
@@ -184,12 +160,7 @@ const Shop = () => {
             a.name.localeCompare(b.name)
         );
         setResultMedicines(sortedMedicines);
-        // setIsSorted(true);
     };
-
-    // testing area
-
-
 
 
 
@@ -201,9 +172,6 @@ const Shop = () => {
             </Helmet>
             <h1 className="text-3xl font-bold mb-2.5 mt-5">Shop Your Necessary Medicines Here</h1>
 
-
-
-            {/* testing area */}
 
             <div className="flex justify-between items-center px-10">
 
@@ -238,10 +206,6 @@ const Shop = () => {
                 </div>
 
             </div>
-
-            {/* testing area */}
-
-
 
 
             <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
@@ -325,10 +289,6 @@ const Shop = () => {
                     </button>
                 </div>
             </div>
-
-
-
-
         </div>
     );
 };

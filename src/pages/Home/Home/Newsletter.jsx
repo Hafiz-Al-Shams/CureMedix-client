@@ -14,7 +14,7 @@ const Newsletter = () => {
 
     return (
         <div>
-            <div className="bg-gradient-to-r from-emerald-500 to-emerald-800 text-white px-6 py-10 sm:px-8 sm:py-12 md:py-16 lg:py-20 rounded-lg shadow-lg flex flex-col items-center text-center">
+            <div className="bg-gradient-to-r from-emerald-300 to-emerald-800 text-white px-6 py-10 sm:px-8 sm:py-12 md:py-16 lg:py-20 rounded-lg shadow-lg flex flex-col items-center text-center">
                 {/* Heading */}
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                     Subscribe to Our Weekly Newsletter
