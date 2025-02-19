@@ -25,7 +25,7 @@ const Home = () => {
 
                 </div>
                 <div className="bg-base-100 pt-4 md:pt-7 lg:pt-10 rounded-md md:rounded-lg lg:rounded-xl">
-                    <h2 className="mb-5 md:mb-7 lg:mb-10 w-10/12 md:w-8/12 lg:w-6/12 mx-auto text-center text-2xl md:text-3xl lg:text-4xl font-semibold pb-5 pt-4 bg-primary/20">Medicines with Super Discounts!</h2>
+                    <h2 className="mb-5 md:mb-7 lg:mb-10 w-10/12 md:w-8/12 lg:w-6/12 mx-auto text-center text-2xl md:text-3xl lg:text-4xl font-semibold pb-5 pt-4 bg-emerald-100/50">Medicines with Super Discounts!</h2>
                     <Discount></Discount>
                 </div>
                 <KnowUs></KnowUs>
