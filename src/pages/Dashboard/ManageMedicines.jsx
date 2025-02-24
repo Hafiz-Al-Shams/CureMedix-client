@@ -49,6 +49,7 @@ const ManageMedicines = () => {
             },
         });
 
+
         if (res.data.success) {
             const newMedicine = {
                 name: data.name,
