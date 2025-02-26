@@ -1,4 +1,4 @@
-import { FaHome, FaList, FaShoppingCart, FaUsers } from "react-icons/fa";
+import { FaHome, FaList, FaShoppingCart, FaUser, FaUsers } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 import { RiShoppingBag2Line } from "react-icons/ri";
@@ -49,7 +49,7 @@ const Dashboard = () => {
                                         <MdPayments />
                                         Manage Payments</NavLink>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <NavLink to="/dashboard/sales-report">
                                         <BiSolidReport />
                                         Sales Report</NavLink>
@@ -58,7 +58,7 @@ const Dashboard = () => {
                                     <NavLink to="/dashboard/manage-banner">
                                         <PiFlagBannerFill />
                                         Manage Banner</NavLink>
-                                </li>
+                                </li> */}
                             </>
                         )}
 
@@ -76,7 +76,7 @@ const Dashboard = () => {
                                         <MdPayments />
                                         Manage Medicines</NavLink>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <NavLink to="/dashboard/payments-history">
                                         <BiSolidReport />
                                         Payment History</NavLink>
@@ -85,7 +85,7 @@ const Dashboard = () => {
                                     <NavLink to="/dashboard/banner-ad">
                                         <PiFlagBannerFill />
                                         Ask For Advertisement</NavLink>
-                                </li>
+                                </li> */}
                             </>
                         )
                     }
@@ -125,6 +125,11 @@ const Dashboard = () => {
 
                     {/* shared nav links */}
                     <div className="divider py-4"></div>
+                    <li>
+                        <NavLink to="/update-profile">
+                            <FaUser></FaUser>
+                            Profile</NavLink>
+                    </li>
                     <li>
                         <NavLink to="/">
                             <FaHome></FaHome>

@@ -29,6 +29,7 @@ import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
 import SalesReport from "../pages/Dashboard/SalesReport";
 import ManageBannerAd from "../pages/Dashboard/ManageBannerAd";
 import InvoicePage from "../pages/InvoicePage";
+import Profile from "../pages/Profile/Profile";
 
 
 
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'update-profile',
-                element: <PrivateRoute><UpdateProfile></UpdateProfile></PrivateRoute>,
+                element: <PrivateRoute><Profile></Profile></PrivateRoute>,
             },
             {
                 path: 'categoryDetails/:categoryName',

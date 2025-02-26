@@ -36,7 +36,7 @@ const Newsletter = () => {
                         />
                     </div>
                     <button
-                        className="btn btn-primary px-6 py-2 text-sm md:text-base"
+                        className="btn primary-btn px-6 py-2"
                     // onClick={handleSubscribe}
                     >
                         Subscribe

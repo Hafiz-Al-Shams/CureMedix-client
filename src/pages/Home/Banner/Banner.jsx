@@ -10,33 +10,35 @@ import { Carousel } from 'react-responsive-carousel';
 
 const Banner = () => {
     return (
-        <Carousel
-            autoPlay={true}
-            interval={2000}
-            infiniteLoop={true}
-            showThumbs={false}
-            transitionTime={500}
-        //  className="h-[70vh]"
-        >
-            <div>
-                <img className="" src="https://i.ibb.co.com/2kHCxZ5/01.png" alt="" />
-            </div>
-            <div>
-                <img src="https://i.ibb.co.com/16TbRKP/02.png" />
-            </div>
-            <div>
-                <img src="https://i.ibb.co.com/20rbCZ2/03.png" />
-            </div>
-            <div>
-                <img src="https://i.ibb.co.com/4MVyHhj/04.png" />
-            </div>
-            <div>
-                <img src="https://i.ibb.co.com/tmx4vZ1/05.png" />
-            </div>
-            <div>
-                <img src="https://i.ibb.co.com/20rbCZ2/03.png" />
-            </div>
-        </Carousel>
+        <div className="">
+            <Carousel
+                autoPlay={true}
+                interval={2000}
+                infiniteLoop={true}
+                showThumbs={false}
+                transitionTime={500}
+            //  className="h-[70vh]"     
+            >
+                <div>
+                    <img className="" src="https://i.ibb.co.com/273fM0RZ/4.png" alt="" />
+                </div>
+                <div>
+                    <img src="https://i.ibb.co.com/DHg5qZxC/3.png" />
+                </div>
+                <div>
+                    <img src="https://i.ibb.co.com/x8mCnQhP/1.png" />
+                </div>
+                <div>
+                    <img src="https://i.ibb.co.com/ccBYgxXr/2.png" />
+                </div>
+                {/* <div>
+                    <img src="https://i.ibb.co.com/tmx4vZ1/05.png" />
+                </div>
+                <div>
+                    <img src="https://i.ibb.co.com/20rbCZ2/03.png" />
+                </div> */}
+            </Carousel>
+        </div>
     );
 };
 

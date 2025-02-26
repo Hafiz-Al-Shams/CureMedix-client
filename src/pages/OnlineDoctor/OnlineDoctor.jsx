@@ -1,21 +1,21 @@
 import { Helmet } from "react-helmet-async";
 import MarqueeText from "../MarqueeText";
-import { useEffect } from "react";
-import Swal from "sweetalert2";
+// import { useEffect } from "react";
+// import Swal from "sweetalert2";
 
 
 
 const OnlineDoctor = () => {
 
 
-    useEffect(() => {
-        Swal.fire({
-            title: 'Page is Under Development!',
-            text: 'i am still working on this page! Stay tuned for updates!',
-            icon: 'info',
-            confirmButtonText: 'Got it!',
-        });
-    }, []);
+    // useEffect(() => {
+    //     Swal.fire({
+    //         title: 'Page is Under Development!',
+    //         text: 'i am still working on this page! Stay tuned for updates!',
+    //         icon: 'info',
+    //         confirmButtonText: 'Got it!',
+    //     });
+    // }, []);
 
 
     return (

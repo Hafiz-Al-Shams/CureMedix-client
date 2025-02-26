@@ -14,7 +14,7 @@ const KnowUs = () => {
                     <p className="text-gray-600 mt-4 text-sm sm:text-base">
                         With over a decade of expertise in the medical field, we are committed to providing high-quality healthcare solutions. Our team has been dedicated to improving patient care and delivering trusted medical products. We focus on innovation, reliability, and customer satisfaction, ensuring that every service we offer meets the highest standards. Let us be your trusted partner in healthcare.
                     </p>
-                    <button className="mt-6 btn btn-primary">Learn More</button>
+                    <button className="mt-6 btn primary-btn">Learn More</button>
                 </div>
 
                 {/* Image Section */}

@@ -6,6 +6,7 @@ import KnowUs from "../KnowUs/KnowUs";
 import Qualities from "./Qualities/Qualities";
 import Newsletter from "./Newsletter";
 import AppPromotion from "./AppPromotion";
+import Testimonial from "./Testimonial";
 
 
 const Home = () => {
@@ -15,8 +16,11 @@ const Home = () => {
                 <title>CureMedix | Home</title>
             </Helmet>
             {/* <h1 className="text-7xl text-center my-10">CureMedix HOME</h1> */}
-            <div className="max-w-screen-2xl mx-auto pb-3">
+            <div className="">
                 <Banner></Banner>
+            </div>
+            <div className="max-w-screen-2xl mx-auto pb-3">
+
                 <div className="">
                     <CategoryCards></CategoryCards>
                 </div>
@@ -28,6 +32,9 @@ const Home = () => {
                     <h2 className="mb-5 md:mb-7 lg:mb-10 w-10/12 md:w-8/12 lg:w-6/12 mx-auto text-center text-2xl md:text-3xl lg:text-4xl font-semibold pb-5 pt-4 bg-emerald-100/50">Medicines with Super Discounts!</h2>
                     <Discount></Discount>
                 </div>
+                <div className="divider divider-success"></div>
+                <Testimonial></Testimonial>
+                <div className="divider divider-success mb-4 md:mb-7 lg:mb-10"></div>
                 <KnowUs></KnowUs>
                 <Qualities></Qualities>
                 <div className="pb-5 md:pb-9 lg:pb-14">

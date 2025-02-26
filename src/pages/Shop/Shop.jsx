@@ -26,6 +26,8 @@ const Shop = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
 
+    const [sortOrder, setSortOrder] = useState("");
+
 
 
 
@@ -163,6 +165,15 @@ const Shop = () => {
     };
 
 
+    // Handle Sorting by Price
+    const handleSortByPrice = (order) => {
+        const sortedMedicines = [...resultMedicines].sort((a, b) =>
+            order === "asc" ? a.price - b.price : b.price - a.price
+        );
+        setResultMedicines(sortedMedicines);
+        setSortOrder(order);
+    };
+
 
 
     return (
@@ -173,22 +184,41 @@ const Shop = () => {
             <h1 className="text-3xl font-bold mb-2.5 mt-5">Shop Your Necessary Medicines Here</h1>
 
 
-            <div className="flex justify-between items-center px-10">
+            <div className="flex justify-between items-center">
 
-                <div className="flex justify-end mb-2.5">
-                    <button
-                        className="btn btn-secondary"
-                        onClick={handleSortByName}
-                    >
-                        Sort by Name (A-Z)
-                    </button>
+                <div className="flex justify-center gap-2.5 mb-2.5">
+                    <div className="">
+                        <button
+                            className="btn primary-btn"
+                            onClick={handleSortByName}
+                        >
+                            Sort by Name (A-Z)
+                        </button>
+
+                    </div>
+
+                    <div className="">
+                        {/* Sorting by Price Dropdown */}
+                        <select
+                            className="select select-bordered border-2 border-emerald-500 w-full text-lg"
+                            value={sortOrder}
+                            onChange={(e) => handleSortByPrice(e.target.value)}
+                        >
+                            <option value="">Sort by Price</option>
+                            <option value="asc">Low to High</option>
+                            <option value="desc">High to Low</option>
+                        </select>
+
+                    </div>
                 </div>
 
 
-                <div className="pr-24">
+
+
+                <div className="pr-4">
                     <h5 className="text-gray-900 font-medium mb-1">Search by Name or Type</h5>
                     <label className="input input-bordered input-primary flex items-center gap-2 mb-8">
-                        <input type="text" name="search" className="grow" placeholder="Search" value={searchValue}
+                        <input type="text" name="search" className="grow" placeholder="Search Medicines" value={searchValue}
                             onChange={handleInputChange} // Real-time input handling
                         />
 

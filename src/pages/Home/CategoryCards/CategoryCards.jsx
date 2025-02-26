@@ -86,7 +86,7 @@ const CategoryCards = () => {
                             <p className="text-base text-gray-600">{category.count} medicines available</p>
                             <div className="card-actions justify-end">
                                 <Link to={`/categoryDetails/${category.name}`}>
-                                    <button className="btn btn-primary text-white">View Details</button>
+                                    <button className="btn primary-btn">View Details</button>
                                 </Link>
                             </div>
                         </div>

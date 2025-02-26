@@ -92,7 +92,7 @@ const ManageMedicines = () => {
                     Manage all Your Medicines Here:
                 </div>
                 <div className="my-10">
-                    <button className="btn btn-secondary" onClick={() => setIsModalOpen(true)}>
+                    <button className="btn btn-wide" onClick={() => setIsModalOpen(true)}>
                         Add Medicine
                     </button>
                 </div>

@@ -7,3 +7,13 @@
 body {
   font-family: "Lato", serif;
 }
+
+.primary-btn {
+  background-color: #004734e0;
+  color: white;
+}
+
+/* .badge-color {
+  background-color: rgba(255, 255, 255, 0.912);
+  color: #006e51;
+} */

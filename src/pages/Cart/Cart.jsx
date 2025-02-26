@@ -155,11 +155,11 @@ const Cart = () => {
     return (
         <div className="px-6 pt-4 max-w-screen-xl mx-auto">
             {/* <h1 className="text-3xl font-bold mb-6">All({cartItems.length})</h1> */}
-            <div className="flex justify-evenly mb-8 bg-red-100 py-5 items-center">
+            <div className="flex justify-evenly mb-8 bg-base-200 py-5 items-center">
                 <h2 className="text-4xl">Ordered Medicine: {cart.length}</h2>
                 <h2 className="text-4xl">Total Price: {totalPrice}</h2>
                 {cart.length ? <Link to="/dashboard/payment">
-                    <button className="btn btn-primary btn-lg">Checkout</button>
+                    <button className="btn primary-btn btn-lg">Checkout</button>
                 </Link> :
                     <button disabled className="btn btn-primary">Checkout</button>
                 }
@@ -170,7 +170,7 @@ const Cart = () => {
                     onClick={handleClearCart}
                 >Clear Cart</button> */}
 
-                {cart.length ? <button className="btn btn-warning"
+                {cart.length ? <button className="btn btn-neutral"
                     onClick={handleClearCart}
                 >Clear Cart</button> :
                     <button disabled className="btn btn-warning">Clear Cart</button>

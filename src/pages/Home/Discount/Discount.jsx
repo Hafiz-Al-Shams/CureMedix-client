@@ -35,7 +35,7 @@ const Discount = () => {
                         disableOnInteraction: false,
                     }}
                     modules={[Pagination, Autoplay]}
-                    className="mySwiper mb-16 sm:mb-20 lg:mb-24"
+                    className="mySwiper mb-6 md:mb-8 lg:mb-20"
                 >
                     {medicines.map((medicine, index) => (
                         <SwiperSlide key={index} className="flex flex-col items-center">
