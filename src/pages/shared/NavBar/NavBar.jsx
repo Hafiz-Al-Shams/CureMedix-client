@@ -11,6 +11,8 @@ import useCart from "../../../hooks/useCart";
 import useAdmin from "../../../hooks/useAdmin";
 import useSeller from "../../../hooks/useSeller";
 import useAuth from "../../../hooks/useAuth";
+import { MdLightMode, MdOutlineDarkMode } from "react-icons/md";
+import { CiLight } from "react-icons/ci";
 // import { Tooltip } from "react-tooltip";
 
 
@@ -136,13 +138,28 @@ const NavBar = () => {
     );
 
 
-    const [theme, setTheme] = useState("English");
+    // const [theme, setTheme] = useState("English");
 
-    const handleThemeChange = (newTheme) => {
-        setTheme(newTheme);
-        // document.documentElement.setAttribute("data-theme", newTheme);
+    // const handleThemeChange = (newTheme) => {
+    //     setTheme(newTheme);
+    //     // document.documentElement.setAttribute("data-theme", newTheme);
+    // };
+
+    const [theme, setTheme] = useState('light');
+
+    useEffect(() => {
+        const saved = localStorage.getItem('theme') || 'light';
+        setTheme(saved);
+        document.documentElement.setAttribute('data-theme', saved);
+    }, []);
+
+
+    const toggleTheme = () => {
+        const next = theme === 'light' ? 'dark' : 'light';
+        setTheme(next);
+        localStorage.setItem('theme', next);
+        document.documentElement.setAttribute('data-theme', next);
     };
-
 
     return (
         <>
@@ -190,8 +207,8 @@ const NavBar = () => {
                 </div>
 
                 <div className="navbar-end space-x-8">
-                    <div className="">
 
+                    {/* <div className="">
                         <select
                             className="text-gray-900 font-bold w-14 sm:w-16 md:w-20 text-[9px] sm:text-[10px] md:text-xs px-1 py-0 lg:py-3 h-auto min-h-7 sm:min-h-8 border border-gray-300 rounded-md"
                             value={theme}
@@ -203,6 +220,23 @@ const NavBar = () => {
                             <option value="german">German</option>
                             <option value="french">French</option>
                         </select>
+                    </div> */}
+
+                    <div
+                        className="tooltip tooltip-bottom"
+                        data-tip={
+                            theme === 'light'
+                                ? 'Toggle Dark'
+                                : 'Toggle Light'
+                        }
+                    >
+                        <button onClick={toggleTheme} className="btn btn-sm btn-circle">
+                            {theme === 'light'
+                                ? <MdOutlineDarkMode className="text-xl" />
+                                // : <CiLight className="text-2xl text-white" />
+                                : <MdLightMode className="text-2xl text-white" />
+                            }
+                        </button>
                     </div>
 
 

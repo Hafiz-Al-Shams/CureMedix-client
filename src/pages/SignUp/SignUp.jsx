@@ -137,7 +137,7 @@ const SignUp = () => {
 
 
                             {/* testing area */}
-
+                            {/* Image Upload */}
                             <div className="form-control my-2.5">
                                 <label className="label">
                                     <span className="label-text">Upload Image*</span>
