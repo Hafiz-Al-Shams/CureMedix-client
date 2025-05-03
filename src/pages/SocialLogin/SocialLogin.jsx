@@ -4,6 +4,7 @@ import AuthContext from "../../context/AuthContext/AuthContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { FcGoogle } from "react-icons/fc";
 
 
 
@@ -50,9 +51,8 @@ const SocialLogin = () => {
     return (
         <div className='m-4'>
             <div className="divider">OR</div>
-            <button onClick={handleGoogleSignIn} className='btn'>
-                <FaGoogle className="text-red-700 font-bold text-lg"></FaGoogle>
-                Login with Google</button>
+            <button onClick={handleGoogleSignIn} className='btn btn-block'>
+                <FcGoogle className="md:text-lg" />Google</button>
         </div>
     );
 };
