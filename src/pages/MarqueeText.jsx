@@ -5,7 +5,7 @@ import Marquee from "react-fast-marquee";
 const MarqueeText = () => {
     return (
         <div>
-            <div className="bg-gray-100 py-2">
+            <div className="bg-base-200 py-2">
                 <Marquee speed={60} gradient={false}>
                     <div className="text-emerald-800 text-2xl font-semibold pb-10">
                         Your online doctor 24/7 at your Service...

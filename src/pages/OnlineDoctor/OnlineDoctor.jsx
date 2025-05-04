@@ -29,7 +29,7 @@ const OnlineDoctor = () => {
 
 
 
-                <div className="flex flex-col lg:flex-row items-start justify-between px-4 sm:px-8 py-12 bg-gray-100 min-h-screen">
+                <div className="flex flex-col lg:flex-row items-start justify-between px-4 sm:px-8 py-12 bg-base-200 min-h-screen">
                     {/* Text Section */}
                     <div className="lg:w-1/2 space-y-4 px-4 sm:px-6">
 
