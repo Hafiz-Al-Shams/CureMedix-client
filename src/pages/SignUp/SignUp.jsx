@@ -99,16 +99,16 @@ const SignUp = () => {
 
     return (
         <>
-            <div className="hero bg-base-100 min-h-[60vh] mt-3 mb-20">
+            <div className="hero bg-base-100 min-h-[60vh] mt-3 mb-4 md:mb-10 lg:mb-20">
                 <Helmet>
                     <title>CureMedix | Sign Up</title>
                 </Helmet>
 
-                <div className="hero-content flex-col lg:flex-row gap-12 p-6 items-start">
+                <div className="hero-content flex-col lg:flex-row gap-4 md:gap-7 lg:gap-12 p-6 items-start">
                     {/* Left Side Text */}
-                    <div className="flex flex-col justify-center text-center lg:text-left lg:w-1/2 space-y-4 mt-40">
-                        <h1 className="text-4xl font-extrabold text-gray-800">Join the CureMedix Community</h1>
-                        <p className="text-lg text-gray-600">
+                    <div className="flex flex-col justify-center text-center lg:text-left lg:w-1/2 space-y-4 mt-5 md:mt-8 lg:mt-40">
+                        <h1 className="text-3xl lg:text-4xl font-extrabold text-base-content">Join the CureMedix Community</h1>
+                        <p className="text-lg text-base-content/85">
                             Sign up to access premium healthcare products and services. It is quick and easy.
                         </p>
                     </div>
@@ -119,7 +119,7 @@ const SignUp = () => {
                         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Name</span>
+                                    <span className="label-text text-neutral">Name</span>
                                 </label>
                                 <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
                                 {errors.name && <span className="text-red-600">Name is required</span>}
@@ -140,7 +140,7 @@ const SignUp = () => {
                             {/* Image Upload */}
                             <div className="form-control my-2.5">
                                 <label className="label">
-                                    <span className="label-text">Upload Image*</span>
+                                    <span className="label-text text-neutral">Upload Image*</span>
                                 </label>
                                 <input
                                     {...register("image", { required: "Image is required" })}
@@ -157,7 +157,7 @@ const SignUp = () => {
 
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Email</span>
+                                    <span className="label-text text-neutral">Email</span>
                                 </label>
                                 <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
                                 {errors.email && <span className="text-red-600">Email is required</span>}
@@ -166,7 +166,7 @@ const SignUp = () => {
                             {/* Select Role */}
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text text-gray-700">Select Role</span>
+                                    <span className="label-text text-neutral">Select Role</span>
                                 </label>
                                 <select
                                     {...register("role", { required: "Role is required" })}
@@ -181,7 +181,7 @@ const SignUp = () => {
 
                             <div className="form-control">
                                 <label className="label">
-                                    <span className="label-text">Password</span>
+                                    <span className="label-text text-neutral">Password</span>
                                 </label>
                                 <input type="password"  {...register("password", {
                                     required: true,
@@ -194,12 +194,12 @@ const SignUp = () => {
                                 {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
                                 {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
                                 {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
-                                <label className="label">
+                                {/* <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                </label>
+                                </label> */}
                             </div>
                             <div className="form-control mt-6">
-                                <input className="btn btn-primary" type="submit" value="Sign Up" />
+                                <input className="btn bg-emerald-600 text-white border-0 w-full py-2 mt-4 hover:text-neutral" type="submit" value="Sign Up" />
                             </div>
                         </form>
 
@@ -207,9 +207,9 @@ const SignUp = () => {
 
                         {/* Already have an account? */}
                         <div className="text-center mt-4">
-                            <p className="text-gray-600">Already have an account?</p>
+                            <p className="text-neutral lg:text-lg">Already have an account?</p>
                             <Link to="/signIn">
-                                <button className="btn btn-outline btn-accent mt-1.5 w-full">Sign In</button>
+                                <button className="btn btn-outline border-emerald-600 text-neutral mt-1.5 w-full">Sign In</button>
                             </Link>
                         </div>
 

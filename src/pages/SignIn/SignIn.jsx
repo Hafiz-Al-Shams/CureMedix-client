@@ -63,9 +63,9 @@ const SignIn = () => {
 
             <div className="hero-content flex-col lg:flex-row gap-12 p-6 items-start">
                 {/* Left Side Text */}
-                <div className="flex flex-col justify-center text-center lg:text-left lg:w-1/2 space-y-4 mt-40">
-                    <h1 className="text-4xl font-extrabold text-gray-800">Welcome Back to CureMedix</h1>
-                    <p className="text-lg text-gray-600">
+                <div className="flex flex-col justify-center text-center lg:text-left lg:w-1/2 space-y-4 mt-5 md:mt-8 lg:mt-40">
+                    <h1 className="text-2xl lg:text-4xl font-extrabold text-base-content">Welcome Back to CureMedix</h1>
+                    <p className="text-lg text-base-content/85">
                         Sign in to access your account and explore our premium healthcare products and services.
                     </p>
                 </div>
@@ -99,27 +99,27 @@ const SignIn = () => {
                                 className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             />
-                            <label className="label">
+                            {/* <label className="label">
                                 <a href="#" className="label-text-alt link link-hover text-blue-500">Forgot password?</a>
-                            </label>
+                            </label> */}
                         </div>
 
                         {/* Submit Button */}
                         <div className="form-control">
-                            <button className="btn btn-primary w-full py-2 mt-4">Sign In</button>
+                            <button className="btn bg-emerald-600 text-white border-0 w-full py-2 mt-4 hover:text-neutral">Sign In</button>
                         </div>
                     </form>
 
                     {/* New Account */}
                     <div className="text-center mt-4">
-                        <p className="text-gray-600">New to CureMedix?</p>
+                        <p className="text-neutral lg:text-lg">New to CureMedix?</p>
                         <Link to="/signUp">
-                            <button className="btn btn-outline btn-accent mt-1.5 w-full">Create an Account</button>
+                            <button className="btn btn-outline border-emerald-600 text-neutral mt-1.5 w-full">Create an Account</button>
                         </Link>
                     </div>
 
                     {/* Social Login */}
-                    <div className="mt-6">
+                    <div className="">
                         <SocialLogin />
                     </div>
                 </div>
