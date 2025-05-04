@@ -19,7 +19,8 @@ export function useThemeClasses() {
 
   if (theme === "dark") {
     // remove gradient-image and apply solid color
-    return "!bg-none !bg-gradient-to-r !from-gray-400 !to-gray-500";
+    return "!bg-none !bg-gray-400/65";
+    // return "!bg-none !bg-gradient-to-r !from-gray-400 !to-gray-500";
   }
 
   // light mode: gradient + white text

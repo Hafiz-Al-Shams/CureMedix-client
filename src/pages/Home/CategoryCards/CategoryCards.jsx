@@ -77,7 +77,7 @@ const CategoryCards = () => {
             <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold text-center mt-4 md:mt-6 lg:mt-14 mb-0 text-base-content">Our Top Categories</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 pt-1 md:pt-2.5 lg:pt-5 pb-4 md:pb-5 lg:pb-7">
                 {categories.map((category, i) => (
-                    <div key={i} className="card bg-base-100 shadow-xl rounded-lg">
+                    <div key={i} className="card bg-base-100 shadow-xl rounded-lg border-[1px] border-white/25">
                         <figure className="w-full">
                             <img
                                 src={category.image}
