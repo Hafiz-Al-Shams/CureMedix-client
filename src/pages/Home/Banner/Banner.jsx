@@ -2,6 +2,9 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import { useDaisyTheme } from "../../../hooks/useDaisyTheme";
 import { Link } from "react-router-dom";
+import slider1 from "../../../../src/assets/home/slider_1.jpg";
+import slider2 from "../../../../src/assets/home/slider_2.jpg";
+import slider3 from "../../../../src/assets/home/slider_3.jpg";
 
 
 const Banner = () => {
@@ -45,17 +48,15 @@ const Banner = () => {
                 transitionTime={500}
             >
                 <div>
-                    <img src="https://i.ibb.co/DHg5qZxC/3.png" alt="Slide 1" />
+                    <img src={slider1} alt="Slide 1" />
                 </div>
                 <div>
-                    <img src="https://i.ibb.co/273fM0RZ/4.png" alt="Slide 2" />
+                    <img src={slider2} alt="Slide 2" />
                 </div>
                 <div>
-                    <img src="https://i.ibb.co/x8mCnQhP/1.png" alt="Slide 3" />
+                    <img src={slider3} alt="Slide 3" />
                 </div>
-                <div>
-                    <img src="https://i.ibb.co/ccBYgxXr/2.png" alt="Slide 4" />
-                </div>
+
             </Carousel>
 
             {/* dim overlay */}

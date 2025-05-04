@@ -46,7 +46,7 @@ const router = createBrowserRouter([
             {
                 path: 'shop',
                 element: <Shop></Shop>,
-                loader: () => fetch(`https://cure-medix-server.vercel.app/medicines`)
+                // loader: () => fetch(`https://cure-medix-server.vercel.app/medicines`)
             },
             {
                 path: 'categories',

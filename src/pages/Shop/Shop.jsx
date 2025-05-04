@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
@@ -6,108 +6,142 @@ import { useLoaderData, useLocation, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCart from "../../hooks/useCart";
 import { Helmet } from "react-helmet-async";
+import useMedicines from "../../hooks/useMedicines";
 
 
 const Shop = () => {
-    const medicines = useLoaderData();
+    // 🔥 Fetch medicines once
+    const { medicines, isLoading, error } = useMedicines();
+
+    // 🔥 Auth + cart hooks
     const { user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const axiosSecure = useAxiosSecure();
     const [, refetch] = useCart();
 
-    const [resultMedicines, setResultMedicines] = useState(medicines);
+    // 🔥 Local UI state
+    const [resultMedicines, setResultMedicines] = useState([]);
     const [searchValue, setSearchValue] = useState("");
     const [debounceTimer, setDebounceTimer] = useState(null);
-
-    // pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
-
-    // sorting
     const [sortOrder, setSortOrder] = useState("");
-
-    // NEW: view mode state
     const [viewMode, setViewMode] = useState("table"); // "table" | "card"
 
-    // calculate current page slice
+    // 🔥 Guarded effect to seed state only once when data arrives
+    useEffect(() => {
+        if (resultMedicines.length === 0 && medicines.length > 0) {
+            setResultMedicines(medicines);
+            setCurrentPage(1);
+        }
+    }, [medicines, resultMedicines.length]);
+
+    // 🔥 Loading / Error UI
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center h-[70vh]">
+                <span className="loading loading-bars loading-xl"></span>
+            </div>
+        );
+    }
+    if (error) {
+        return (
+            <div className="alert alert-error my-10 mx-auto max-w-lg">
+                <span>Error loading medicines: {error.message}</span>
+            </div>
+        );
+    }
+
+    // 🔥 Pagination calculations
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentMedicines = resultMedicines.slice(indexOfFirstItem, indexOfLastItem);
+    const currentMedicines = resultMedicines.slice(
+        indexOfFirstItem,
+        indexOfLastItem
+    );
     const totalPages = Math.ceil(resultMedicines.length / itemsPerPage);
 
+    // 🔥 Handlers
     const handlePageChange = (pageNumber) => {
         if (pageNumber >= 1 && pageNumber <= totalPages) {
             setCurrentPage(pageNumber);
         }
     };
-
     const handleItemsPerPageChange = (e) => {
         setItemsPerPage(Number(e.target.value));
         setCurrentPage(1);
     };
-
-    const handleViewDetails = (medicine) => {
+    const handleViewDetails = (med) => {
         Swal.fire({
-            title: medicine.name,
-            imageUrl: medicine.image,
+            title: med.name,
+            imageUrl: med.image,
             imageWidth: 400,
             imageHeight: 250,
-            imageAlt: medicine.name,
+            imageAlt: med.name,
             html: `
           <div class="text-left ml-10 space-y-1.5">
-            <p><strong>Category:</strong> ${medicine.category}</p>
-            <p><strong>Type:</strong> ${medicine.type}</p>
-            <p><strong>Price per Unit:</strong> $${medicine.price}</p>
-            <p><strong>Stock:</strong> ${medicine.stock}</p>
-            <p><strong>Discount:</strong> ${medicine.discountPercentage ?? "NA"}</p>
-            <p><strong>Description:</strong> ${medicine.description}</p>
-            <p><strong>Company:</strong> ${medicine.company}</p>
-            <p><strong>Seller:</strong> ${medicine.seller}</p>
+            <p><strong>Category:</strong> ${med.category}</p>
+            <p><strong>Type:</strong> ${med.type}</p>
+            <p><strong>Price per Unit:</strong> $${med.price}</p>
+            <p><strong>Stock:</strong> ${med.stock}</p>
+            <p><strong>Discount:</strong> ${med.discountPercentage ?? "NA"}</p>
+            <p><strong>Description:</strong> ${med.description}</p>
+            <p><strong>Company:</strong> ${med.company}</p>
+            <p><strong>Seller:</strong> ${med.seller}</p>
           </div>
         `,
             showCloseButton: true,
         });
     };
-
-    const handleAddToCart = (medicine) => {
+    const handleAddToCart = (med) => {
         if (user?.email) {
-            const { name, image, price, _id, type, description, seller, company } = medicine;
-            axiosSecure.post('/carts', {
-                medicineId: _id,
-                email: user.email,
-                name, image, price, type, description, seller, company
-            }).then(res => {
-                if (res.data.insertedId) {
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: `${name} added to your cart`,
-                        showConfirmButton: false,
-                        timer: 1000
-                    });
-                    refetch();
-                }
-            });
+            const { name, image, price, _id, type, description, seller, company } =
+                med;
+            axiosSecure
+                .post("/carts", {
+                    medicineId: _id,
+                    email: user.email,
+                    name,
+                    image,
+                    price,
+                    type,
+                    description,
+                    seller,
+                    company,
+                })
+                .then((res) => {
+                    if (res.data.insertedId) {
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: `${name} added to your cart`,
+                            showConfirmButton: false,
+                            timer: 1000,
+                        });
+                        refetch();
+                    }
+                });
         } else {
             Swal.fire({
                 title: "You are not Logged In",
                 text: "Please login to add to the cart?",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Yes, login!"
-            }).then(result => {
+                confirmButtonText: "Yes, login!",
+            }).then((result) => {
                 if (result.isConfirmed) {
-                    navigate('/signIn', { state: { from: location } });
+                    navigate("/signIn", { state: { from: location } });
                 }
             });
         }
     };
-
     const handleSearch = async (query) => {
         try {
             const res = await fetch(
-                `https://cure-medix-server.vercel.app/searchMedicines?search=${encodeURIComponent(query)}`
+                `https://cure-medix-server.vercel.app/searchMedicines?search=${encodeURIComponent(
+                    query
+                )}`
             );
             const data = await res.json();
             setResultMedicines(data);
@@ -116,28 +150,27 @@ const Shop = () => {
             console.error(err);
         }
     };
-
     const handleInputChange = (e) => {
         const value = e.target.value;
         setSearchValue(value);
         if (debounceTimer) clearTimeout(debounceTimer);
-        const timer = setTimeout(() => handleSearch(value), 300);
-        setDebounceTimer(timer);
+        setDebounceTimer(setTimeout(() => handleSearch(value), 300));
     };
-
     const handleSortByName = () => {
-        setResultMedicines(prev =>
+        setResultMedicines((prev) =>
             [...prev].sort((a, b) => a.name.localeCompare(b.name))
         );
     };
-
     const handleSortByPrice = (order) => {
-        setResultMedicines(prev =>
-            [...prev].sort((a, b) => (order === "asc" ? a.price - b.price : b.price - a.price))
+        setResultMedicines((prev) =>
+            [...prev].sort((a, b) =>
+                order === "asc" ? a.price - b.price : b.price - a.price
+            )
         );
         setSortOrder(order);
     };
 
+    // 🔥 Render
     return (
         <div className="px-6 pt-2.5 max-w-screen-2xl mx-auto pb-24">
             <Helmet>
@@ -150,7 +183,7 @@ const Shop = () => {
 
             {/* Controls */}
             <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
-                {/* Sort by Name & Price */}
+                {/* Sort */}
                 <div className="flex flex-wrap gap-2">
                     <button className="btn primary-btn" onClick={handleSortByName}>
                         Sort by Name (A-Z)
@@ -158,7 +191,7 @@ const Shop = () => {
                     <select
                         className="select select-bordered border-2 border-emerald-500 text-lg"
                         value={sortOrder}
-                        onChange={e => handleSortByPrice(e.target.value)}
+                        onChange={(e) => handleSortByPrice(e.target.value)}
                     >
                         <option value="">Sort by Price</option>
                         <option value="asc">Low to High</option>
@@ -167,16 +200,14 @@ const Shop = () => {
                 </div>
 
                 {/* View Mode Toggle */}
-                <div>
-                    <select
-                        className="select select-bordered w-auto"
-                        value={viewMode}
-                        onChange={e => setViewMode(e.target.value)}
-                    >
-                        <option value="table">Table View</option>
-                        <option value="card">Card View</option>
-                    </select>
-                </div>
+                <select
+                    className="select select-bordered w-auto"
+                    value={viewMode}
+                    onChange={(e) => setViewMode(e.target.value)}
+                >
+                    <option value="table">Table View</option>
+                    <option value="card">Card View</option>
+                </select>
 
                 {/* Search */}
                 <div className="w-full sm:w-auto">
@@ -213,8 +244,19 @@ const Shop = () => {
                 <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
                     <thead>
                         <tr className="bg-emerald-800/90 text-white">
-                            {["No.", "Name", "Price", "Discount", "Stock", "Type", "Actions"].map(title => (
-                                <th key={title} className="py-3 px-4 border-b text-left">
+                            {[
+                                "No.",
+                                "Name",
+                                "Price",
+                                "Discount",
+                                "Stock",
+                                "Type",
+                                "Actions",
+                            ].map((title) => (
+                                <th
+                                    key={title}
+                                    className="py-3 px-4 border-b text-left"
+                                >
                                     {title}
                                 </th>
                             ))}
@@ -224,19 +266,32 @@ const Shop = () => {
                         {currentMedicines.map((med, i) => (
                             <tr
                                 key={med._id || i}
-                                className={`${i % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b hover:bg-gray-100 transition duration-300 text-neutral`}
+                                className={`${i % 2 === 0 ? "bg-gray-50" : "bg-white"
+                                    } border-b hover:bg-gray-100 transition duration-300 text-neutral`}
                             >
-                                <td className="py-3 px-4">{indexOfFirstItem + i + 1}</td>
+                                <td className="py-3 px-4">
+                                    {indexOfFirstItem + i + 1}
+                                </td>
                                 <td className="py-3 px-4">{med.name}</td>
                                 <td className="py-3 px-4">${med.price}</td>
-                                <td className="py-3 px-4">{med.discountPercentage ?? "NA"}</td>
+                                <td className="py-3 px-4">
+                                    {med.discountPercentage ?? "NA"}
+                                </td>
                                 <td className="py-3 px-4">{med.stock}</td>
                                 <td className="py-3 px-4">{med.type}</td>
                                 <td className="py-3 px-4">
-                                    <button className="mr-5 mt-2" onClick={() => handleViewDetails(med)}>
-                                        <div className="text-xl text-emerald-950"><FaEye /></div>
+                                    <button
+                                        className="mr-5 mt-2"
+                                        onClick={() => handleViewDetails(med)}
+                                    >
+                                        <div className="text-xl text-emerald-950">
+                                            <FaEye />
+                                        </div>
                                     </button>
-                                    <button className="btn btn-sm bg-emerald-600 text-white border-0" onClick={() => handleAddToCart(med)}>
+                                    <button
+                                        className="btn btn-sm bg-emerald-600 text-white border-0"
+                                        onClick={() => handleAddToCart(med)}
+                                    >
                                         Select
                                     </button>
                                 </td>
@@ -264,15 +319,21 @@ const Shop = () => {
                             <div className="card-body">
                                 <h2 className="card-title">{med.name}</h2>
                                 <p className="text-base-content/90">
-                                    {`Per unit: ${med.price}$  (${med.discountPercentage ?? ""} discount price)`}
+                                    {`Per unit: ${med.price}$ (${med.discountPercentage ?? ""} discount price)`}
                                 </p>
-                                <p className="text-sm">Stock: {med.stock}</p>
+                                <p className="text-sm">Stock: {med.stock} boxes available today</p>
                                 <p className="text-sm">Type: {med.type}</p>
                                 <div className="card-actions justify-end mt-2">
-                                    <button onClick={() => handleViewDetails(med)} className="btn btn-outline btn-xs">
+                                    <button
+                                        onClick={() => handleViewDetails(med)}
+                                        className="btn btn-outline btn-xs"
+                                    >
                                         Details
                                     </button>
-                                    <button onClick={() => handleAddToCart(med)} className="btn btn-xs bg-emerald-600 text-white border-0">
+                                    <button
+                                        onClick={() => handleAddToCart(med)}
+                                        className="btn btn-xs bg-emerald-600 text-white border-0"
+                                    >
                                         Select
                                     </button>
                                 </div>
@@ -289,7 +350,7 @@ const Shop = () => {
                     value={itemsPerPage}
                     onChange={handleItemsPerPageChange}
                 >
-                    {[5, 10, 20, 50].map(n => (
+                    {[5, 10, 20, 50].map((n) => (
                         <option key={n} value={n}>
                             {n} per page
                         </option>
@@ -306,7 +367,8 @@ const Shop = () => {
                     {Array.from({ length: totalPages }, (_, i) => (
                         <button
                             key={i}
-                            className={`px-3 py-1 border rounded-md ${currentPage === i + 1 ? "bg-gray-300" : ""}`}
+                            className={`px-3 py-1 border rounded-md ${currentPage === i + 1 ? "bg-gray-300" : ""
+                                }`}
                             onClick={() => handlePageChange(i + 1)}
                         >
                             {i + 1}
