@@ -20,31 +20,30 @@ const AdminHome = () => {
         }
     });
 
+    // Format number to 2 decimal places safely
+    const fmt = (val) => {
+        if (val === undefined || val === null || isNaN(val)) return '0.00';
+        return Number(val).toFixed(2);
+    };
 
-
-
+    console.log(stats.totalPaid);
+    console.log(stats.totalPending);
+    console.log(stats.revenue);
 
     return (
-        <div className="w-11/12 mx-auto">
+        <div className="">
             <h2 className="text-4xl font-semibold my-10">
-
                 <span>Welcome Home Admin</span>
-                {/* <span>Welcome </span>
-                {
-                    user?.displayName ? `Admin (${user.displayName})` : 'Back'
-                } */}
             </h2>
 
-
-            <div className="stats shadow">
+            <div className="stats shadow max-w-[80vw]">
 
                 <div className="stat p-6 bg-lime-200">
                     <div className="stat-figure text-red-500">
                         <FaDollarSign className='text-3xl'></FaDollarSign>
                     </div>
                     <div className="stat-title text-gray-600 mb-2.5 text-xl">Total Sales Revenue</div>
-                    <div className="stat-value">${stats.revenue}</div>
-
+                    <div className="stat-value">${fmt(stats.revenue)}</div>
                 </div>
 
                 <div className="stat p-6 bg-secondary/15">
@@ -53,9 +52,7 @@ const AdminHome = () => {
                     </div>
                     <div className="stat-title text-gray-600 mb-2.5 text-xl">Users</div>
                     <div className="stat-value">{stats.users}</div>
-
                 </div>
-
 
                 <div className="stat p-6 bg-orange-300">
                     <div className="stat-figure text-lime-500">
@@ -63,7 +60,6 @@ const AdminHome = () => {
                     </div>
                     <div className="stat-title text-gray-600 mb-2.5 text-xl">Medicines</div>
                     <div className="stat-value">{stats.medicines}</div>
-
                 </div>
 
                 <div className="stat p-6 bg-sky-300">
@@ -72,7 +68,6 @@ const AdminHome = () => {
                     </div>
                     <div className="stat-title text-gray-600 mb-2.5 text-xl">Orders</div>
                     <div className="stat-value">{stats.orders}</div>
-
                 </div>
 
                 <div className="stat p-6 bg-red-500/50">
@@ -80,8 +75,7 @@ const AdminHome = () => {
                         <FaDollarSign className='text-3xl'></FaDollarSign>
                     </div>
                     <div className="stat-title text-gray-600 mb-2.5 text-xl">Total Pending</div>
-                    <div className="stat-value">${stats.totalPending}</div>
-
+                    <div className="stat-value">${fmt(stats.totalPending)}</div>
                 </div>
 
                 <div className="stat p-6 bg-lime-200">
@@ -89,16 +83,10 @@ const AdminHome = () => {
                         <FaDollarSign className='text-3xl'></FaDollarSign>
                     </div>
                     <div className="stat-title text-gray-600 mb-2.5 text-xl">Total Paid</div>
-                    <div className="stat-value">${stats.totalPaid}</div>
-
+                    <div className="stat-value">${fmt(stats.totalPaid)}</div>
                 </div>
 
             </div>
-
-
-
-
-
         </div>
     );
 };
