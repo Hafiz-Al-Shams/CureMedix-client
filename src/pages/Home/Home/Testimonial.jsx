@@ -59,16 +59,16 @@ const Testimonial = () => {
 
 
     return (
-        <div className='lg:mt-10 lg:mb-16'>
-            <section className="bg-gray-100 py-4 md:py-7 lg:py-12 px-4 rounded-lg">
-                <h2 className="text-2xl lg:text-4xl font-bold text-center mb-4 lg:mb-8 lg:pb-4">
+        <div className=''>
+            <section className="bg-base-300/50 pt-1.5 md:pt-3 lg:pt-6 pb-3.5 md:pb-6 lg:pb-9 px-2 rounded-lg">
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-center mb-1.5 lg:mb-3.5">
                     Reviews From Our Valuable Customers
                 </h2>
-                <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
+                <div className="flex flex-wrap justify-center gap-2.5 lg:gap-6 max-w-6xl mx-auto">
                     {testimonials.map((testimonial, index) => (
                         <div
                             key={index}
-                            className="flex items-start space-x-4 bg-white p-4 rounded-lg shadow-md w-full sm:w-[47%] lg:w-[30%]"
+                            className="flex items-start space-x-4 bg-base-100 p-4 rounded-lg shadow-lg w-full sm:w-[47%] lg:w-[30%]"
                         >
                             <img
                                 src={testimonial.image}
@@ -81,7 +81,7 @@ const Testimonial = () => {
                                     {"★".repeat(Math.floor(testimonial.rating))}
                                     {testimonial.rating % 1 !== 0 && "☆"}
                                 </div>
-                                <p className="text-gray-600 mt-1 text-sm">{testimonial.review}</p>
+                                <p className="text-base-content/70 mt-1 text-sm">{testimonial.review}</p>
                             </div>
                         </div>
                     ))}

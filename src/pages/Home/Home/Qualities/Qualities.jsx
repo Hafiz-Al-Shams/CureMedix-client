@@ -8,12 +8,12 @@ import { RiSecurePaymentLine } from "react-icons/ri";
 const Qualities = () => {
     return (
         <div>
-            <h3 className="text-center font-bold text-2xl md:text-3xl lg:text-5xl mt-9 md:mt-11 lg:mt-20 mb-2.5 md:mb-4 lg:mb-8">
+            <h3 className="text-center font-semibold text-xl md:text-2xl lg:text-3xl mt-2.5 md:mt-4 lg:mt-8 mb-1.5 md:mb-2 lg:mb-3.5">
                 Our Awesome Services
             </h3>
 
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 lg:gap-16 bg-white px-4 sm:px-8 lg:px-16 py-8 sm:py-12 lg:py-16 rounded-lg shadow-md mb-12 sm:mb-16">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10 lg:gap-16 bg-base-100 px-4 lg:px-16 py-4 lg:py-5 rounded-lg border-[1px] border-base-content mb-3.5 lg:mb-10">
 
                 {/* Free Shipping */}
                 <div className="flex flex-col items-center space-y-2">
@@ -21,7 +21,7 @@ const Qualities = () => {
                     <div className="text-4xl sm:text-5xl text-orange-600">
                         <MdOutlineLocalShipping />
                     </div>
-                    <p className="text-gray-600 text-sm sm:text-base">Free shipping worldwide</p>
+                    <p className="text-base-content/75 text-sm sm:text-base">Free shipping worldwide</p>
                 </div>
 
                 {/* Support 24/7 */}
@@ -30,7 +30,7 @@ const Qualities = () => {
                     <div className="text-4xl sm:text-5xl text-blue-600">
                         <BiSupport />
                     </div>
-                    <p className="text-gray-600 text-sm sm:text-base">Contact us 24 hours a day</p>
+                    <p className="text-base-content/75 text-sm sm:text-base">Contact us 24 hours a day</p>
                 </div>
 
                 {/* Secure Payments */}
@@ -39,7 +39,7 @@ const Qualities = () => {
                     <div className="text-4xl sm:text-5xl text-orange-600">
                         <RiSecurePaymentLine />
                     </div>
-                    <p className="text-gray-600 text-sm sm:text-base">100% payment protection</p>
+                    <p className="text-base-content/75 text-sm sm:text-base">100% payment protection</p>
                 </div>
 
                 {/* Easy Return */}
@@ -48,7 +48,7 @@ const Qualities = () => {
                     <div className="text-4xl sm:text-5xl text-blue-700">
                         <GiReturnArrow />
                     </div>
-                    <p className="text-gray-600 text-sm sm:text-base">Simple returns policy</p>
+                    <p className="text-base-content/75 text-sm sm:text-base">Simple returns policy</p>
                 </div>
             </div>
         </div>

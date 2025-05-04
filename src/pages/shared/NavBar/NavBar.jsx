@@ -22,12 +22,14 @@ import { useThemeClasses } from "../../../hooks/useThemeClasses";
 const useNavLinkClasses = () => {
     const theme = useDaisyTheme(); // "light" or "dark"
 
+    // !bg-base-300 !text-base-content
+
     return ({ isActive }) => {
         const base = "rounded-sm md:rounded-md text-sm md:text-base px-2.5";
         const hoverAnim = "transition-transform duration-75 ease-in-out hover:scale-105";
         // 1) Active (both themes)
         if (isActive) {
-            return `!bg-base-300 !text-base-content font-medium ${base} py-1.5 ${hoverAnim}`;
+            return `!bg-neutral-content/50 !text-base-100 font-medium ${base} py-1.5 ${hoverAnim}`;
         }
         // 2) Inactive + dark theme
         if (theme === "dark") {

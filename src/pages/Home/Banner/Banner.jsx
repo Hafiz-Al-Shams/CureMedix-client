@@ -20,7 +20,7 @@ const Banner = () => {
 
     // Theme‑specific hover adjustments
     const lightBtnClasses = `
-    bg-emerald-800/60 text-base-100
+    bg-emerald-800/70 text-base-100
     ${baseBtn}
     hover:bg-emerald-800/80
     hover:text-white

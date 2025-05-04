@@ -20,7 +20,7 @@ const Discount = () => {
 
     return (
         <>
-            <section className="my-4 px-4 sm:px-6 lg:px-8">
+            <section className="my-4 px-4 lg:px-8">
                 <Swiper
                     slidesPerView={1}
                     breakpoints={{
@@ -35,16 +35,16 @@ const Discount = () => {
                         disableOnInteraction: false,
                     }}
                     modules={[Pagination, Autoplay]}
-                    className="mySwiper mb-6 md:mb-8 lg:mb-20"
+                    className="mySwiper mb-5 md:mb-7 lg:mb-10"
                 >
                     {medicines.map((medicine, index) => (
                         <SwiperSlide key={index} className="flex flex-col items-center">
 
-                            <div className="relative w-full h-48 sm:h-60 lg:h-72 bg-gray-200">
+                            <div className="relative w-full h-48 lg:h-72">
                                 <img src={medicine.image} alt={medicine.name} className="object-cover h-full w-full" />
                             </div>
-                            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mt-3 sm:mt-4">{medicine.name}</h3>
-                            <h3 className="text-sm sm:text-lg lg:text-xl text-gray-600 mt-1 mb-6 sm:mb-8 lg:mb-10">
+                            <h3 className="text-lg lg:text-xl font-semibold mt-1 lg:mt-2">{medicine.name}</h3>
+                            <h3 className="text-sm lg:text-lg text-base-content/80 mb-14 md:mb-8 lg:mb-10">
                                 {medicine.discountPercentage} discount
                             </h3>
                         </SwiperSlide>
