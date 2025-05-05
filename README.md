@@ -11,6 +11,7 @@ CureMedix is a feature-rich e-commerce platform designed for selling medicines o
 ## Technologies Used  
 - **Frontend:** React, React Router, React Hook Form, React Icons, Swiper.js, React Responsive Carousel
 - **Backend & Database:** expressJS, mongoDB
+- **Authentication & Security:** JSON Web Tokens (JWT) stored in `localStorage`
 - **State Management & Utilities:** React Query, Axios, Match Sorter, LocalForage
 - **Payment Integration:** Stripe
 - **UI Enhancements:** SweetAlert2, React Tooltip, HTML2PDF.js
@@ -26,7 +27,12 @@ CureMedix is a feature-rich e-commerce platform designed for selling medicines o
 
 ✅ **Signup, Login, and Social Authentication:** Firebase-based authentication with role selection and Google login option.  
 
-✅ **Shop Page with Modals:** Medicine listing in tabular format with modals for detailed views and selection functionality.  
+✅ **Shop Page with Modals:** Medicine listing in both in tabular & cards format as per user's choice with modals for detailed views and selection functionality.  
+
+✅ **Token‑based Authentication:**  
+  - Users sign in/up and receive a JWT, stored securely in `localStorage`  
+  - Axios interceptor injects `Authorization: Bearer <token>` on every API call  
+  - Supports role‑based access (user vs. admin) on protected routes.  
 
 ✅ **Cart Functionality:** Users can add medicines to the cart, view details, and remove specific items before checkout.  
 
@@ -35,6 +41,10 @@ CureMedix is a feature-rich e-commerce platform designed for selling medicines o
 ✅ **Admin Dashboard - Category Management:** Admins can add, update, and delete categories with smooth CRUD functionality and a clean UI.  
 
 ✅ **Checkout with Stripe Integration:** Secure Stripe payment integration for seamless checkout leading to an invoice page.
+
+✅ **Theme Toggle (Dark/Light):**  
+  - Seamless, global dark‑and‑light mode switch  
+  - Saves user preference in `localStorage` 
 
 
 ## Dependencies  
