@@ -38,9 +38,11 @@ const Home = () => {
                 <KnowUs></KnowUs>
                 <Qualities></Qualities>
                 <div className="">
-                    <Newsletter></Newsletter>
+
                 </div>
+
             </div>
+            <Newsletter></Newsletter>
         </div>
     );
 };

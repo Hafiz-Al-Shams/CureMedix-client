@@ -1,23 +1,91 @@
 import { FiMail } from "react-icons/fi";
 import { useThemeClasses } from "../../../hooks/useThemeClasses";
+import { useState } from "react";
+import Swal from "sweetalert2";
 
 
 
 const Newsletter = () => {
 
-    // const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("");
 
-    // const handleSubscribe = () => {
-    //     alert(`Subscribed with: ${email}`);
-    //     setEmail("");
-    // };
+    const validateEmail = (email) => {
+        // Basic email validation: something@something.something
+        const re = /^\S+@\S+\.\S+$/;
+        return re.test(email);
+    };
+
+    const handleSubscribe = () => {
+        if (!email.trim()) {
+            // Empty input → immediate warning
+            Swal.fire({
+                title: "Oops!",
+                text: "Please enter your email to subscribe.",
+                icon: "warning",
+                confirmButtonText: "OK",
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: "px-4 py-2 rounded border text-gray-800 bg-white hover:bg-gray-100"
+                }
+            });
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            // Invalid format → immediate error
+            Swal.fire({
+                title: "Invalid Email",
+                text: "Please enter a valid email address (e.g. demo@example.com).",
+                icon: "error",
+                confirmButtonText: "Got it",
+                buttonsStyling: false,
+                customClass: {
+                    confirmButton: "px-4 py-2 rounded border text-gray-800 bg-white hover:bg-gray-100"
+                }
+            });
+            return;
+        }
+
+        // Valid email → delay 5 seconds then show success
+        Swal.fire({
+            title: "Processing...",
+            html: "Subscribing you in <b></b> seconds.",
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading();
+                const b = Swal.getHtmlContainer().querySelector("b");
+                let timerInterval = setInterval(() => {
+                    b.textContent = Math.ceil(Swal.getTimerLeft() / 1000);
+                }, 100);
+                Swal.willClose = () => {
+                    clearInterval(timerInterval);
+                };
+            },
+        }).then((result) => {
+            if (result.dismiss === Swal.DismissReason.timer) {
+                Swal.fire({
+                    title: "Subscribed!",
+                    text: `You are now subscribed with ${email}!`,
+                    icon: "success",
+                    confirmButtonText: "Great",
+                    buttonsStyling: false,
+                    customClass: {
+                        confirmButton: "px-4 py-2 rounded border text-gray-800 bg-white hover:bg-gray-100"
+                    }
+                });
+                setEmail("");
+            }
+        });
+    };
+
 
     const themeClasses = useThemeClasses();
 
 
     return (
         <div>
-            <div className={`bg-gradient-to-r from-emerald-300 to-emerald-800 text-base-100 px-6 py-5 md:px-8 md:py-7 lg:py-12 rounded-lg shadow-lg flex flex-col items-center text-center ${themeClasses}`}>
+            <div className={`bg-gradient-to-r from-emerald-200/90 to-emerald-600/85 text-base-100 px-6 py-5 md:px-8 md:py-7 lg:py-16 shadow-lg flex flex-col items-center text-center ${themeClasses}`}>
                 {/* Heading */}
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-1.5 lg:mb-4">
                     Subscribe to Our Weekly Newsletter
@@ -33,15 +101,12 @@ const Newsletter = () => {
                         <input
                             type="email"
                             placeholder="Enter your email"
-                            // value={email}
-                            // onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             className="input input-bordered w-full pl-10 text-gray-900 text-sm md:text-base"
                         />
                     </div>
-                    <button disabled
-                        className="btn px-6 py-2 text-base-content/5"
-                    // onClick={handleSubscribe}
-                    >
+                    <button className="btn px-6 py-2" onClick={handleSubscribe}>
                         Subscribe
                     </button>
                 </div>
