@@ -4,7 +4,7 @@ import { FaApple, FaGooglePlay } from "react-icons/fa";
 
 const AppPromotion = () => {
     return (
-        <div className="mb-1.5 md:mb-3 lg:mb-8 mt-2 md:mt-4 lg:mt-12">
+        <div className="mb-1.5 md:mb-3 lg:mb-5 mt-2 md:mt-4 lg:mt-6">
             <section className="px-6 py-5 sm:px-10 md:py-7 lg:py-9 flex flex-col md:flex-row items-center justify-around gap-8">
                 {/* Text & QR Code Section */}
                 <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-lg">

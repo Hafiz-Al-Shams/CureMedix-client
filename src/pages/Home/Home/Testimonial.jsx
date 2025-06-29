@@ -59,7 +59,7 @@ const Testimonial = () => {
 
 
     return (
-        <div className=''>
+        <div className='mt-5 md:mt-8 lg:mt-16'>
             <section className="bg-base-300/50 pt-1.5 md:pt-3 lg:pt-6 pb-3.5 md:pb-6 lg:pb-9 px-2 rounded-lg">
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-center mb-1.5 lg:mb-3.5">
                     Reviews From Our Valuable Customers

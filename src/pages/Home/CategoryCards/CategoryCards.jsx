@@ -75,14 +75,17 @@ const CategoryCards = () => {
     return (
         <>
             <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold text-center mt-4 md:mt-6 lg:mt-14 mb-0 text-base-content">Our Top Categories</h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3.5 pt-1 md:pt-2.5 lg:pt-5 pb-4 md:pb-5 lg:pb-7">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-1 md:pt-2.5 lg:pt-5 pb-4 md:pb-5 lg:pb-7">
                 {categories.map((category, i) => (
-                    <div key={i} className="card bg-base-100 shadow-xl rounded-lg border-[1px] border-white/25">
+                    <div
+                        key={i}
+                        className="card bg-base-100 shadow-xl rounded-lg border-[1px] border-white/25 transition-transform duration-300 ease-in-out hover:scale-105 hover:z-10"
+                    >
                         <figure className="w-full">
                             <img
                                 src={category.image}
                                 alt={category.name}
-                                className="w-full h-20 md:h-24 lg:h-32 object-cover rounded-t-lg"
+                                className="w-full h-24 md:h-28 lg:h-40 object-cover rounded-t-lg"
                             />
                         </figure>
                         <div className="card-body">
@@ -92,7 +95,7 @@ const CategoryCards = () => {
                             </p>
                             <div className="card-actions justify-end">
                                 <Link to={`/categoryDetails/${category.name}`}>
-                                    <button className="btn btn-xs md:btn-sm">Details</button>
+                                    <button className="btn btn-xs md:btn-sm border-2 border-gray-400/10">Details</button>
                                 </Link>
                             </div>
                         </div>
