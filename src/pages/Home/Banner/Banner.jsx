@@ -47,16 +47,15 @@ const Banner = () => {
                 showThumbs={false}
                 transitionTime={500}
             >
-                <div>
-                    <img src={slider1} alt="Slide 1" />
+                <div className="h-[50vh]">
+                    <img src={slider1} alt="Slide 1" className="w-full h-full object-cover" />
                 </div>
-                <div>
-                    <img src={slider2} alt="Slide 2" />
+                <div className="h-[50vh]">
+                    <img src={slider2} alt="Slide 2" className="w-full h-full object-cover" />
                 </div>
-                <div>
-                    <img src={slider3} alt="Slide 3" />
+                <div className="h-[50vh]">
+                    <img src={slider3} alt="Slide 3" className="w-full h-full object-cover" />
                 </div>
-
             </Carousel>
 
             {/* dim overlay */}

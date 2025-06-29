@@ -74,7 +74,7 @@ const CategoryCards = () => {
 
     return (
         <>
-            <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold text-center mt-4 md:mt-6 lg:mt-14 mb-0 text-base-content">Our Top Categories</h2>
+            <h2 className="text-xl md:text-2xl lg:text-4xl font-semibold text-center mt-4 md:mt-6 lg:mt-8 mb-0 text-base-content">Our Top Categories</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-1 md:pt-2.5 lg:pt-5 pb-4 md:pb-5 lg:pb-7">
                 {categories.map((category, i) => (
                     <div
@@ -95,7 +95,7 @@ const CategoryCards = () => {
                             </p>
                             <div className="card-actions justify-end">
                                 <Link to={`/categoryDetails/${category.name}`}>
-                                    <button className="btn btn-xs md:btn-sm border-2 border-gray-400/10">Details</button>
+                                    <button className="btn btn-xs md:btn-sm border-2 border-gray-400/80">Details</button>
                                 </Link>
                             </div>
                         </div>
