@@ -25,9 +25,9 @@ const Shop = () => {
     const [searchValue, setSearchValue] = useState("");
     const [debounceTimer, setDebounceTimer] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [itemsPerPage, setItemsPerPage] = useState(20);
     const [sortOrder, setSortOrder] = useState("");
-    const [viewMode, setViewMode] = useState("table"); // "table" | "card"
+    const [viewMode, setViewMode] = useState("card"); // "table" | "card"
 
     // 🔥 Guarded effect to seed state only once when data arrives
     useEffect(() => {
