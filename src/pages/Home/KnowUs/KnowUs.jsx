@@ -1,7 +1,15 @@
+import { useNavigate } from "react-router-dom";
 
 
 
 const KnowUs = () => {
+
+    const navigate = useNavigate();
+
+    const handleLearnMore = () => {
+        navigate
+    }
+
     return (
         <div className="mt-4 md:mt-5 lg:mt-6">
             <div className="bg-base-200/5 p-6 lg:p-8 rounded-lg flex flex-col sm:flex-row justify-between items-center">
@@ -14,7 +22,18 @@ const KnowUs = () => {
                     <p className="text-base-content/80 mt-4 text-sm sm:text-base">
                         With over a decade of expertise in the medical field, we are committed to providing high-quality healthcare solutions. Our team has been dedicated to improving patient care and delivering trusted medical products. We focus on innovation, reliability, and customer satisfaction, ensuring that every service we offer meets the highest standards. Let us be your trusted partner in healthcare.
                     </p>
-                    <button disabled className="mt-2 btn btn-sm">Learn More</button>
+
+                    {/*  */}
+                    <a
+                        href="https://www.google.com/search?q=define+cure&sca_esv=e0bc15583df30733&ei=G2RhaNKbLv2WwcsPpbqNGQ&ved=0ahUKEwiSlaKOgZeOAxV9S3ADHSVdIwMQ4dUDCBA&uact=5&oq=define+cure&gs_lp=Egxnd3Mtd2l6LXNlcnAiC2RlZmluZSBjdXJlMgcQABiABBgKMgcQABiABBgKMgcQABiABBgKMgcQABiABBgKMgsQABiABBiRAhiKBTIFEAAYgAQyBRAAGIAEMgUQABiABDIHEAAYgAQYCjIHEAAYgAQYCkjYWlCBMVjPU3ABeAGQAQCYAagCoAH7EKoBBTAuNy40uAEDyAEA-AEBmAIMoAK8EsICChAAGLADGNYEGEfCAg4QLhiABBixAxjRAxjHAcICCBAAGIAEGLEDwgILEAAYgAQYsQMYgwHCAg4QABiABBixAxiDARiKBcICCxAAGIAEGLEDGIoFwgIKEAAYgAQYQxiKBcICDhAuGIAEGLEDGIMBGIoFwgIFEC4YgATCAhAQABiABBixAxhDGIMBGIoFwgITEAAYgAQYsQMYQxiDARjJAxiKBcICCxAAGIAEGJIDGIoFmAMAiAYBkAYIkgcHMS42LjQuMaAH0kSyBwcwLjYuNC4xuAe1EsIHBzItMi44LjLIB7IB&sclient=gws-wiz-serp"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className=""
+                    >
+                        <button onClick={handleLearnMore} className="mt-2 btn btn-sm">Learn More</button>
+
+                    </a>
+                    {/*  */}
                 </div>
 
                 {/* Image Section */}
