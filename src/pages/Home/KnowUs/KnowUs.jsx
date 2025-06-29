@@ -4,11 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 const KnowUs = () => {
 
-    const navigate = useNavigate();
-
-    const handleLearnMore = () => {
-        navigate
-    }
 
     return (
         <div className="mt-4 md:mt-5 lg:mt-6">
@@ -30,7 +25,7 @@ const KnowUs = () => {
                         rel="noopener noreferrer"
                         className=""
                     >
-                        <button onClick={handleLearnMore} className="mt-2 btn btn-sm">Learn More</button>
+                        <button className="mt-2 btn btn-sm">Learn More</button>
 
                     </a>
                     {/*  */}

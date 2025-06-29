@@ -50,7 +50,7 @@ const Newsletter = () => {
         Swal.fire({
             title: "Processing...",
             html: "Subscribing you in <b></b> seconds.",
-            timer: 3000,
+            timer: 1500,
             timerProgressBar: true,
             didOpen: () => {
                 Swal.showLoading();
@@ -62,6 +62,9 @@ const Newsletter = () => {
                     clearInterval(timerInterval);
                 };
             },
+            customClass: {
+                loader: 'emerald-loader'
+            }
         }).then((result) => {
             if (result.dismiss === Swal.DismissReason.timer) {
                 Swal.fire({

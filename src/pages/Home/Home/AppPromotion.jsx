@@ -4,8 +4,8 @@ import { FaApple, FaGooglePlay } from "react-icons/fa";
 
 const AppPromotion = () => {
     return (
-        <div className="mb-2.5 md:mb-4 lg:mb-6">
-            <section className="bg-gradient-to-r from-base-200/80 to-base-300 px-6 py-5 sm:px-10 md:py-7 lg:py-9 flex flex-col md:flex-row items-center justify-around gap-8 rounded-lg shadow-lg">
+        <div className="mb-1.5 md:mb-3 lg:mb-8 mt-2 md:mt-4 lg:mt-12">
+            <section className="px-6 py-5 sm:px-10 md:py-7 lg:py-9 flex flex-col md:flex-row items-center justify-around gap-8">
                 {/* Text & QR Code Section */}
                 <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-lg">
                     <h2 className="text-2xl sm:text-3xl md:text-3xl text-base-content">
@@ -24,14 +24,33 @@ const AppPromotion = () => {
                             className="w-24 h-24 rounded-md shadow-md"
                         />
                         <div className="flex flex-col gap-3">
-                            <button className="btn btn-outline btn-dark flex items-center gap-2 px-4 py-2 w-48">
-                                <FaGooglePlay className="text-lg" />
-                                <span>Get it on Google Play</span>
-                            </button>
-                            <button className="btn btn-outline btn-dark flex items-center gap-2 px-0.5 py-2 w-48">
-                                <FaApple className="text-lg" />
-                                <span>Download on App Store</span>
-                            </button>
+
+                            <a
+                                href="https://play.google.com/store"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className=""
+                            >
+                                <button className="btn btn-outline btn-dark flex items-center gap-2 px-4 py-2 w-48">
+                                    <FaGooglePlay className="text-lg" />
+                                    <span>Get it on Google Play</span>
+                                </button>
+
+                            </a>
+
+
+                            <a
+                                href="https://www.apple.com/store"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className=""
+                            >
+                                <button className="btn btn-outline btn-dark flex items-center gap-2 px-0.5 py-2 w-48">
+                                    <FaApple className="text-lg" />
+                                    <span>Download on App Store</span>
+                                </button>
+
+                            </a>
                         </div>
                     </div>
                 </div>

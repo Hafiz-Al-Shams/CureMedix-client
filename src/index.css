@@ -16,4 +16,11 @@ body {
 /* .badge-color {
   background-color: rgba(255, 255, 255, 0.912);
   color: #006e51;
+  color: #059669;
 } */
+
+.emerald-loader {
+  /* border-color: #059669 !important; */
+  border-top-color: #059669 !important;
+  border-bottom-color: #059669 !important;
+}
