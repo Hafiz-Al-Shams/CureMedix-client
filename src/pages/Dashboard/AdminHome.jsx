@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { FaArrowAltCircleLeft, FaDollarSign, FaUsers } from "react-icons/fa";
+import Swal from "sweetalert2";
+// import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 
@@ -9,7 +11,8 @@ import { FaArrowAltCircleLeft, FaDollarSign, FaUsers } from "react-icons/fa";
 
 
 const AdminHome = () => {
-    const { user } = useAuth();
+    // const { user } = useAuth();
+    // const axiosPublic = useAxiosPublic();
     const axiosSecure = useAxiosSecure();
 
     const { data: stats = {} } = useQuery({
@@ -19,6 +22,44 @@ const AdminHome = () => {
             return res.data;
         }
     });
+
+
+    // Fetch banner requests
+    const { data: banners = [], refetch: refetchBanners } = useQuery({
+        queryKey: ['banners'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/banners');
+            return res.data;
+        }
+    });
+
+    // Function to handle banner status toggle
+    const handleToggleBannerStatus = async (bannerId, currentStatus) => {
+        console.log(currentStatus);
+        const newStatus = !currentStatus;
+        try {
+            await axiosSecure.patch(`/banners/${bannerId}`, { isBanner: newStatus });
+            refetchBanners(); // Refresh the banner list
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: `Banner status updated to ${newStatus ? "Accepted" : "Pending"}`,
+                showConfirmButton: false,
+                timer: 1000,
+            });
+        } catch (error) {
+            console.error("Error updating banner:", error);
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Failed to update banner",
+                showConfirmButton: false,
+                timer: 1000,
+            });
+        }
+        console.log(newStatus);
+    };
+
 
     // Format number to 2 decimal places safely
     const fmt = (val) => {
@@ -87,6 +128,50 @@ const AdminHome = () => {
                 </div>
 
             </div>
+
+            {/* New Banner Requests Section */}
+            <div className="my-10">
+                <h2 className="text-2xl font-semibold mb-6">Banner Requests</h2>
+                {banners.length === 0 ? (
+                    <p className="text-gray-500">No banner requests available.</p>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-10">
+                        {banners.map((banner) => (
+                            <div
+                                key={banner._id}
+                                className="card bg-base-100 shadow-xl transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-2xl"
+                            >
+                                <figure className="w-full h-40 overflow-hidden rounded-t-lg">
+                                    <img
+                                        src={banner.image}
+                                        alt="Banner"
+                                        className="object-cover w-full h-full"
+                                    />
+                                </figure>
+                                <div className="card-body">
+                                    <p className="text-base-content/90">
+                                        Status: {banner.isBanner ? (
+                                            <span className="text-green-600 font-semibold">Accepted</span>
+                                        ) : (
+                                            <span className="text-yellow-600 font-semibold">Pending</span>
+                                        )}
+                                    </p>
+                                    <div className="card-actions justify-end mt-2">
+                                        <button
+                                            onClick={() => handleToggleBannerStatus(banner._id, banner.isBanner)}
+                                            className={`btn btn-sm ${banner.isBanner ? "bg-red-500 text-white" : "bg-green-600 text-white"}`}
+                                        >
+                                            {banner.isBanner ? "Remove Banner" : "Make Banner"}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+
         </div>
     );
 };

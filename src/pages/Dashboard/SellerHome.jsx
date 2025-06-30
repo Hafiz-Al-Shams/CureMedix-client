@@ -95,14 +95,21 @@ const SellerHome = () => {
                 {/* Banner Requests Display */}
                 <div className="my-10">
                     {banners.length > 0 ? (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
                             {banners.map((banner) => (
-                                <div key={banner._id} className="card bg-base-100 shadow-xl">
+                                <div key={banner._id} className="card bg-base-100 shadow-xl transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-2xl">
                                     <figure>
                                         <img src={banner.image} alt="Banner" className="w-full h-48 object-cover" />
                                     </figure>
                                     <div className="card-body">
-                                        <p>Status: {banner.isBanner ? 'Accepted' : 'Pending'}</p>
+                                        <p>
+                                            {/* Status: {banner.isBanner ? 'Accepted' : 'Pending'} */}
+                                            Status: {banner.isBanner ? (
+                                                <span className="text-green-400">Accepted</span>
+                                            ) : (
+                                                <span className="text-yellow-400">Pending</span>
+                                            )}
+                                        </p>
                                     </div>
                                 </div>
                             ))}
