@@ -10,7 +10,7 @@ const Discount = () => {
     const [medicines, setMedicines] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/medicines')
+        fetch('https://cure-medix-server.vercel.app/medicines')
             .then(response => response.json())
             .then(data => {
                 const discountedMedicines = data.filter(medicine => medicine.discount);

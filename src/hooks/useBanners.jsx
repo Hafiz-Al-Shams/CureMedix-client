@@ -6,7 +6,6 @@ import useAxiosPublic from "./useAxiosPublic";
 
 
 
-
 const useBanners = () => {
     const axiosPublic = useAxiosPublic();
 
@@ -14,17 +13,12 @@ const useBanners = () => {
         queryKey: ['banners'],
         queryFn: async () => {
             const res = await axiosPublic.get('/banners');
-            return res.data;
+            // Filter banners where isBanner is true
+            return res.data.filter(banner => banner.isBanner === true);
         }
     });
 
-    // Explicitly define slide1, slide2, slide3 from the banners array
-    // Assuming each banner object has an 'imageUrl' property
-    const slide1 = banners[0]?.imageUrl || '';
-    const slide2 = banners[1]?.imageUrl || '';
-    const slide3 = banners[2]?.imageUrl || '';
-
-    return [slide1, slide2, slide3, refetch];
+    return [banners, refetch];
 };
 
 export default useBanners;

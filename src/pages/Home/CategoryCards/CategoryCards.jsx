@@ -14,7 +14,7 @@ const CategoryCards = () => {
 
         const fetchMedicines = async () => {
             try {
-                const res = await fetch("http://localhost:5000/medicines");
+                const res = await fetch("https://cure-medix-server.vercel.app/medicines");
                 const medicinesData = await res.json();
 
                 const newCategories = {};
@@ -38,7 +38,7 @@ const CategoryCards = () => {
 
         const fetchCategoryImages = async () => {
             try {
-                const res = await fetch("http://localhost:5000/categoryImages");
+                const res = await fetch("https://cure-medix-server.vercel.app/categoryImages");
                 const categoryImagesData = await res.json();
                 return categoryImagesData;
             } catch (error) {

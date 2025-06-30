@@ -67,6 +67,30 @@ const AdminHome = () => {
         return Number(val).toFixed(2);
     };
 
+    const handleDeleteBanner = async (bannerId) => {
+        try {
+            await axiosSecure.delete(`/banners/${bannerId}`);
+            refetchBanners(); // Refresh the banner list
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Banner deleted permanently",
+                showConfirmButton: false,
+                timer: 1000,
+            });
+        } catch (error) {
+            console.error("Error deleting banner:", error);
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Failed to delete banner",
+                showConfirmButton: false,
+                timer: 1000,
+            });
+        }
+    };
+
+
     console.log(stats.totalPaid);
     console.log(stats.totalPending);
     console.log(stats.revenue);
@@ -159,9 +183,15 @@ const AdminHome = () => {
                                     <div className="card-actions justify-end mt-2">
                                         <button
                                             onClick={() => handleToggleBannerStatus(banner._id, banner.isBanner)}
-                                            className={`btn btn-sm ${banner.isBanner ? "bg-red-500 text-white" : "bg-green-600 text-white"}`}
+                                            className={`btn btn-sm ${banner.isBanner ? "bg-gray-500/70 text-white" : "bg-green-600 text-white"}`}
                                         >
                                             {banner.isBanner ? "Remove Banner" : "Make Banner"}
+                                        </button>
+                                        <button
+                                            onClick={() => handleDeleteBanner(banner._id)}
+                                            className="btn btn-sm bg-red-500/85 text-white ml-2"
+                                        >
+                                            Delete it!
                                         </button>
                                     </div>
                                 </div>

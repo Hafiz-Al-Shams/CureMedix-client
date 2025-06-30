@@ -22,7 +22,7 @@ const DetailsCard = () => {
 
 
     useEffect(() => {
-        axios.get("http://localhost:5000/medicines")
+        axios.get("https://cure-medix-server.vercel.app/medicines")
             .then(res => {
                 const filteredMedicines = res.data.filter(medicine => medicine.category === categoryName);
                 setMedicines(filteredMedicines);

@@ -2,13 +2,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import { useDaisyTheme } from "../../../hooks/useDaisyTheme";
 import { Link } from "react-router-dom";
-import slider1 from "../../../../src/assets/home/slider_1.jpg";
-import slider2 from "../../../../src/assets/home/slider_2.jpg";
-import slider3 from "../../../../src/assets/home/slider_3.jpg";
+// import slider1 from "../../../../src/assets/home/slider_1.jpg";
+// import slider2 from "../../../../src/assets/home/slider_2.jpg";
+// import slider3 from "../../../../src/assets/home/slider_3.jpg";
+import useBanners from "../../../hooks/useBanners";
 
-// 
-// import useBanners from "../../../hooks/useBanners"; // Added: Import the new custom hook
-// 
 
 const Banner = () => {
 
@@ -44,15 +42,13 @@ const Banner = () => {
     // const [slide1, slide2, slide3, refetch] = useBanners();
     // 
 
+    // Using custom hook to get filtered banners
+    const [banners] = useBanners();
+
     return (
         <div className="relative">
-            <Carousel
-                autoPlay
-                interval={3000}
-                infiniteLoop
-                showThumbs={false}
-                transitionTime={500}
-            >
+
+            {/* 
                 <div className="h-[50vh]">
                     <img src={slider1} alt="Slide 1" className="w-full h-full object-cover" />
                 </div>
@@ -62,6 +58,26 @@ const Banner = () => {
                 <div className="h-[50vh]">
                     <img src={slider3} alt="Slide 3" className="w-full h-full object-cover" />
                 </div>
+             */}
+
+
+            {/* new code for dynamic banner feature */}
+            <Carousel
+                autoPlay
+                interval={2000}
+                infiniteLoop
+                showThumbs={false}
+                transitionTime={500}
+            >
+                {banners.map((banner, index) => (
+                    <div key={index} className="h-[50vh]">
+                        <img
+                            src={banner.image}
+                            alt={`Banner Slide`}
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                ))}
             </Carousel>
 
             {/* dim overlay */}
