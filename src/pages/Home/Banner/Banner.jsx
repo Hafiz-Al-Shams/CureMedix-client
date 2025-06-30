@@ -6,6 +6,9 @@ import slider1 from "../../../../src/assets/home/slider_1.jpg";
 import slider2 from "../../../../src/assets/home/slider_2.jpg";
 import slider3 from "../../../../src/assets/home/slider_3.jpg";
 
+// 
+// import useBanners from "../../../hooks/useBanners"; // Added: Import the new custom hook
+// 
 
 const Banner = () => {
 
@@ -36,7 +39,10 @@ const Banner = () => {
 
     const btnClasses = theme === "dark" ? darkBtnClasses : lightBtnClasses;
 
-
+    // 
+    // Added: Use the custom hook to fetch banner images
+    // const [slide1, slide2, slide3, refetch] = useBanners();
+    // 
 
     return (
         <div className="relative">

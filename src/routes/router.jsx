@@ -46,7 +46,7 @@ const router = createBrowserRouter([
             {
                 path: 'shop',
                 element: <Shop></Shop>,
-                // loader: () => fetch(`https://cure-medix-server.vercel.app/medicines`)
+                // loader: () => fetch(`http://localhost:5000/medicines`)
             },
             {
                 path: 'categories',
@@ -103,7 +103,7 @@ const router = createBrowserRouter([
             {
                 path: 'updateCategory/:id',
                 element: <AdminRoute><UpdateCategory></UpdateCategory></AdminRoute>,
-                loader: ({ params }) => fetch(`https://cure-medix-server.vercel.app/categories/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
             },
             {
                 path: 'sales-report',

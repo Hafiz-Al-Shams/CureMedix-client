@@ -139,7 +139,7 @@ const Shop = () => {
     const handleSearch = async (query) => {
         try {
             const res = await fetch(
-                `https://cure-medix-server.vercel.app/searchMedicines?search=${encodeURIComponent(
+                `http://localhost:5000/searchMedicines?search=${encodeURIComponent(
                     query
                 )}`
             );
