@@ -79,7 +79,7 @@ const CategoryCards = () => {
                 {categories.map((category, i) => (
                     <div
                         key={i}
-                        className="card bg-base-100 shadow-xl rounded-lg border-[1px] border-white/25 transition-transform duration-300 ease-in-out hover:scale-105 hover:z-10"
+                        className="card bg-base-100 shadow-xl rounded-lg border-[1px] border-white/25 transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-2xl"
                     >
                         <figure className="w-full">
                             <img

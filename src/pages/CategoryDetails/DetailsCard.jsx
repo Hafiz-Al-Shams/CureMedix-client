@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { FaEye } from "react-icons/fa";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -118,54 +117,45 @@ const DetailsCard = () => {
             </Helmet>
             <div className="px-6 max-w-screen-2xl min-h-screen mx-auto pt-16 pb-24">
                 <h1 className="text-3xl font-bold mb-6">Medicines for {categoryName}</h1>
-                <table className="min-w-full bg-base-100 border-collapse shadow-xl border border-gray-300 rounded-lg">
-                    <thead>
-                        <tr className="bg-emerald-800/90 text-white">
-                            <th className="py-3 px-4 border-b text-left">No.</th>
-                            <th className="py-3 px-4 border-b text-left">Name</th>
-                            <th className="py-3 px-4 border-b text-left">Price</th>
-                            <th className="py-3 px-4 border-b text-left">Discount</th>
-                            <th className="py-3 px-4 border-b text-left">Stock</th>
-                            <th className="py-3 px-4 border-b text-left">Type</th>
-                            <th className="py-3 px-4 border-b text-left">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {medicines.map((medicine, index) => (
-                            <tr
-                                key={index}
-                                className={`${index % 2 === 0 ? "bg-gray-50" : "bg-white"} border-b hover:bg-gray-100 transition duration-300`}
-                            >
-                                <td className="py-3 px-4">{index + 1}</td>
-                                <td className="py-3 px-4">{medicine.name}</td>
-                                <td className="py-3 px-4">${medicine.price}</td>
-                                <td className="py-3 px-4">
-                                    {medicine.discountPercentage ? `${medicine.discountPercentage}` : "NA"}
-                                </td>
 
-                                <td className="py-3 px-4">{medicine.stock}</td>
-                                <td className="py-3 px-4">{medicine.type}</td>
-                                <td className="py-3 px-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2.5 lg:gap-6">
+                    {medicines.map((medicine, index) => (
+                        <div
+                            key={medicine._id || index}
+                            className="card bg-base-100 shadow-xl rounded-lg border border-white/25 max-w-xs mx-auto transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-2xl"
+                        >
+                            <figure className="w-full h-40 overflow-hidden rounded-t-lg">
+                                <img
+                                    src={medicine.image}
+                                    alt={medicine.name}
+                                    className="object-cover w-full h-full"
+                                />
+                            </figure>
+                            <div className="card-body">
+                                <h2 className="card-title">{medicine.name}</h2>
+                                <p className="text-base-content/90">
+                                    {`Per unit: ${medicine.price}$ ${medicine.discountPercentage ? `(${medicine.discountPercentage}% discount)` : ""}`}
+                                </p>
+                                <p className="text-sm">Stock: {medicine.stock} boxes available today</p>
+                                <p className="text-sm">Type: {medicine.type}</p>
+                                <div className="card-actions justify-end mt-2">
                                     <button
-                                        className="mr-5 mt-2"
+                                        onClick={() => handleViewDetails(medicine)}
+                                        className="btn btn-outline btn-xs"
                                     >
-                                        <div className="text-xl text-emerald-950"
-                                            onClick={() => handleViewDetails(medicine)}
-                                        >
-                                            <FaEye />
-                                        </div>
+                                        Details
                                     </button>
                                     <button
-                                        className="btn btn-primary btn-sm"
                                         onClick={() => handleAddToCart(medicine)}
+                                        className="btn btn-xs bg-emerald-600 text-white border-0"
                                     >
                                         Select
                                     </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
 
         </>

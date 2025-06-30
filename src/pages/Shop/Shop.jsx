@@ -303,13 +303,18 @@ const Shop = () => {
 
             {/* Card View */}
             {viewMode === "card" && (
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2.5 lg:gap-6">
                     {currentMedicines.map((med, i) => (
                         <div
                             key={med._id || i}
-                            className="card bg-base-100 shadow-xl rounded-lg border border-white/25"
+                            className="card bg-base-100 shadow-xl rounded-lg border border-white/25 max-w-xs mx-auto transition-transform duration-200 ease-in-out hover:scale-105 hover:shadow-2xl"
+                        // style={{ backfaceVisibility: 'hidden' }}
+
+                        // transform scale-100 transition duration-400 ease-in-out hover:scale-105 will-change-transform
+                        // transition-transform duration-300 ease-in-out hover:scale-105
+
                         >
-                            <figure className="w-full h-48 overflow-hidden rounded-t-lg">
+                            <figure className="w-full h-40 overflow-hidden rounded-t-lg">
                                 <img
                                     src={med.image}
                                     alt={med.name}
@@ -344,7 +349,7 @@ const Shop = () => {
             )}
 
             {/* Pagination */}
-            <div className="flex justify-between items-center mt-6 px-1">
+            <div className="flex flex-col md:flex-row justify-between items-center mt-6 px-1 space-y-4 md:space-y-0">
                 <select
                     className="border p-2 rounded-md"
                     value={itemsPerPage}
@@ -356,7 +361,7 @@ const Shop = () => {
                         </option>
                     ))}
                 </select>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                     <button
                         className="px-3 py-1 border rounded-md disabled:opacity-50"
                         disabled={currentPage === 1}
@@ -367,8 +372,7 @@ const Shop = () => {
                     {Array.from({ length: totalPages }, (_, i) => (
                         <button
                             key={i}
-                            className={`px-3 py-1 border rounded-md ${currentPage === i + 1 ? "bg-gray-300" : ""
-                                }`}
+                            className={`px-3 py-1 border rounded-md ${currentPage === i + 1 ? "bg-gray-300" : ""}`}
                             onClick={() => handlePageChange(i + 1)}
                         >
                             {i + 1}

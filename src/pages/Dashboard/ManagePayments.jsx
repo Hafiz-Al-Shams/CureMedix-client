@@ -45,7 +45,7 @@ const ManagePayments = () => {
     return (
 
         <>
-            <h3 className="text-3xl font-semibold bg-lime-300 p-4 ml-20 my-10">Accept pending Payments:</h3>
+            <h3 className="text-3xl font-semibold bg-emerald-200 p-4 ml-20 my-10">Accept pending Payments:</h3>
             <div className="overflow-x-auto w-10/12 mx-auto mb-16">
                 <table className="table table-zebra w-full">
                     <thead>

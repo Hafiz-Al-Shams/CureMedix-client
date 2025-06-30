@@ -25,7 +25,7 @@ import BannerAd from "../pages/Dashboard/BannerAd";
 import Categories from "../pages/Categories/Categories";
 import Offer from "../pages/Offer/Offer";
 import OnlineDoctor from "../pages/OnlineDoctor/OnlineDoctor";
-import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
+// import UpdateProfile from "../pages/UpdateProfile/UpdateProfile";
 import SalesReport from "../pages/Dashboard/SalesReport";
 import ManageBannerAd from "../pages/Dashboard/ManageBannerAd";
 import InvoicePage from "../pages/InvoicePage";

@@ -97,7 +97,7 @@ const AllUsers = () => {
 
     return (
         <div>
-            <div className="flex justify-evenly mt-2 mb-5 bg-lime-400/70 py-3">
+            <div className="flex justify-evenly mt-2 mb-5 bg-emerald-200 py-3">
                 <h2 className="text-3xl">All Users</h2>
                 <h2 className="text-3xl">Total Users: {users.length}</h2>
             </div>
