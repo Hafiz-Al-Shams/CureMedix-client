@@ -1,6 +1,6 @@
 # CureMedix - Medicine Selling E-commerce Website
 
-![CureMedix Screenshot](public/Screenshot-1.png)
+![CureMedix-HomePage Screenshot](/src/assets/CureMedix-HomePage.webp)
 
 ## Live Project  
 🔗 [CureMedix Live](https://cure-medix-by-hafiz-al-shams1917.netlify.app/)
@@ -10,13 +10,14 @@ CureMedix is a feature-rich e-commerce platform designed for selling medicines o
 
 ## Technologies Used  
 - **Frontend:** React, React Router, React Hook Form, React Icons, Swiper.js, React Responsive Carousel
-- **Backend & Database:** expressJS, mongoDB
+- **Backend & Database:** Express.js, MongoDB
 - **Authentication & Security:** JSON Web Tokens (JWT) stored in `localStorage`
 - **State Management & Utilities:** React Query, Axios, Match Sorter, LocalForage
 - **Payment Integration:** Stripe
 - **UI Enhancements:** SweetAlert2, React Tooltip, HTML2PDF.js
 
 ## Key Features  
+
 ✅ **Dynamic Navbar with Profile Dropdown:** User-friendly navbar featuring profile dropdown for profile updates, dashboard access, and logout options.  
 
 ✅ **Home Page Slider Section:** Dynamic product slides managed by the admin, enhancing the homepage's visual appeal and functionality.  
@@ -44,8 +45,42 @@ CureMedix is a feature-rich e-commerce platform designed for selling medicines o
 
 ✅ **Theme Toggle (Dark/Light):**  
   - Seamless, global dark‑and‑light mode switch  
-  - Saves user preference in `localStorage` 
+  - Saves user preference in `localStorage`
 
+---
+
+## 🆕 Recent Enhancements
+
+### ✨ Homepage Improvements
+- **Newsletter Subscription:** Improved form design for easier email sign-up.
+- **Our Awesome Services:** Enhanced “Qualities” section layout with improved visual elements.
+- **Know Us:** Activated “Learn More” functionality for detailed engagement.
+- **Footer & App Promotion:** Redesigned for consistency and mobile responsiveness.
+
+### 🔧 Feature Updates & Fixes
+- **Online Doctor Page:** Converted from static demo to a fully functional dynamic page.
+- **Top Categories:** Updated visuals and made fully responsive across all devices.
+- **Shop Page:** Redesigned product cards with clean UI and fixed layout bugs.
+- **Category Details Page:** Upgraded with a cleaner, more user-friendly grid layout.
+
+### 🛠️ Backend & Banner Advertisement System
+- Built full API support (GET, POST, Secured PATCH/DELETE) for banner ads.
+- **Admin Dashboard:** "Manage Banner Advertisement" section to control homepage slides.
+- **Seller Dashboard:** Request form for sellers to submit products for banner ads.
+- **Dynamic Homepage Slider:** Automatically displays slides configured by admin.
+
+---
+
+## 🧪 Default Test Credentials
+
+Use the credentials below to explore the platform in different roles:
+
+| Role   | Email                            | Password      |
+|--------|----------------------------------|---------------|
+| User   | hafizalshams10115@gmail.com      | asKuseR&1011  |
+| Seller | hafizalshams1011@gmail.com       | 12Sw##        |
+
+---
 
 ## Dependencies  
 The following dependencies are used in the project:  
