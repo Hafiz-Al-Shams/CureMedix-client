@@ -53,8 +53,6 @@ CureMedix is a feature-rich e-commerce platform designed for selling medicines o
 
 ### ✨ Homepage Improvements
 - **Newsletter Subscription:** Improved form design for easier email sign-up.
-- **Our Awesome Services:** Enhanced “Qualities” section layout with improved visual elements.
-- **Know Us:** Activated “Learn More” functionality for detailed engagement.
 - **Footer & App Promotion:** Redesigned for consistency and mobile responsiveness.
 
 ### 🔧 Feature Updates & Fixes
@@ -114,8 +112,8 @@ Follow these steps to run the project locally:
 
 1. **Clone the repository:**  
    ```sh
-   git clone https://github.com/your-username/curemedix.git
-   cd curemedix
+   git clone https://github.com/Hafiz-Al-Shams/CureMedix-client.git
+   cd CureMedix-client
    ```
 
 2. **Install dependencies:**  
